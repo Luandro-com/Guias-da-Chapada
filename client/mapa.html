@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt-BR">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="description" content="Site dos Guias da Chapada dos Veadeiros">
+	<meta name="keywords" content="Chapada dos Veadeiros, Alto Paraíso de Goiás">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="shortcut icon" href="">
+	<title>Mapa Interativo | Guias da Chapada</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<!-- CSS ------------------>
+	<link rel="stylesheet" type="text/css" media="all" href="./dist/styles/main.css">
+</head>
+<style>
+	html { width: 100%; height: 100%;}
+	body { width: 100%; height: 100%;}
+	#map {
+		width: 100%;
+		height: 660px;
+	}
+	.infobox-wrapper {display: none;}
+</style>
+<body style="zoom: 1;">
+	<div id="wrapper">
+		<div class="outer_wrap">
+			<div class="inner_wrap">
+				<nav><!-- Bottom nav -->
+	      			<div id="navigation" class="grid_100">
+	        			<div>
+	        				<ul class="word-rotate">
+	        					<a href="#"><li data-hover="Mapa Interativo">Guias da Chapada</li></a>
+								<a href="#"><li data-hover="Quem Somos">São Jorge</li></a>
+								<a href="#"><li data-hover="A Chapada">Alto Paraíso</li></a>
+								<a href="#"><li data-hover="Roteiros e Atrativos">Roteiros</li></a>
+								<li id="menu-item-32">
+									<ul class="social_icons">
+										<li class="mail"><a target="_blank" href="mailto:contato@guiasdachapada.com"></a></li>
+										<li class="fb"><a target="_blank" href="https://twitter.com/guias"></a></li>
+										<li class="in"><a target="_blank" href="https://www.facebook.com/guias"></a></li>
+									</ul>
+								</li>
+							</ul>
+						</div>			
+						<div class="clear"></div>
+					</div>
+    			</nav>
+    			<div class="clear"></div>
+    			<div id="map"></div>
+    			<div class="infobox-wrapper">
+				    <div id="infobox1">
+				        Infobox is very easy to customize because, well, it's your code
+				    </div>
+				</div>
+			</div>
+		</div>
+	</div>
+<script src="http://maps.googleapis.com/maps/api/js"></script>	
+<script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
+<script>
+	var myCenter=new google.maps.LatLng(-14.137153,-47.519503);
+
+	function initialize()
+	{
+		var mapProp = {
+		  center:myCenter,
+		  zoom:12,
+		  mapTypeId:google.maps.MapTypeId.ROADMAP
+		  };
+
+		var map=new google.maps.Map(document.getElementById("map"),mapProp);
+
+		var myPos = google.maps.LatLng(-14.137153,-47.519503);
+		var marker=new google.maps.Marker({
+		  position: myCenter,
+		  });
+
+		marker.setMap(map);
+
+		infobox = new InfoBox({
+		    content: document.getElementById("infobox1"),
+		    disableAutoPan: false,
+		    maxWidth: 150,
+		    pixelOffset: new google.maps.Size(-140, -350),
+		    zIndex: null,
+		    boxStyle: {
+		                background: "white",
+		                width: "280px",
+		                height: "300px"
+		        },
+		    closeBoxMargin: "12px 4px 2px 2px",
+		    closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif",
+		    infoBoxClearance: new google.maps.Size(1, 1)
+		});
+
+		google.maps.event.addListener(marker, 'mouseover', function() {
+		    infobox.open(map, this);
+		    map.panTo(marker.getPosition());
+		    map.panBy(0, -200);
+		});
+		
+	}
+
+	google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+</body>
