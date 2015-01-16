@@ -24,7 +24,10 @@ var ReactBootstrap = require('react-bootstrap')
 var Header = require('./components/header.jsx');
 var Home = require('./components/home.jsx');
 var Quem = require('./components/quem.jsx');
-var Chapada = require('./components/chapada.jsx');
+var Chapada = require('./components/chapada.jsx'),
+    Cerrado = Chapada.Cerrado,
+    Historia = Chapada.Historia,
+    Cultura = Chapada.Cultura;
 var Roteiros = require('./components/roteiros.jsx');
 var Onde = require('./components/onde.jsx');
 var Galeria = require('./components/galeria.jsx');
@@ -40,7 +43,7 @@ var App = React.createClass({displayName: "App",
             React.createElement("div", null, 
             	React.createElement(Header, null), 
             	React.createElement("div", {className: "clear"}), 
-		        React.createElement(RouteHandler, null), 
+		          React.createElement(RouteHandler, null), 
             	React.createElement(Footer, null)
             )
         );
@@ -50,7 +53,11 @@ var routes = (
   React.createElement(Route, {handler: App}, 
     React.createElement(Route, {name: "Home", handler: Home}), 
     React.createElement(Route, {name: "Quem", handler: Quem}), 
-    React.createElement(Route, {name: "Chapada", handler: Chapada}), 
+    React.createElement(Route, {name: "Chapada", handler: Chapada}, 
+      React.createElement(Route, {name: "cerrado", handler: Cerrado}), 
+      React.createElement(Route, {name: "historia", handler: Historia}), 
+      React.createElement(Route, {name: "cultura", handler: Cultura})
+    ), 
     React.createElement(Route, {name: "Roteiros", handler: Roteiros}), 
     React.createElement(Route, {name: "Onde", handler: Onde}), 
     React.createElement(Route, {name: "Galeria", handler: Galeria}), 
@@ -82,6 +89,9 @@ Router.run(routes, function (Handler) {
 },{"./components/chapada.jsx":"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/chapada.jsx","./components/footer.jsx":"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/footer.jsx","./components/galeria.jsx":"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/galeria.jsx","./components/header.jsx":"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/header.jsx","./components/home.jsx":"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/home.jsx","./components/onde.jsx":"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/onde.jsx","./components/quem.jsx":"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/quem.jsx","./components/roteiros.jsx":"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/roteiros.jsx","react":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/react.js","react-bootstrap":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-bootstrap/main.js","react-router":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-router/modules/index.js","react/lib/ReactCSSTransitionGroup":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/ReactCSSTransitionGroup.js","superagent":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/superagent/lib/client.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/chapada.jsx":[function(require,module,exports){
 'use strict';
 var React = require('react'),
+	Router = require('react-router'),
+  	Link = Router.Link,
+  	RouteHandler = Router.RouteHandler,
 	Chapada = React.createClass({displayName: "Chapada",
 
 	render: function() {
@@ -96,18 +106,18 @@ var React = require('react'),
 						React.createElement("a", {href: ""}, 
 							React.createElement("h2", {className: "hp_dest"}, "A Chapada dos Veadeiros")
 						), 
-						React.createElement("div", {className: "upcoming_txt"}, 
-							React.createElement("p", null, "Are selfies just selfish, or can you focus on yourself while also thinking of others? Launching the best selfie phone to date, we thought it was time to ask: Can a Selfie really do good?  Introducing The “Selfie Collection”, a fashion collection with a twist. All shot with the new Lumia 735. All selfies will contain a fashion item going up for auction, donating money to the fight against online bullying. Take a look around the “Selfie Collection”, go to the auction, and place your bid now.")
+						React.createElement("div", {className: "upcoming_txt", id: "chapada-handler"}, 
+							"Aqui vai várias informações sobre a Chapada. Boa pesquisa para meus amigos guias."
 						)
 					), 
 					React.createElement("div", {className: "grid_50_h"}, 
-						React.createElement("a", {href: ""}, React.createElement("div", {className: "grid_100 chapada-cerrado"}, 
+						React.createElement(Link, {to: "cerrado"}, React.createElement("div", {className: "grid_100 chapada-cerrado"}, 
 							React.createElement("h2", {className: "hp_dest"}, "O Cerrado")
 						)), 
-						React.createElement("a", {href: ""}, React.createElement("div", {className: "grid_100 chapada-historia"}, 
+						React.createElement(Link, {to: "cerrado"}, React.createElement("div", {className: "grid_100 chapada-historia"}, 
 							React.createElement("h2", {className: "hp_dest"}, "História")
 						)), 
-						React.createElement("a", {href: ""}, React.createElement("div", {className: "grid_100 chapada-cultura"}, 
+						React.createElement(Link, {to: "cerrado"}, React.createElement("div", {className: "grid_100 chapada-cultura"}, 
 							React.createElement("h2", {className: "hp_dest"}, "Cultura")
 						))
 					)
@@ -119,8 +129,42 @@ var React = require('react'),
 
 });
 
+var Cerrado = React.createClass({displayName: "Cerrado",
+mixins: [ Router.State ],
+	render: function() {
+		return (
+			React.createElement("p", null, 
+				"Essa é a porra do Cerrado mermão!"
+			)
+		);
+	}
+});
+var Historia = React.createClass({displayName: "Historia",
+mixins: [ Router.State ],
+	render: function() {
+		return (
+			React.createElement("p", null, 
+				"Essa é a porra do Historia mermão!"
+			)
+		);
+	}
+});
+var Cultura = React.createClass({displayName: "Cultura",
+mixins: [ Router.State ],
+	render: function() {
+		return (
+			React.createElement("p", null, 
+				"Essa é a porra do Cultura mermão!"
+			)
+		);
+	}
+});
+
+module.exports = Cerrado;
+module.exports = Historia;
+module.exports = Cultura;
 module.exports = Chapada;
-},{"react":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/react.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/footer.jsx":[function(require,module,exports){
+},{"react":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/react.js","react-router":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-router/modules/index.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/footer.jsx":[function(require,module,exports){
 'use strict';
 
 var React = require('react'),
@@ -738,8 +782,88 @@ var React = require('react'),
 
 	render: function() {
 		return (
-			React.createElement("div", {className: "roteiros"}
-					
+			React.createElement("div", {classNameName: "roteiros"}, 
+				React.createElement("div", {className: "grid_100"}, 
+					React.createElement("h3", {className: "roteiros-h3"}, "Explicação de como usar essa página"), 
+					React.createElement("div", {className: "hp_first_row"}, 
+						React.createElement("div", {className: "grid_50_h br"}, 
+							React.createElement("div", {className: "roteiros-item-wrapper"}, 
+								React.createElement("div", {className: "roteiros-item"}, 
+									React.createElement("h3", null, "Caminhos de São Jorge"), 
+									React.createElement("div", {className: "roteiros-img"}, 
+										React.createElement("img", {src: "https://unsplash.imgix.net/photo-1419064642531-e575728395f2?fit=cropundefined00undefined0"}), 
+										React.createElement("p", null, React.createElement("span", {className: "roteiros-dia"}, "1"), " DIA")
+									), 
+									React.createElement("ul", null, 
+										React.createElement("li", null, React.createElement("i", {className: "fa fa-bicycle"})), 
+										React.createElement("li", null, React.createElement("i", {className: "fa fa-car"})), 
+										React.createElement("li", null, React.createElement("i", {className: "fa fa-bar-chart"})), 
+										React.createElement("li", null, React.createElement("i", {className: "fa fa-cutlery"})), 
+										React.createElement("li", null, React.createElement("div", {className: "fb-like", "data-href": "http://luandro.com", "data-layout": "button", "data-action": "like", "data-show-faces": "true", "data-share": "false"}))
+									)
+								)
+							)
+						), 
+						React.createElement("div", {className: "grid_50_h"}, 
+							React.createElement("div", {className: "roteiros-item-wrapper"}, 
+								React.createElement("div", {className: "roteiros-item"}, 
+									React.createElement("h3", null, "Caminhos de São Jorge"), 
+									React.createElement("div", {className: "roteiros-img"}, 
+										React.createElement("img", {src: "https://ununsplash.imgix.net/photo-1418562478514-6ee501b780a5?fit=cropundefined00undefined0"}), 
+										React.createElement("p", null, React.createElement("span", {className: "roteiros-dia"}, "1"), " DIA")
+									), 
+									React.createElement("ul", null, 
+										React.createElement("li", null, React.createElement("i", {className: "fa fa-bicycle"})), 
+										React.createElement("li", null, React.createElement("i", {className: "fa fa-car"})), 
+										React.createElement("li", null, React.createElement("i", {className: "fa fa-bar-chart"})), 
+										React.createElement("li", null, React.createElement("i", {className: "fa fa-cutlery"})), 
+										React.createElement("li", null, React.createElement("div", {className: "fb-like", "data-href": "http://luandro.com", "data-layout": "button", "data-action": "like", "data-show-faces": "true", "data-share": "false"}))
+									)
+								)
+							)
+						)
+					)
+				), 
+				React.createElement("div", {className: "grid_100"}, 
+					React.createElement("div", {className: "hp_first_row"}, 
+						React.createElement("div", {className: "grid_50_h br"}, 
+							React.createElement("div", {className: "roteiros-item-wrapper"}, 
+								React.createElement("div", {className: "roteiros-item"}, 
+									React.createElement("h3", null, "Caminhos de São Jorge"), 
+									React.createElement("div", {className: "roteiros-img"}, 
+										React.createElement("img", {src: "https://unsplash.imgix.net/photo-1414589491349-2acf6131176e?fit=cropundefined00undefined0"}), 
+										React.createElement("p", null, React.createElement("span", {className: "roteiros-dia"}, "1"), " DIA")
+									), 
+									React.createElement("ul", null, 
+										React.createElement("li", null, React.createElement("i", {className: "fa fa-bicycle"})), 
+										React.createElement("li", null, React.createElement("i", {className: "fa fa-car"})), 
+										React.createElement("li", null, React.createElement("i", {className: "fa fa-bar-chart"})), 
+										React.createElement("li", null, React.createElement("i", {className: "fa fa-cutlery"})), 
+										React.createElement("li", null, React.createElement("div", {className: "fb-like", "data-href": "http://luandro.com", "data-layout": "button", "data-action": "like", "data-show-faces": "true", "data-share": "false"}))
+									)
+								)
+							)
+						), 
+						React.createElement("div", {className: "grid_50_h"}, 
+							React.createElement("div", {className: "roteiros-item-wrapper"}, 
+								React.createElement("div", {className: "roteiros-item"}, 
+									React.createElement("h3", null, "Caminhos de São Jorge"), 
+									React.createElement("div", {className: "roteiros-img"}, 
+										React.createElement("img", {src: "https://ununsplash.imgix.net/photo-1417434743061-9873e0beaed6?fit=cropundefined25undefined0"}), 
+										React.createElement("p", null, React.createElement("span", {className: "roteiros-dia"}, "1"), " DIA")
+									), 
+									React.createElement("ul", null, 
+										React.createElement("li", null, React.createElement("i", {className: "fa fa-bicycle"})), 
+										React.createElement("li", null, React.createElement("i", {className: "fa fa-car"})), 
+										React.createElement("li", null, React.createElement("i", {className: "fa fa-bar-chart"})), 
+										React.createElement("li", null, React.createElement("i", {className: "fa fa-cutlery"})), 
+										React.createElement("li", null, React.createElement("div", {className: "fb-like", "data-href": "http://luandro.com", "data-layout": "button", "data-action": "like", "data-show-faces": "true", "data-share": "false"}))
+									)
+								)
+							)
+						)
+					)
+				)	
 			)	
 		);
 	}

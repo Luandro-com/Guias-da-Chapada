@@ -1,5 +1,8 @@
 'use strict';
 var React = require('react'),
+	Router = require('react-router'),
+  	Link = Router.Link,
+  	RouteHandler = Router.RouteHandler,
 	Chapada = React.createClass({
 
 	render: function() {
@@ -14,20 +17,20 @@ var React = require('react'),
 						<a href="">
 							<h2 className="hp_dest">A Chapada dos Veadeiros</h2>
 						</a>
-						<div className="upcoming_txt">
-							<p>Are selfies just selfish, or can you focus on yourself while also thinking of others? Launching the best selfie phone to date, we thought it was time to ask: Can a Selfie really do good?  Introducing The “Selfie Collection”, a fashion collection with a twist. All shot with the new Lumia 735. All selfies will contain a fashion item going up for auction, donating money to the fight against online bullying. Take a look around the “Selfie Collection”, go to the auction, and place your bid now.</p>
+						<div className="upcoming_txt" id="chapada-handler">
+							Aqui vai várias informações sobre a Chapada. Boa pesquisa para meus amigos guias.
 						</div>
 					</div>
 					<div className="grid_50_h">
-						<a href=""><div className="grid_100 chapada-cerrado">
+						<Link to="cerrado"><div className="grid_100 chapada-cerrado">
 							<h2 className="hp_dest">O Cerrado</h2>
-						</div></a>
-						<a href=""><div className="grid_100 chapada-historia">
+						</div></Link>
+						<Link to="cerrado"><div className="grid_100 chapada-historia">
 							<h2 className="hp_dest">História</h2>
-						</div></a>
-						<a href=""><div className="grid_100 chapada-cultura">
+						</div></Link>
+						<Link to="cerrado"><div className="grid_100 chapada-cultura">
 							<h2 className="hp_dest">Cultura</h2>
-						</div></a>
+						</div></Link>
 					</div>
 				</div>
 			</div>
@@ -37,4 +40,38 @@ var React = require('react'),
 
 });
 
+var Cerrado = React.createClass({
+mixins: [ Router.State ],
+	render: function() {
+		return (
+			<p>
+				Essa é a porra do Cerrado mermão!
+			</p>
+		);
+	}
+});
+var Historia = React.createClass({
+mixins: [ Router.State ],
+	render: function() {
+		return (
+			<p>
+				Essa é a porra do Historia mermão!
+			</p>
+		);
+	}
+});
+var Cultura = React.createClass({
+mixins: [ Router.State ],
+	render: function() {
+		return (
+			<p>
+				Essa é a porra do Cultura mermão!
+			</p>
+		);
+	}
+});
+
+module.exports = Cerrado;
+module.exports = Historia;
+module.exports = Cultura;
 module.exports = Chapada;
