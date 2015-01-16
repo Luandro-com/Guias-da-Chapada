@@ -86,9 +86,34 @@ var React = require('react'),
 
 	render: function() {
 		return (
-			React.createElement("div", {className: "chapada"}
-					
-			)	
+		React.createElement("div", {classNameName: "chapada"}, 
+			React.createElement("div", {className: "chapada-img"}, 
+				React.createElement("img", {src: "https://ununsplash.imgix.net/photo-1416424500327-a57ace7358b8?fit=cropundefined00undefined0"})
+			), 
+			React.createElement("div", {className: "grid_100"}, 
+				React.createElement("div", {className: "hp_first_row"}, 
+					React.createElement("div", {className: "grid_50_h br"}, 
+						React.createElement("a", {href: ""}, 
+							React.createElement("h2", {className: "hp_dest"}, "A Chapada dos Veadeiros")
+						), 
+						React.createElement("div", {className: "upcoming_txt"}, 
+							React.createElement("p", null, "Are selfies just selfish, or can you focus on yourself while also thinking of others? Launching the best selfie phone to date, we thought it was time to ask: Can a Selfie really do good?  Introducing The “Selfie Collection”, a fashion collection with a twist. All shot with the new Lumia 735. All selfies will contain a fashion item going up for auction, donating money to the fight against online bullying. Take a look around the “Selfie Collection”, go to the auction, and place your bid now.")
+						)
+					), 
+					React.createElement("div", {className: "grid_50_h"}, 
+						React.createElement("a", {href: ""}, React.createElement("div", {className: "grid_100 chapada-cerrado"}, 
+							React.createElement("h2", {className: "hp_dest"}, "O Cerrado")
+						)), 
+						React.createElement("a", {href: ""}, React.createElement("div", {className: "grid_100 chapada-historia"}, 
+							React.createElement("h2", {className: "hp_dest"}, "História")
+						)), 
+						React.createElement("a", {href: ""}, React.createElement("div", {className: "grid_100 chapada-cultura"}, 
+							React.createElement("h2", {className: "hp_dest"}, "Cultura")
+						))
+					)
+				)
+			)
+		)	
 		);
 	}
 
