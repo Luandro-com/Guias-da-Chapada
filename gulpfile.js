@@ -73,7 +73,6 @@ gulp.task('browserify', function() {
 // Styles
 gulp.task('styles', function() {
   return gulp.src(p.scss)
-	.pipe(changed(p.distCss))
 	.pipe(sass({errLogToConsole: true}))
 	.on('error', notify.onError())
 	.pipe(autoprefixer('last 1 version'))

@@ -11,7 +11,7 @@ var React = require('react'),
 				<div id="navigation" className="grid_100">
 					<div>
 						<ul className="word-rotate">
-							<Link to="Home"><li>Mapa Interativo</li></Link>
+							<a href="./mapa.html"><li>Mapa Interativo</li></a>
 							<Link to="Quem"><li>Quem Somos</li></Link>
 							<Link to="Chapada"><li>A Chapada</li></Link>
 							<Link to="Roteiros"><li>Roteiros e Atrativos</li></Link>

@@ -1,0 +1,41 @@
+.grid_50_h {
+	height: 420px;
+}
+.onde-item-wrapper {
+	width: 95%;
+	margin: 0 auto;
+}
+.onde-h3 {
+	text-align: center;
+}
+.onde-img {
+	background: black;
+	height: 280px;
+	overflow: hidden;
+}
+.onde-img img {
+	min-width: 100%;
+}
+.onde-img p {
+	font-size: 28px;
+	position: relative;
+	top: -170px;
+	left: 12px;
+	color: #417505;
+	font-weight: 900;
+}
+.onde-dia {
+	color: #fff;
+}
+.onde-item h3 {
+	text-transform: uppercase;
+}
+.onde-item ul li {
+	display: inline;
+	list-style-type: none;
+	float: left;
+	font-size:24px;
+	color: #417505;
+	margin-right: 20px;
+	margin-top: 20px;
+}

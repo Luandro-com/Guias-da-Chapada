@@ -466,7 +466,7 @@ var React = require('react'),
 				React.createElement("div", {id: "navigation", className: "grid_100"}, 
 					React.createElement("div", null, 
 						React.createElement("ul", {className: "word-rotate"}, 
-							React.createElement(Link, {to: "Home"}, React.createElement("li", null, "Mapa Interativo")), 
+							React.createElement("a", {href: "./mapa.html"}, React.createElement("li", null, "Mapa Interativo")), 
 							React.createElement(Link, {to: "Quem"}, React.createElement("li", null, "Quem Somos")), 
 							React.createElement(Link, {to: "Chapada"}, React.createElement("li", null, "A Chapada")), 
 							React.createElement(Link, {to: "Roteiros"}, React.createElement("li", null, "Roteiros e Atrativos")), 
@@ -693,12 +693,78 @@ module.exports = HomeSlider;
 },{"react":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/react.js","react-bootstrap":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-bootstrap/main.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/onde.jsx":[function(require,module,exports){
 'use strict';
 var React = require('react'),
+	OndeItem = require('./onde/ondeItem.jsx'),
 	Onde = React.createClass({displayName: "Onde",
 
 	render: function() {
 		return (
-			React.createElement("div", {className: "onde"}
-					
+			React.createElement("div", {className: "onde"}, 
+				React.createElement("div", {classNameName: "onde"}, 
+					React.createElement("div", {className: "grid_100"}, 
+						React.createElement("h3", {className: "onde-h3"}, "Explicação de como usar essa página"), 
+						React.createElement("div", {className: "hp_first_row"}, 
+							React.createElement(OndeItem, null), 
+							React.createElement("div", {className: "grid_50_h"}, 
+								React.createElement("div", {className: "onde-item-wrapper"}, 
+									React.createElement("div", {className: "onde-item"}, 
+										React.createElement("h3", null, "Caminhos de São Jorge"), 
+										React.createElement("div", {className: "onde-img"}, 
+											React.createElement("img", {src: "https://unsplash.imgix.net/photo-1416339442236-8ceb164046f8?fit=cropundefined75undefined0"}), 
+											React.createElement("p", null, React.createElement("span", {className: "onde-dia"}, "1"), " DIA")
+										), 
+										React.createElement("ul", null, 
+											React.createElement("li", null, React.createElement("i", {className: "fa fa-bicycle"})), 
+											React.createElement("li", null, React.createElement("i", {className: "fa fa-car"})), 
+											React.createElement("li", null, React.createElement("i", {className: "fa fa-bar-chart"})), 
+											React.createElement("li", null, React.createElement("i", {className: "fa fa-cutlery"})), 
+											React.createElement("li", null, React.createElement("div", {className: "fb-like", "data-href": "http://luandro.com", "data-layout": "button", "data-action": "like", "data-show-faces": "true", "data-share": "false"}))
+										)
+									)
+								)
+							)
+						)
+					), 
+					React.createElement("div", {className: "grid_100"}, 
+						React.createElement("div", {className: "hp_first_row"}, 
+							React.createElement("div", {className: "grid_50_h br"}, 
+								React.createElement("div", {className: "onde-item-wrapper"}, 
+									React.createElement("div", {className: "onde-item"}, 
+										React.createElement("h3", null, "Caminhos de São Jorge"), 
+										React.createElement("div", {className: "onde-img"}, 
+											React.createElement("img", {src: "https://ununsplash.imgix.net/photo-1416339306562-f3d12fefd36f?fit=cropundefined00undefined0"}), 
+											React.createElement("p", null, React.createElement("span", {className: "onde-dia"}, "1"), " DIA")
+										), 
+										React.createElement("ul", null, 
+											React.createElement("li", null, React.createElement("i", {className: "fa fa-bicycle"})), 
+											React.createElement("li", null, React.createElement("i", {className: "fa fa-car"})), 
+											React.createElement("li", null, React.createElement("i", {className: "fa fa-bar-chart"})), 
+											React.createElement("li", null, React.createElement("i", {className: "fa fa-cutlery"})), 
+											React.createElement("li", null, React.createElement("div", {className: "fb-like", "data-href": "http://luandro.com", "data-layout": "button", "data-action": "like", "data-show-faces": "true", "data-share": "false"}))
+										)
+									)
+								)
+							), 
+							React.createElement("div", {className: "grid_50_h"}, 
+								React.createElement("div", {className: "onde-item-wrapper"}, 
+									React.createElement("div", {className: "onde-item"}, 
+										React.createElement("h3", null, "Caminhos de São Jorge"), 
+										React.createElement("div", {className: "onde-img"}, 
+											React.createElement("img", {src: "https://ununsplash.imgix.net/photo-1416339276121-ba1dfa199912?fit=cropundefined00undefined0"}), 
+											React.createElement("p", null, React.createElement("span", {className: "onde-dia"}, "1"), " DIA")
+										), 
+										React.createElement("ul", null, 
+											React.createElement("li", null, React.createElement("i", {className: "fa fa-bicycle"})), 
+											React.createElement("li", null, React.createElement("i", {className: "fa fa-car"})), 
+											React.createElement("li", null, React.createElement("i", {className: "fa fa-bar-chart"})), 
+											React.createElement("li", null, React.createElement("i", {className: "fa fa-cutlery"})), 
+											React.createElement("li", null, React.createElement("div", {className: "fb-like", "data-href": "http://luandro.com", "data-layout": "button", "data-action": "like", "data-show-faces": "true", "data-share": "false"}))
+										)
+									)
+								)
+							)
+						)
+					)	
+				)		
 			)	
 		);
 	}
@@ -706,7 +772,36 @@ var React = require('react'),
 });
 
 module.exports = Onde;
-},{"react":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/react.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/quem.jsx":[function(require,module,exports){
+},{"./onde/ondeItem.jsx":"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/onde/ondeItem.jsx","react":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/react.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/onde/ondeItem.jsx":[function(require,module,exports){
+'use strict';
+
+var OndeItem = React.createClass({displayName: "OndeItem",
+	render: function() {
+		return (
+			React.createElement("div", {className: "grid_50_h br"}, 
+				React.createElement("div", {className: "onde-item-wrapper"}, 
+					React.createElement("div", {className: "onde-item"}, 
+						React.createElement("h3", null, "Caminhos de São Jorge"), 
+						React.createElement("div", {className: "onde-img"}, 
+							React.createElement("img", {src: "https://ununsplash.imgix.net/photo-1416339672936-7fe434088e8c?fit=cropundefined00undefined0"}), 
+							React.createElement("p", null, React.createElement("span", {className: "onde-dia"}, "1"), " DIA")
+						), 
+						React.createElement("ul", null, 
+							React.createElement("li", null, React.createElement("i", {className: "fa fa-bicycle"})), 
+							React.createElement("li", null, React.createElement("i", {className: "fa fa-car"})), 
+							React.createElement("li", null, React.createElement("i", {className: "fa fa-bar-chart"})), 
+							React.createElement("li", null, React.createElement("i", {className: "fa fa-cutlery"})), 
+							React.createElement("li", null, React.createElement("div", {className: "fb-like", "data-href": "http://luandro.com", "data-layout": "button", "data-action": "like", "data-show-faces": "true", "data-share": "false"}))
+						)
+					)
+				)
+			)
+		);
+	}
+});
+
+module.exports = OndeItem;
+},{}],"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/quem.jsx":[function(require,module,exports){
 'use strict';
 var React = require('react'),
 	Quem = React.createClass({displayName: "Quem",
@@ -778,6 +873,7 @@ module.exports = Quem;
 },{"react":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/react.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/roteiros.jsx":[function(require,module,exports){
 'use strict';
 var React = require('react'),
+	RoteirosItem = require('./roteiros/roteirosItem.jsx'),
 	Roteiros = React.createClass({displayName: "Roteiros",
 
 	render: function() {
@@ -786,24 +882,7 @@ var React = require('react'),
 				React.createElement("div", {className: "grid_100"}, 
 					React.createElement("h3", {className: "roteiros-h3"}, "Explicação de como usar essa página"), 
 					React.createElement("div", {className: "hp_first_row"}, 
-						React.createElement("div", {className: "grid_50_h br"}, 
-							React.createElement("div", {className: "roteiros-item-wrapper"}, 
-								React.createElement("div", {className: "roteiros-item"}, 
-									React.createElement("h3", null, "Caminhos de São Jorge"), 
-									React.createElement("div", {className: "roteiros-img"}, 
-										React.createElement("img", {src: "https://unsplash.imgix.net/photo-1419064642531-e575728395f2?fit=cropundefined00undefined0"}), 
-										React.createElement("p", null, React.createElement("span", {className: "roteiros-dia"}, "1"), " DIA")
-									), 
-									React.createElement("ul", null, 
-										React.createElement("li", null, React.createElement("i", {className: "fa fa-bicycle"})), 
-										React.createElement("li", null, React.createElement("i", {className: "fa fa-car"})), 
-										React.createElement("li", null, React.createElement("i", {className: "fa fa-bar-chart"})), 
-										React.createElement("li", null, React.createElement("i", {className: "fa fa-cutlery"})), 
-										React.createElement("li", null, React.createElement("div", {className: "fb-like", "data-href": "http://luandro.com", "data-layout": "button", "data-action": "like", "data-show-faces": "true", "data-share": "false"}))
-									)
-								)
-							)
-						), 
+						React.createElement(RoteirosItem, null), 
 						React.createElement("div", {className: "grid_50_h"}, 
 							React.createElement("div", {className: "roteiros-item-wrapper"}, 
 								React.createElement("div", {className: "roteiros-item"}, 
@@ -871,7 +950,36 @@ var React = require('react'),
 });
 
 module.exports = Roteiros;
-},{"react":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/react.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/browserify/node_modules/buffer/index.js":[function(require,module,exports){
+},{"./roteiros/roteirosItem.jsx":"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/roteiros/roteirosItem.jsx","react":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/react.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/roteiros/roteirosItem.jsx":[function(require,module,exports){
+'use strict';
+
+var RoteirosItem = React.createClass({displayName: "RoteirosItem",
+	render: function() {
+		return (
+			React.createElement("div", {className: "grid_50_h br"}, 
+				React.createElement("div", {className: "roteiros-item-wrapper"}, 
+					React.createElement("div", {className: "roteiros-item"}, 
+						React.createElement("h3", null, "Caminhos de São Jorge"), 
+						React.createElement("div", {className: "roteiros-img"}, 
+							React.createElement("img", {src: "https://unsplash.imgix.net/photo-1419064642531-e575728395f2?fit=cropundefined00undefined0"}), 
+							React.createElement("p", null, React.createElement("span", {className: "roteiros-dia"}, "1"), " DIA")
+						), 
+						React.createElement("ul", null, 
+							React.createElement("li", null, React.createElement("i", {className: "fa fa-bicycle"})), 
+							React.createElement("li", null, React.createElement("i", {className: "fa fa-car"})), 
+							React.createElement("li", null, React.createElement("i", {className: "fa fa-bar-chart"})), 
+							React.createElement("li", null, React.createElement("i", {className: "fa fa-cutlery"})), 
+							React.createElement("li", null, React.createElement("div", {className: "fb-like", "data-href": "http://luandro.com", "data-layout": "button", "data-action": "like", "data-show-faces": "true", "data-share": "false"}))
+						)
+					)
+				)
+			)
+		);
+	}
+});
+
+module.exports = RoteirosItem;
+},{}],"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/browserify/node_modules/buffer/index.js":[function(require,module,exports){
 /*!
  * The buffer module from node.js, for the browser.
  *
