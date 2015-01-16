@@ -2,7 +2,8 @@
 'use strict';
 
 //React
-var React = require('react');
+var React = require('react'),
+	TransitionGroup = require('react/lib/ReactCSSTransitionGroup');
 window.React = React;
 //Superagent
 var request = require('superagent');
@@ -11,26 +12,56 @@ var request = require('superagent');
 //Router
 var Router = require('react-router')
   , RouteHandler = Router.RouteHandler
-  , Route = Router.Route;
+  , Route = Router.Route
+  , Link = Router.Link
+  , DefaultRoute = Router.DefaultRoute;
 //ReactBootstrap
 var ReactBootstrap = require('react-bootstrap')
   , Nav = ReactBootstrap.Nav
   , Carousel = require('react-bootstrap').Carousel
   , CarouselItem = require('react-bootstrap').CarouselItem; 
-//ReactBoostrapRouter
-var ReactRouterBootstrap = require('react-router-bootstrap')
-  , NavItemLink = ReactRouterBootstrap.NavItemLink
-  , ButtonLink = ReactRouterBootstrap.ButtonLink;
 //Meus componentes
 var Header = require('./components/header.jsx');
 var Home = require('./components/home.jsx');
+var Quem = require('./components/quem.jsx');
+var Chapada = require('./components/chapada.jsx');
+var Roteiros = require('./components/roteiros.jsx');
+var Onde = require('./components/onde.jsx');
+var Galeria = require('./components/galeria.jsx');
 var Footer = require('./components/footer.jsx');
 
+var App = React.createClass({displayName: "App",
+	mixins: [ Router.State ],
+
+    render: function () {
+    	var name = this.getRoutes().reverse()[0].name;
+
+        return (
+            React.createElement("div", null, 
+            	React.createElement(Header, null), 
+            	React.createElement("div", {className: "clear"}), 
+		        React.createElement(RouteHandler, null), 
+            	React.createElement(Footer, null)
+            )
+        );
+    }
+});
+var routes = (
+  React.createElement(Route, {handler: App}, 
+    React.createElement(Route, {name: "Home", handler: Home}), 
+    React.createElement(Route, {name: "Quem", handler: Quem}), 
+    React.createElement(Route, {name: "Chapada", handler: Chapada}), 
+    React.createElement(Route, {name: "Roteiros", handler: Roteiros}), 
+    React.createElement(Route, {name: "Onde", handler: Onde}), 
+    React.createElement(Route, {name: "Galeria", handler: Galeria}), 
+    React.createElement(DefaultRoute, {handler: Home})
+  )
+);
 
 
-React.render(React.createElement(Header, null), document.getElementById('header'));
-React.render(React.createElement(Home, null), document.getElementById('home'));
-React.render(React.createElement(Footer, null), document.getElementById('footer'));
+Router.run(routes, function (Handler) {
+  React.render(React.createElement(Handler, null), document.getElementById('app'));
+});
 
 /*
 - NavBar
@@ -48,7 +79,23 @@ React.render(React.createElement(Footer, null), document.getElementById('footer'
 - Roteiros
 -- Info boxes c/ tooltips
 */
-},{"./components/footer.jsx":"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/footer.jsx","./components/header.jsx":"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/header.jsx","./components/home.jsx":"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/home.jsx","react":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/react.js","react-bootstrap":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-bootstrap/main.js","react-router":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-router/modules/index.js","react-router-bootstrap":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-router-bootstrap/lib/index.js","superagent":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/superagent/lib/client.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/footer.jsx":[function(require,module,exports){
+},{"./components/chapada.jsx":"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/chapada.jsx","./components/footer.jsx":"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/footer.jsx","./components/galeria.jsx":"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/galeria.jsx","./components/header.jsx":"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/header.jsx","./components/home.jsx":"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/home.jsx","./components/onde.jsx":"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/onde.jsx","./components/quem.jsx":"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/quem.jsx","./components/roteiros.jsx":"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/roteiros.jsx","react":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/react.js","react-bootstrap":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-bootstrap/main.js","react-router":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-router/modules/index.js","react/lib/ReactCSSTransitionGroup":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/ReactCSSTransitionGroup.js","superagent":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/superagent/lib/client.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/chapada.jsx":[function(require,module,exports){
+'use strict';
+var React = require('react'),
+	Chapada = React.createClass({displayName: "Chapada",
+
+	render: function() {
+		return (
+			React.createElement("div", {className: "chapada"}
+					
+			)	
+		);
+	}
+
+});
+
+module.exports = Chapada;
+},{"react":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/react.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/footer.jsx":[function(require,module,exports){
 'use strict';
 
 var React = require('react'),
@@ -274,10 +321,28 @@ var React = require('react'),
 });
 
 module.exports = PictureList;
-},{"./picture.jsx":"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/footer/picture.jsx","react":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/react.js","superagent":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/superagent/lib/client.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/header.jsx":[function(require,module,exports){
+},{"./picture.jsx":"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/footer/picture.jsx","react":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/react.js","superagent":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/superagent/lib/client.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/galeria.jsx":[function(require,module,exports){
+'use strict';
+var React = require('react'),
+	Galeria = React.createClass({displayName: "Galeria",
+
+	render: function() {
+		return (
+			React.createElement("div", {className: "galeria"}
+					
+			)	
+		);
+	}
+
+});
+
+module.exports = Galeria;
+},{"react":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/react.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/header.jsx":[function(require,module,exports){
 'use strict';
 
 var React = require('react'),
+	Router = require('react-router'),
+    Link = Router.Link,
 	NavBar = require('./header/navbar.jsx'),
 
     Header = React.createClass({displayName: "Header",
@@ -287,9 +352,11 @@ var React = require('react'),
         		React.createElement("div", {className: "outer_wrap"}, 
 					React.createElement("div", {className: "inner_wrap"}, 
 			    		React.createElement("div", {id: "header", className: "grid_100"}, 
-							React.createElement("div", {className: "grid_40"}, 
-								React.createElement("h1", {id: "logo"})
-			        		), 
+			    			React.createElement(Link, {to: "Home"}, 
+								React.createElement("div", {className: "grid_40"}, 
+									React.createElement("h1", {id: "logo"})
+				        		)
+				        	), 	
 							React.createElement("div", {id: "social", className: "grid_60"}, 
 								React.createElement("div", {className: "social"}, 
 									React.createElement("div", {className: "nav-lang"}, 
@@ -303,7 +370,7 @@ var React = require('react'),
 								), 
 								React.createElement("div", null, 
 									React.createElement("div", {className: "nav-agenda"}, "Sua agenda está vazia"), 
-									React.createElement("div", {className: "nav-galeria"}, React.createElement("a", {href: ""}, "GALERIA"))
+									React.createElement("div", {className: "nav-galeria"}, React.createElement(Link, {to: "Galeria"}, "GALERIA"))
 								)
 							)
 			    		), 
@@ -316,55 +383,38 @@ var React = require('react'),
     }
 });
 module.exports = Header;
-},{"./header/navbar.jsx":"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/header/navbar.jsx","react":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/react.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/header/navbar.jsx":[function(require,module,exports){
+},{"./header/navbar.jsx":"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/header/navbar.jsx","react":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/react.js","react-router":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-router/modules/index.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/header/navbar.jsx":[function(require,module,exports){
 'use strict';
 
 var React = require('react'),
 	Router = require('react-router'),
-    RouteHandler = Router.RouteHandler,
-    Route = Router.Route,
-    Link = Router.Link,
+		Link = Router.Link,
 
-    NavBar = React.createClass({displayName: "NavBar",
-      render: function() {
-        return (
+		NavBar = React.createClass({displayName: "NavBar",
+			render: function() {
+				return (
 			React.createElement("nav", null, 
-      			React.createElement("div", {id: "navigation", className: "grid_100"}, 
-        			React.createElement("div", null, 
-        				React.createElement("ul", {className: "word-rotate"}, 
-        					React.createElement("a", null, React.createElement(Link, {to: "app"}, React.createElement("li", null, "Mapa Interativo"))), 
-							React.createElement("a", null, React.createElement(Link, {to: "quem"}, React.createElement("li", null, "Quem Somos"))), 
-							React.createElement("a", null, React.createElement(Link, {to: "chapada"}, React.createElement("li", null, "A Chapada"))), 
-							React.createElement("a", null, React.createElement(Link, {to: "roteiros"}, React.createElement("li", null, "Roteiros e Atrativos"))), 
-							React.createElement("a", null, React.createElement("li", {id: "menu-item-32"}, "Onde Fica e Comer")), 
-							React.createElement(RouteHandler, null)
+				React.createElement("div", {id: "navigation", className: "grid_100"}, 
+					React.createElement("div", null, 
+						React.createElement("ul", {className: "word-rotate"}, 
+							React.createElement(Link, {to: "Home"}, React.createElement("li", null, "Mapa Interativo")), 
+							React.createElement(Link, {to: "Quem"}, React.createElement("li", null, "Quem Somos")), 
+							React.createElement(Link, {to: "Chapada"}, React.createElement("li", null, "A Chapada")), 
+							React.createElement(Link, {to: "Roteiros"}, React.createElement("li", null, "Roteiros e Atrativos")), 
+							React.createElement(Link, {to: "Onde"}, React.createElement("li", {id: "menu-item-32"}, "Onde Fica e Comer"))
 						)
-					), 			
+					), 
 					React.createElement("div", {className: "clear"})
 				)
-    		)
-        	)
-      }
-    });
-
-var routes = (
-  React.createElement(Route, {name: "app", path: "/", handler: App}, 
-    React.createElement(Route, {name: "quem", handler: Quem}), 
-    React.createElement(Route, {name: "chapada", handler: Chapda}), 
-    React.createElement(DefaultRoute, {handler: Home})
-  )
-);
-
-Router.run(routes, function (Handler) {
-  React.render(React.createElement(Handler, null), document.body);
-});
-
+			)
+					)
+			}
+		});
 
 module.exports = NavBar;
 },{"react":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/react.js","react-router":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-router/modules/index.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/home.jsx":[function(require,module,exports){
 'use strict';
 var React = require('react'),
-  	Footer = require('./footer.jsx'),
   	HomeSlider = require('./home/homeSlider.jsx'),
   	HomeContent = require('./home/homeContent.jsx'),
   	HomeOfertas = require('./home/homeOfertas.jsx'),
@@ -390,7 +440,7 @@ var React = require('react'),
 });
 
 module.exports = Home;
-},{"./footer.jsx":"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/footer.jsx","./home/homeContent.jsx":"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/home/homeContent.jsx","./home/homeOfertas.jsx":"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/home/homeOfertas.jsx","./home/homeSlider.jsx":"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/home/homeSlider.jsx","react":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/react.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/home/homeContent.jsx":[function(require,module,exports){
+},{"./home/homeContent.jsx":"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/home/homeContent.jsx","./home/homeOfertas.jsx":"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/home/homeOfertas.jsx","./home/homeSlider.jsx":"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/home/homeSlider.jsx","react":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/react.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/home/homeContent.jsx":[function(require,module,exports){
 'use strict';
 var React = require('react'),
 	HomeContent = React.createClass({displayName: "HomeContent",
@@ -571,7 +621,108 @@ var React = require('react'),
   		}
   	});
 module.exports = HomeSlider;
-},{"react":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/react.js","react-bootstrap":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-bootstrap/main.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/browserify/node_modules/buffer/index.js":[function(require,module,exports){
+},{"react":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/react.js","react-bootstrap":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-bootstrap/main.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/onde.jsx":[function(require,module,exports){
+'use strict';
+var React = require('react'),
+	Onde = React.createClass({displayName: "Onde",
+
+	render: function() {
+		return (
+			React.createElement("div", {className: "onde"}
+					
+			)	
+		);
+	}
+
+});
+
+module.exports = Onde;
+},{"react":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/react.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/quem.jsx":[function(require,module,exports){
+'use strict';
+var React = require('react'),
+	Quem = React.createClass({displayName: "Quem",
+
+	render: function() {
+		return (
+			React.createElement("div", {className: "quem"}, 
+				React.createElement("div", {className: "outer_wrap"}, 
+					React.createElement("div", {className: "inner_wrap"}, 
+						React.createElement("div", {className: "quem-img"}, 
+							React.createElement("img", {src: "https://unsplash.imgix.net/photo-1413977886085-3bbbf9a7cf6e?fit=cropundefined00undefined0"})
+						), 
+						React.createElement("div", {className: "grid_100"}, 
+							React.createElement("div", {className: "hp_first_row"}, 
+								React.createElement("div", {className: "grid_50_h br"}, 
+									React.createElement("a", {href: ""}, 
+										React.createElement("h2", {className: "hp_dest"}, "Quem somos")
+									), 
+									React.createElement("div", {className: "upcoming_txt"}, 
+										React.createElement("p", null, "Are selfies just selfish, or can you focus on yourself while also thinking of others? Launching the best selfie phone to date, we thought it was time to ask: Can a Selfie really do good?  Introducing The “Selfie Collection”, a fashion collection with a twist. All shot with the new Lumia 735. All selfies will contain a fashion item going up for auction, donating money to the fight against online bullying. Take a look around the “Selfie Collection”, go to the auction, and place your bid now.")
+									)
+								), 
+								React.createElement("div", {className: "grid_50_h"}, 
+									React.createElement("div", {className: "grid_100"}, 
+										React.createElement("div", {className: "grid_33 quem-pic"}, 
+											React.createElement("img", {src: "dist/img/slide.jpg"})
+										), 
+										React.createElement("div", {className: "grid_33 quem-pic"}, 
+											React.createElement("img", {src: "dist/img/slide.jpg"})
+										), 
+										React.createElement("div", {className: "grid_33 quem-pic-right"}, 
+											React.createElement("img", {src: "dist/img/slide.jpg"})
+										)
+									), 
+									React.createElement("div", {className: "grid_100"}, 
+										React.createElement("div", {className: "grid_33 quem-pic"}, 
+											React.createElement("img", {src: "dist/img/slide.jpg"})
+										), 
+										React.createElement("div", {className: "grid_33 quem-pic"}, 
+											React.createElement("img", {src: "dist/img/slide.jpg"})
+										), 
+										React.createElement("div", {className: "grid_33 quem-pic-right"}, 
+											React.createElement("img", {src: "dist/img/slide.jpg"})
+										)
+									), 
+									React.createElement("div", {className: "grid_100"}, 
+										React.createElement("div", {className: "grid_33 quem-pic"}, 
+											React.createElement("img", {src: "dist/img/slide.jpg"})
+										), 
+										React.createElement("div", {className: "grid_33 quem-pic"}, 
+											React.createElement("img", {src: "dist/img/slide.jpg"})
+										), 
+										React.createElement("div", {className: "grid_33 quem-pic-right"}, 
+											React.createElement("img", {src: "dist/img/slide.jpg"})
+										)
+									)
+								)
+							)
+						)
+					)
+				)		
+			)	
+		);
+	}
+
+});
+
+module.exports = Quem;
+},{"react":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/react.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/roteiros.jsx":[function(require,module,exports){
+'use strict';
+var React = require('react'),
+	Roteiros = React.createClass({displayName: "Roteiros",
+
+	render: function() {
+		return (
+			React.createElement("div", {className: "roteiros"}
+					
+			)	
+		);
+	}
+
+});
+
+module.exports = Roteiros;
+},{"react":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/react.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/browserify/node_modules/buffer/index.js":[function(require,module,exports){
 /*!
  * The buffer module from node.js, for the browser.
  *
@@ -6932,210 +7083,7 @@ function joinClasses(className/*, ... */) {
 
 module.exports = joinClasses;
 
-},{}],"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-router-bootstrap/lib/ButtonLink.js":[function(require,module,exports){
-var React = require('react');
-
-var Button = require('react-bootstrap/Button');
-var $__0=     require('react-router'),Navigation=$__0.Navigation,State=$__0.State;
-var LinkMixin = require('./LinkMixin');
-
-var ButtonLink = React.createClass({displayName: "ButtonLink",
-  mixins: [
-    LinkMixin,
-    Navigation,
-    State
-  ],
-
-  render: function () {
-    var $__0=
-      
-      
-      
-      
-        this.props,to=$__0.to,params=$__0.params,query=$__0.query,active=$__0.active,props=(function(source, exclusion) {var rest = {};var hasOwn = Object.prototype.hasOwnProperty;if (source == null) {throw new TypeError();}for (var key in source) {if (hasOwn.call(source, key) && !hasOwn.call(exclusion, key)) {rest[key] = source[key];}}return rest;})($__0,{to:1,params:1,query:1,active:1});
-
-    if (this.props.active === undefined) {
-      active = this.isActive(to, params, query);
-    }
-
-    return (
-      React.createElement(Button, React.__spread({},  props, 
-        {href: this.getHref(), 
-        active: active, 
-        onClick: this.handleRouteTo, 
-        ref: "button"}), 
-          this.props.children
-      )
-    );
-  }
-});
-
-module.exports = ButtonLink;
-
-},{"./LinkMixin":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-router-bootstrap/lib/LinkMixin.js","react":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/react.js","react-bootstrap/Button":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-bootstrap/Button.js","react-router":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-router/modules/index.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-router-bootstrap/lib/LinkMixin.js":[function(require,module,exports){
-var React = require('react');
-var classSet = require('react/lib/cx');
-var assign = require('react/lib/Object.assign');
-
-function isLeftClickEvent(event) {
-  return event.button === 0;
-}
-
-function isModifiedEvent(event) {
-  return !!(event.metaKey || event.altKey || event.ctrlKey || event.shiftKey);
-}
-
-module.exports = {
-  propTypes: {
-    activeClassName: React.PropTypes.string.isRequired,
-    to: React.PropTypes.string.isRequired,
-    params: React.PropTypes.object,
-    query: React.PropTypes.object,
-    onClick: React.PropTypes.func
-  },
-
-  getDefaultProps: function () {
-    return {
-      activeClassName: 'active'
-    };
-  },
-
-  /**
-   * Returns the value of the "href" attribute to use on the DOM element.
-   */
-  getHref: function () {
-    return this.makeHref(this.props.to, this.props.params, this.props.query);
-  },
-
-  /**
-   * Returns the value of the "class" attribute to use on the DOM element, which contains
-   * the value of the activeClassName property when this <Link> is active.
-   */
-  getClassName: function () {
-    var classNames = {};
-
-    if (this.props.className)
-      classNames[this.props.className] = true;
-
-    if (this.isActive(this.props.to, this.props.params, this.props.query))
-      classNames[this.props.activeClassName] = true;
-
-    return classSet(classNames);
-  },
-
-  handleRouteTo: function (event) {
-    var allowTransition = true;
-    var clickResult;
-
-    if (this.props.onClick)
-      clickResult = this.props.onClick(event);
-
-    if (isModifiedEvent(event) || !isLeftClickEvent(event))
-      return;
-
-    if (clickResult === false || event.defaultPrevented === true)
-      allowTransition = false;
-
-    event.preventDefault();
-
-    if (allowTransition)
-      this.transitionTo(this.props.to, this.props.params, this.props.query);
-  }
-};
-
-},{"react":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/react.js","react/lib/Object.assign":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/Object.assign.js","react/lib/cx":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/cx.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-router-bootstrap/lib/MenuItemLink.js":[function(require,module,exports){
-var React = require('react');
-
-var MenuItem = require('react-bootstrap/MenuItem')
-var $__0=     require('react-router'),Navigation=$__0.Navigation,State=$__0.State;
-var LinkMixin = require('./LinkMixin');
-
-var MenuItemLink = React.createClass({displayName: "MenuItemLink",
-  mixins: [
-    LinkMixin,
-    Navigation,
-    State
-  ],
-
-  render: function() {
-    var $__0=
-      
-      
-      
-      
-                 
-        this.props,to=$__0.to,params=$__0.params,query=$__0.query,active=$__0.active,onSelect=$__0.onSelect,props=(function(source, exclusion) {var rest = {};var hasOwn = Object.prototype.hasOwnProperty;if (source == null) {throw new TypeError();}for (var key in source) {if (hasOwn.call(source, key) && !hasOwn.call(exclusion, key)) {rest[key] = source[key];}}return rest;})($__0,{to:1,params:1,query:1,active:1,onSelect:1});
-
-    if (this.props.active === undefined) {
-      active = this.isActive(to, params, query);
-    }
-
-    return (
-      React.createElement(MenuItem, React.__spread({},  props, 
-        {href: this.getHref(), 
-        active: active, 
-        onClick: this.handleRouteTo, 
-        ref: "menuItem"}), 
-        this.props.children
-      )
-    );
-  }
-});
-
-module.exports = MenuItemLink;
-
-},{"./LinkMixin":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-router-bootstrap/lib/LinkMixin.js","react":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/react.js","react-bootstrap/MenuItem":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-bootstrap/MenuItem.js","react-router":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-router/modules/index.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-router-bootstrap/lib/NavItemLink.js":[function(require,module,exports){
-var React = require('react');
-
-var NavItem = require('react-bootstrap/NavItem')
-var $__0=     require('react-router'),Navigation=$__0.Navigation,State=$__0.State;
-var LinkMixin = require('./LinkMixin');
-
-var NavItemLink = React.createClass({displayName: "NavItemLink",
-  mixins: [
-    LinkMixin,
-    Navigation,
-    State
-  ],
-
-  render: function() {
-    var $__0=
-      
-      
-      
-      
-        this.props,to=$__0.to,params=$__0.params,query=$__0.query,active=$__0.active,props=(function(source, exclusion) {var rest = {};var hasOwn = Object.prototype.hasOwnProperty;if (source == null) {throw new TypeError();}for (var key in source) {if (hasOwn.call(source, key) && !hasOwn.call(exclusion, key)) {rest[key] = source[key];}}return rest;})($__0,{to:1,params:1,query:1,active:1});
-
-    if (this.props.active === undefined) {
-      active = this.isActive(to, params, query);
-    }
-
-    return (
-      React.createElement(NavItem, React.__spread({},  props, 
-        {href: this.getHref(), 
-        active: active, 
-        onClick: this.handleRouteTo, 
-        ref: "navItem"}), 
-        this.props.children
-      )
-    );
-  }
-});
-
-module.exports = NavItemLink;
-
-},{"./LinkMixin":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-router-bootstrap/lib/LinkMixin.js","react":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/react.js","react-bootstrap/NavItem":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-bootstrap/NavItem.js","react-router":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-router/modules/index.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-router-bootstrap/lib/index.js":[function(require,module,exports){
-var ButtonLink = require('./ButtonLink');
-var MenuItemLink = require('./MenuItemLink');
-var NavItemLink = require('./NavItemLink');
-
-module.exports = {
-  ButtonLink: ButtonLink,
-  MenuItemLink: MenuItemLink,
-  NavItemLink: NavItemLink
-};
-
-},{"./ButtonLink":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-router-bootstrap/lib/ButtonLink.js","./MenuItemLink":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-router-bootstrap/lib/MenuItemLink.js","./NavItemLink":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-router-bootstrap/lib/NavItemLink.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-router/modules/actions/LocationActions.js":[function(require,module,exports){
+},{}],"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-router/modules/actions/LocationActions.js":[function(require,module,exports){
 /**
  * Actions that modify the URL.
  */
@@ -11015,7 +10963,119 @@ var BeforeInputEventPlugin = {
 
 module.exports = BeforeInputEventPlugin;
 
-},{"./EventConstants":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/EventConstants.js","./EventPropagators":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/EventPropagators.js","./ExecutionEnvironment":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/ExecutionEnvironment.js","./SyntheticInputEvent":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/SyntheticInputEvent.js","./keyOf":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/keyOf.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/CSSProperty.js":[function(require,module,exports){
+},{"./EventConstants":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/EventConstants.js","./EventPropagators":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/EventPropagators.js","./ExecutionEnvironment":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/ExecutionEnvironment.js","./SyntheticInputEvent":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/SyntheticInputEvent.js","./keyOf":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/keyOf.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/CSSCore.js":[function(require,module,exports){
+(function (process){
+/**
+ * Copyright 2013-2014, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ * @providesModule CSSCore
+ * @typechecks
+ */
+
+var invariant = require("./invariant");
+
+/**
+ * The CSSCore module specifies the API (and implements most of the methods)
+ * that should be used when dealing with the display of elements (via their
+ * CSS classes and visibility on screen. It is an API focused on mutating the
+ * display and not reading it as no logical state should be encoded in the
+ * display of elements.
+ */
+
+var CSSCore = {
+
+  /**
+   * Adds the class passed in to the element if it doesn't already have it.
+   *
+   * @param {DOMElement} element the element to set the class on
+   * @param {string} className the CSS className
+   * @return {DOMElement} the element passed in
+   */
+  addClass: function(element, className) {
+    ("production" !== process.env.NODE_ENV ? invariant(
+      !/\s/.test(className),
+      'CSSCore.addClass takes only a single class name. "%s" contains ' +
+      'multiple classes.', className
+    ) : invariant(!/\s/.test(className)));
+
+    if (className) {
+      if (element.classList) {
+        element.classList.add(className);
+      } else if (!CSSCore.hasClass(element, className)) {
+        element.className = element.className + ' ' + className;
+      }
+    }
+    return element;
+  },
+
+  /**
+   * Removes the class passed in from the element
+   *
+   * @param {DOMElement} element the element to set the class on
+   * @param {string} className the CSS className
+   * @return {DOMElement} the element passed in
+   */
+  removeClass: function(element, className) {
+    ("production" !== process.env.NODE_ENV ? invariant(
+      !/\s/.test(className),
+      'CSSCore.removeClass takes only a single class name. "%s" contains ' +
+      'multiple classes.', className
+    ) : invariant(!/\s/.test(className)));
+
+    if (className) {
+      if (element.classList) {
+        element.classList.remove(className);
+      } else if (CSSCore.hasClass(element, className)) {
+        element.className = element.className
+          .replace(new RegExp('(^|\\s)' + className + '(?:\\s|$)', 'g'), '$1')
+          .replace(/\s+/g, ' ') // multiple spaces to one
+          .replace(/^\s*|\s*$/g, ''); // trim the ends
+      }
+    }
+    return element;
+  },
+
+  /**
+   * Helper to add or remove a class from an element based on a condition.
+   *
+   * @param {DOMElement} element the element to set the class on
+   * @param {string} className the CSS className
+   * @param {*} bool condition to whether to add or remove the class
+   * @return {DOMElement} the element passed in
+   */
+  conditionClass: function(element, className, bool) {
+    return (bool ? CSSCore.addClass : CSSCore.removeClass)(element, className);
+  },
+
+  /**
+   * Tests whether the element has the class specified.
+   *
+   * @param {DOMNode|DOMWindow} element the element to set the class on
+   * @param {string} className the CSS className
+   * @return {boolean} true if the element has the class, false if not
+   */
+  hasClass: function(element, className) {
+    ("production" !== process.env.NODE_ENV ? invariant(
+      !/\s/.test(className),
+      'CSS.hasClass takes only a single class name.'
+    ) : invariant(!/\s/.test(className)));
+    if (element.classList) {
+      return !!className && element.classList.contains(className);
+    }
+    return (' ' + element.className + ' ').indexOf(' ' + className + ' ') > -1;
+  }
+
+};
+
+module.exports = CSSCore;
+
+}).call(this,require('_process'))
+},{"./invariant":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/invariant.js","_process":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/browserify/node_modules/process/browser.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/CSSProperty.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -15403,7 +15463,209 @@ var ReactBrowserEventEmitter = assign({}, ReactEventEmitterMixin, {
 
 module.exports = ReactBrowserEventEmitter;
 
-},{"./EventConstants":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/EventConstants.js","./EventPluginHub":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/EventPluginHub.js","./EventPluginRegistry":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/EventPluginRegistry.js","./Object.assign":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/Object.assign.js","./ReactEventEmitterMixin":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/ReactEventEmitterMixin.js","./ViewportMetrics":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/ViewportMetrics.js","./isEventSupported":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/isEventSupported.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/ReactChildren.js":[function(require,module,exports){
+},{"./EventConstants":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/EventConstants.js","./EventPluginHub":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/EventPluginHub.js","./EventPluginRegistry":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/EventPluginRegistry.js","./Object.assign":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/Object.assign.js","./ReactEventEmitterMixin":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/ReactEventEmitterMixin.js","./ViewportMetrics":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/ViewportMetrics.js","./isEventSupported":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/isEventSupported.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/ReactCSSTransitionGroup.js":[function(require,module,exports){
+/**
+ * Copyright 2013-2014, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ * @typechecks
+ * @providesModule ReactCSSTransitionGroup
+ */
+
+"use strict";
+
+var React = require("./React");
+
+var assign = require("./Object.assign");
+
+var ReactTransitionGroup = React.createFactory(
+  require("./ReactTransitionGroup")
+);
+var ReactCSSTransitionGroupChild = React.createFactory(
+  require("./ReactCSSTransitionGroupChild")
+);
+
+var ReactCSSTransitionGroup = React.createClass({
+  displayName: 'ReactCSSTransitionGroup',
+
+  propTypes: {
+    transitionName: React.PropTypes.string.isRequired,
+    transitionEnter: React.PropTypes.bool,
+    transitionLeave: React.PropTypes.bool
+  },
+
+  getDefaultProps: function() {
+    return {
+      transitionEnter: true,
+      transitionLeave: true
+    };
+  },
+
+  _wrapChild: function(child) {
+    // We need to provide this childFactory so that
+    // ReactCSSTransitionGroupChild can receive updates to name, enter, and
+    // leave while it is leaving.
+    return ReactCSSTransitionGroupChild(
+      {
+        name: this.props.transitionName,
+        enter: this.props.transitionEnter,
+        leave: this.props.transitionLeave
+      },
+      child
+    );
+  },
+
+  render: function() {
+    return (
+      ReactTransitionGroup(
+        assign({}, this.props, {childFactory: this._wrapChild})
+      )
+    );
+  }
+});
+
+module.exports = ReactCSSTransitionGroup;
+
+},{"./Object.assign":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/Object.assign.js","./React":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/React.js","./ReactCSSTransitionGroupChild":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/ReactCSSTransitionGroupChild.js","./ReactTransitionGroup":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/ReactTransitionGroup.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/ReactCSSTransitionGroupChild.js":[function(require,module,exports){
+(function (process){
+/**
+ * Copyright 2013-2014, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ * @typechecks
+ * @providesModule ReactCSSTransitionGroupChild
+ */
+
+"use strict";
+
+var React = require("./React");
+
+var CSSCore = require("./CSSCore");
+var ReactTransitionEvents = require("./ReactTransitionEvents");
+
+var onlyChild = require("./onlyChild");
+
+// We don't remove the element from the DOM until we receive an animationend or
+// transitionend event. If the user screws up and forgets to add an animation
+// their node will be stuck in the DOM forever, so we detect if an animation
+// does not start and if it doesn't, we just call the end listener immediately.
+var TICK = 17;
+var NO_EVENT_TIMEOUT = 5000;
+
+var noEventListener = null;
+
+
+if ("production" !== process.env.NODE_ENV) {
+  noEventListener = function() {
+    console.warn(
+      'transition(): tried to perform an animation without ' +
+      'an animationend or transitionend event after timeout (' +
+      NO_EVENT_TIMEOUT + 'ms). You should either disable this ' +
+      'transition in JS or add a CSS animation/transition.'
+    );
+  };
+}
+
+var ReactCSSTransitionGroupChild = React.createClass({
+  displayName: 'ReactCSSTransitionGroupChild',
+
+  transition: function(animationType, finishCallback) {
+    var node = this.getDOMNode();
+    var className = this.props.name + '-' + animationType;
+    var activeClassName = className + '-active';
+    var noEventTimeout = null;
+
+    var endListener = function(e) {
+      if (e && e.target !== node) {
+        return;
+      }
+      if ("production" !== process.env.NODE_ENV) {
+        clearTimeout(noEventTimeout);
+      }
+
+      CSSCore.removeClass(node, className);
+      CSSCore.removeClass(node, activeClassName);
+
+      ReactTransitionEvents.removeEndEventListener(node, endListener);
+
+      // Usually this optional callback is used for informing an owner of
+      // a leave animation and telling it to remove the child.
+      finishCallback && finishCallback();
+    };
+
+    ReactTransitionEvents.addEndEventListener(node, endListener);
+
+    CSSCore.addClass(node, className);
+
+    // Need to do this to actually trigger a transition.
+    this.queueClass(activeClassName);
+
+    if ("production" !== process.env.NODE_ENV) {
+      noEventTimeout = setTimeout(noEventListener, NO_EVENT_TIMEOUT);
+    }
+  },
+
+  queueClass: function(className) {
+    this.classNameQueue.push(className);
+
+    if (!this.timeout) {
+      this.timeout = setTimeout(this.flushClassNameQueue, TICK);
+    }
+  },
+
+  flushClassNameQueue: function() {
+    if (this.isMounted()) {
+      this.classNameQueue.forEach(
+        CSSCore.addClass.bind(CSSCore, this.getDOMNode())
+      );
+    }
+    this.classNameQueue.length = 0;
+    this.timeout = null;
+  },
+
+  componentWillMount: function() {
+    this.classNameQueue = [];
+  },
+
+  componentWillUnmount: function() {
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+    }
+  },
+
+  componentWillEnter: function(done) {
+    if (this.props.enter) {
+      this.transition('enter', done);
+    } else {
+      done();
+    }
+  },
+
+  componentWillLeave: function(done) {
+    if (this.props.leave) {
+      this.transition('leave', done);
+    } else {
+      done();
+    }
+  },
+
+  render: function() {
+    return onlyChild(this.props.children);
+  }
+});
+
+module.exports = ReactCSSTransitionGroupChild;
+
+}).call(this,require('_process'))
+},{"./CSSCore":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/CSSCore.js","./React":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/React.js","./ReactTransitionEvents":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/ReactTransitionEvents.js","./onlyChild":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/onlyChild.js","_process":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/browserify/node_modules/process/browser.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/ReactChildren.js":[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
@@ -24390,7 +24652,408 @@ ReactTextComponentFactory.type = ReactTextComponent;
 
 module.exports = ReactTextComponentFactory;
 
-},{"./DOMPropertyOperations":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/DOMPropertyOperations.js","./Object.assign":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/Object.assign.js","./ReactComponent":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/ReactComponent.js","./ReactElement":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/ReactElement.js","./escapeTextForBrowser":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/escapeTextForBrowser.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/ReactUpdates.js":[function(require,module,exports){
+},{"./DOMPropertyOperations":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/DOMPropertyOperations.js","./Object.assign":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/Object.assign.js","./ReactComponent":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/ReactComponent.js","./ReactElement":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/ReactElement.js","./escapeTextForBrowser":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/escapeTextForBrowser.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/ReactTransitionChildMapping.js":[function(require,module,exports){
+/**
+ * Copyright 2013-2014, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ * @typechecks static-only
+ * @providesModule ReactTransitionChildMapping
+ */
+
+"use strict";
+
+var ReactChildren = require("./ReactChildren");
+
+var ReactTransitionChildMapping = {
+  /**
+   * Given `this.props.children`, return an object mapping key to child. Just
+   * simple syntactic sugar around ReactChildren.map().
+   *
+   * @param {*} children `this.props.children`
+   * @return {object} Mapping of key to child
+   */
+  getChildMapping: function(children) {
+    return ReactChildren.map(children, function(child) {
+      return child;
+    });
+  },
+
+  /**
+   * When you're adding or removing children some may be added or removed in the
+   * same render pass. We want to show *both* since we want to simultaneously
+   * animate elements in and out. This function takes a previous set of keys
+   * and a new set of keys and merges them with its best guess of the correct
+   * ordering. In the future we may expose some of the utilities in
+   * ReactMultiChild to make this easy, but for now React itself does not
+   * directly have this concept of the union of prevChildren and nextChildren
+   * so we implement it here.
+   *
+   * @param {object} prev prev children as returned from
+   * `ReactTransitionChildMapping.getChildMapping()`.
+   * @param {object} next next children as returned from
+   * `ReactTransitionChildMapping.getChildMapping()`.
+   * @return {object} a key set that contains all keys in `prev` and all keys
+   * in `next` in a reasonable order.
+   */
+  mergeChildMappings: function(prev, next) {
+    prev = prev || {};
+    next = next || {};
+
+    function getValueForKey(key) {
+      if (next.hasOwnProperty(key)) {
+        return next[key];
+      } else {
+        return prev[key];
+      }
+    }
+
+    // For each key of `next`, the list of keys to insert before that key in
+    // the combined list
+    var nextKeysPending = {};
+
+    var pendingKeys = [];
+    for (var prevKey in prev) {
+      if (next.hasOwnProperty(prevKey)) {
+        if (pendingKeys.length) {
+          nextKeysPending[prevKey] = pendingKeys;
+          pendingKeys = [];
+        }
+      } else {
+        pendingKeys.push(prevKey);
+      }
+    }
+
+    var i;
+    var childMapping = {};
+    for (var nextKey in next) {
+      if (nextKeysPending.hasOwnProperty(nextKey)) {
+        for (i = 0; i < nextKeysPending[nextKey].length; i++) {
+          var pendingNextKey = nextKeysPending[nextKey][i];
+          childMapping[nextKeysPending[nextKey][i]] = getValueForKey(
+            pendingNextKey
+          );
+        }
+      }
+      childMapping[nextKey] = getValueForKey(nextKey);
+    }
+
+    // Finally, add the keys which didn't appear before any key in `next`
+    for (i = 0; i < pendingKeys.length; i++) {
+      childMapping[pendingKeys[i]] = getValueForKey(pendingKeys[i]);
+    }
+
+    return childMapping;
+  }
+};
+
+module.exports = ReactTransitionChildMapping;
+
+},{"./ReactChildren":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/ReactChildren.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/ReactTransitionEvents.js":[function(require,module,exports){
+/**
+ * Copyright 2013-2014, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ * @providesModule ReactTransitionEvents
+ */
+
+"use strict";
+
+var ExecutionEnvironment = require("./ExecutionEnvironment");
+
+/**
+ * EVENT_NAME_MAP is used to determine which event fired when a
+ * transition/animation ends, based on the style property used to
+ * define that event.
+ */
+var EVENT_NAME_MAP = {
+  transitionend: {
+    'transition': 'transitionend',
+    'WebkitTransition': 'webkitTransitionEnd',
+    'MozTransition': 'mozTransitionEnd',
+    'OTransition': 'oTransitionEnd',
+    'msTransition': 'MSTransitionEnd'
+  },
+
+  animationend: {
+    'animation': 'animationend',
+    'WebkitAnimation': 'webkitAnimationEnd',
+    'MozAnimation': 'mozAnimationEnd',
+    'OAnimation': 'oAnimationEnd',
+    'msAnimation': 'MSAnimationEnd'
+  }
+};
+
+var endEvents = [];
+
+function detectEvents() {
+  var testEl = document.createElement('div');
+  var style = testEl.style;
+
+  // On some platforms, in particular some releases of Android 4.x,
+  // the un-prefixed "animation" and "transition" properties are defined on the
+  // style object but the events that fire will still be prefixed, so we need
+  // to check if the un-prefixed events are useable, and if not remove them
+  // from the map
+  if (!('AnimationEvent' in window)) {
+    delete EVENT_NAME_MAP.animationend.animation;
+  }
+
+  if (!('TransitionEvent' in window)) {
+    delete EVENT_NAME_MAP.transitionend.transition;
+  }
+
+  for (var baseEventName in EVENT_NAME_MAP) {
+    var baseEvents = EVENT_NAME_MAP[baseEventName];
+    for (var styleName in baseEvents) {
+      if (styleName in style) {
+        endEvents.push(baseEvents[styleName]);
+        break;
+      }
+    }
+  }
+}
+
+if (ExecutionEnvironment.canUseDOM) {
+  detectEvents();
+}
+
+// We use the raw {add|remove}EventListener() call because EventListener
+// does not know how to remove event listeners and we really should
+// clean up. Also, these events are not triggered in older browsers
+// so we should be A-OK here.
+
+function addEventListener(node, eventName, eventListener) {
+  node.addEventListener(eventName, eventListener, false);
+}
+
+function removeEventListener(node, eventName, eventListener) {
+  node.removeEventListener(eventName, eventListener, false);
+}
+
+var ReactTransitionEvents = {
+  addEndEventListener: function(node, eventListener) {
+    if (endEvents.length === 0) {
+      // If CSS transitions are not supported, trigger an "end animation"
+      // event immediately.
+      window.setTimeout(eventListener, 0);
+      return;
+    }
+    endEvents.forEach(function(endEvent) {
+      addEventListener(node, endEvent, eventListener);
+    });
+  },
+
+  removeEndEventListener: function(node, eventListener) {
+    if (endEvents.length === 0) {
+      return;
+    }
+    endEvents.forEach(function(endEvent) {
+      removeEventListener(node, endEvent, eventListener);
+    });
+  }
+};
+
+module.exports = ReactTransitionEvents;
+
+},{"./ExecutionEnvironment":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/ExecutionEnvironment.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/ReactTransitionGroup.js":[function(require,module,exports){
+/**
+ * Copyright 2013-2014, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ * @providesModule ReactTransitionGroup
+ */
+
+"use strict";
+
+var React = require("./React");
+var ReactTransitionChildMapping = require("./ReactTransitionChildMapping");
+
+var assign = require("./Object.assign");
+var cloneWithProps = require("./cloneWithProps");
+var emptyFunction = require("./emptyFunction");
+
+var ReactTransitionGroup = React.createClass({
+  displayName: 'ReactTransitionGroup',
+
+  propTypes: {
+    component: React.PropTypes.any,
+    childFactory: React.PropTypes.func
+  },
+
+  getDefaultProps: function() {
+    return {
+      component: 'span',
+      childFactory: emptyFunction.thatReturnsArgument
+    };
+  },
+
+  getInitialState: function() {
+    return {
+      children: ReactTransitionChildMapping.getChildMapping(this.props.children)
+    };
+  },
+
+  componentWillReceiveProps: function(nextProps) {
+    var nextChildMapping = ReactTransitionChildMapping.getChildMapping(
+      nextProps.children
+    );
+    var prevChildMapping = this.state.children;
+
+    this.setState({
+      children: ReactTransitionChildMapping.mergeChildMappings(
+        prevChildMapping,
+        nextChildMapping
+      )
+    });
+
+    var key;
+
+    for (key in nextChildMapping) {
+      var hasPrev = prevChildMapping && prevChildMapping.hasOwnProperty(key);
+      if (nextChildMapping[key] && !hasPrev &&
+          !this.currentlyTransitioningKeys[key]) {
+        this.keysToEnter.push(key);
+      }
+    }
+
+    for (key in prevChildMapping) {
+      var hasNext = nextChildMapping && nextChildMapping.hasOwnProperty(key);
+      if (prevChildMapping[key] && !hasNext &&
+          !this.currentlyTransitioningKeys[key]) {
+        this.keysToLeave.push(key);
+      }
+    }
+
+    // If we want to someday check for reordering, we could do it here.
+  },
+
+  componentWillMount: function() {
+    this.currentlyTransitioningKeys = {};
+    this.keysToEnter = [];
+    this.keysToLeave = [];
+  },
+
+  componentDidUpdate: function() {
+    var keysToEnter = this.keysToEnter;
+    this.keysToEnter = [];
+    keysToEnter.forEach(this.performEnter);
+
+    var keysToLeave = this.keysToLeave;
+    this.keysToLeave = [];
+    keysToLeave.forEach(this.performLeave);
+  },
+
+  performEnter: function(key) {
+    this.currentlyTransitioningKeys[key] = true;
+
+    var component = this.refs[key];
+
+    if (component.componentWillEnter) {
+      component.componentWillEnter(
+        this._handleDoneEntering.bind(this, key)
+      );
+    } else {
+      this._handleDoneEntering(key);
+    }
+  },
+
+  _handleDoneEntering: function(key) {
+    var component = this.refs[key];
+    if (component.componentDidEnter) {
+      component.componentDidEnter();
+    }
+
+    delete this.currentlyTransitioningKeys[key];
+
+    var currentChildMapping = ReactTransitionChildMapping.getChildMapping(
+      this.props.children
+    );
+
+    if (!currentChildMapping || !currentChildMapping.hasOwnProperty(key)) {
+      // This was removed before it had fully entered. Remove it.
+      this.performLeave(key);
+    }
+  },
+
+  performLeave: function(key) {
+    this.currentlyTransitioningKeys[key] = true;
+
+    var component = this.refs[key];
+    if (component.componentWillLeave) {
+      component.componentWillLeave(this._handleDoneLeaving.bind(this, key));
+    } else {
+      // Note that this is somewhat dangerous b/c it calls setState()
+      // again, effectively mutating the component before all the work
+      // is done.
+      this._handleDoneLeaving(key);
+    }
+  },
+
+  _handleDoneLeaving: function(key) {
+    var component = this.refs[key];
+
+    if (component.componentDidLeave) {
+      component.componentDidLeave();
+    }
+
+    delete this.currentlyTransitioningKeys[key];
+
+    var currentChildMapping = ReactTransitionChildMapping.getChildMapping(
+      this.props.children
+    );
+
+    if (currentChildMapping && currentChildMapping.hasOwnProperty(key)) {
+      // This entered again before it fully left. Add it again.
+      this.performEnter(key);
+    } else {
+      var newChildren = assign({}, this.state.children);
+      delete newChildren[key];
+      this.setState({children: newChildren});
+    }
+  },
+
+  render: function() {
+    // TODO: we could get rid of the need for the wrapper node
+    // by cloning a single child
+    var childrenToRender = {};
+    for (var key in this.state.children) {
+      var child = this.state.children[key];
+      if (child) {
+        // You may need to apply reactive updates to a child as it is leaving.
+        // The normal React way to do it won't work since the child will have
+        // already been removed. In case you need this behavior you can provide
+        // a childFactory function to wrap every child, even the ones that are
+        // leaving.
+        childrenToRender[key] = cloneWithProps(
+          this.props.childFactory(child),
+          {ref: key}
+        );
+      }
+    }
+    return React.createElement(
+      this.props.component,
+      this.props,
+      childrenToRender
+    );
+  }
+});
+
+module.exports = ReactTransitionGroup;
+
+},{"./Object.assign":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/Object.assign.js","./React":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/React.js","./ReactTransitionChildMapping":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/ReactTransitionChildMapping.js","./cloneWithProps":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/cloneWithProps.js","./emptyFunction":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/emptyFunction.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/ReactUpdates.js":[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
@@ -26589,7 +27252,66 @@ function camelizeStyleName(string) {
 
 module.exports = camelizeStyleName;
 
-},{"./camelize":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/camelize.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/containsNode.js":[function(require,module,exports){
+},{"./camelize":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/camelize.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/cloneWithProps.js":[function(require,module,exports){
+(function (process){
+/**
+ * Copyright 2013-2014, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ * @typechecks
+ * @providesModule cloneWithProps
+ */
+
+"use strict";
+
+var ReactElement = require("./ReactElement");
+var ReactPropTransferer = require("./ReactPropTransferer");
+
+var keyOf = require("./keyOf");
+var warning = require("./warning");
+
+var CHILDREN_PROP = keyOf({children: null});
+
+/**
+ * Sometimes you want to change the props of a child passed to you. Usually
+ * this is to add a CSS class.
+ *
+ * @param {object} child child component you'd like to clone
+ * @param {object} props props you'd like to modify. They will be merged
+ * as if you used `transferPropsTo()`.
+ * @return {object} a clone of child with props merged in.
+ */
+function cloneWithProps(child, props) {
+  if ("production" !== process.env.NODE_ENV) {
+    ("production" !== process.env.NODE_ENV ? warning(
+      !child.ref,
+      'You are calling cloneWithProps() on a child with a ref. This is ' +
+      'dangerous because you\'re creating a new child which will not be ' +
+      'added as a ref to its parent.'
+    ) : null);
+  }
+
+  var newProps = ReactPropTransferer.mergeProps(props, child.props);
+
+  // Use `child.props.children` if it is provided.
+  if (!newProps.hasOwnProperty(CHILDREN_PROP) &&
+      child.props.hasOwnProperty(CHILDREN_PROP)) {
+    newProps.children = child.props.children;
+  }
+
+  // The current API doesn't retain _owner and _context, which is why this
+  // doesn't use ReactElement.cloneAndReplaceProps.
+  return ReactElement.createElement(child.type, newProps);
+}
+
+module.exports = cloneWithProps;
+
+}).call(this,require('_process'))
+},{"./ReactElement":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/ReactElement.js","./ReactPropTransferer":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/ReactPropTransferer.js","./keyOf":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/keyOf.js","./warning":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/warning.js","_process":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/browserify/node_modules/process/browser.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/lib/containsNode.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.

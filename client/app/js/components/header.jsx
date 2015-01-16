@@ -1,6 +1,8 @@
 'use strict';
 
 var React = require('react'),
+	Router = require('react-router'),
+    Link = Router.Link,
 	NavBar = require('./header/navbar.jsx'),
 
     Header = React.createClass({
@@ -10,9 +12,11 @@ var React = require('react'),
         		<div className="outer_wrap">
 					<div className="inner_wrap">
 			    		<div id="header" className="grid_100">
-							<div className="grid_40">
-								<h1 id="logo"></h1>
-			        		</div>
+			    			<Link to="Home">
+								<div className="grid_40">
+									<h1 id="logo"></h1>
+				        		</div>
+				        	</Link>	
 							<div id="social" className="grid_60">
 								<div className="social">
 									<div className="nav-lang">
@@ -26,7 +30,7 @@ var React = require('react'),
 								</div>
 								<div>
 									<div className="nav-agenda">Sua agenda está vazia</div>
-									<div className="nav-galeria"><a href="">GALERIA</a></div>
+									<div className="nav-galeria"><Link to="Galeria">GALERIA</Link></div>
 								</div>
 							</div>
 			    		</div>

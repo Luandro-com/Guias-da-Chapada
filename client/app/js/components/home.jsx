@@ -1,6 +1,5 @@
 'use strict';
 var React = require('react'),
-  	Footer = require('./footer.jsx'),
   	HomeSlider = require('./home/homeSlider.jsx'),
   	HomeContent = require('./home/homeContent.jsx'),
   	HomeOfertas = require('./home/homeOfertas.jsx'),

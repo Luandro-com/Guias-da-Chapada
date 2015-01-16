@@ -1,7 +1,8 @@
 'use strict';
 
 //React
-var React = require('react');
+var React = require('react'),
+	TransitionGroup = require('react/lib/ReactCSSTransitionGroup');
 window.React = React;
 //Superagent
 var request = require('superagent');
@@ -10,26 +11,56 @@ var request = require('superagent');
 //Router
 var Router = require('react-router')
   , RouteHandler = Router.RouteHandler
-  , Route = Router.Route;
+  , Route = Router.Route
+  , Link = Router.Link
+  , DefaultRoute = Router.DefaultRoute;
 //ReactBootstrap
 var ReactBootstrap = require('react-bootstrap')
   , Nav = ReactBootstrap.Nav
   , Carousel = require('react-bootstrap').Carousel
   , CarouselItem = require('react-bootstrap').CarouselItem; 
-//ReactBoostrapRouter
-var ReactRouterBootstrap = require('react-router-bootstrap')
-  , NavItemLink = ReactRouterBootstrap.NavItemLink
-  , ButtonLink = ReactRouterBootstrap.ButtonLink;
 //Meus componentes
 var Header = require('./components/header.jsx');
 var Home = require('./components/home.jsx');
+var Quem = require('./components/quem.jsx');
+var Chapada = require('./components/chapada.jsx');
+var Roteiros = require('./components/roteiros.jsx');
+var Onde = require('./components/onde.jsx');
+var Galeria = require('./components/galeria.jsx');
 var Footer = require('./components/footer.jsx');
 
+var App = React.createClass({
+	mixins: [ Router.State ],
+
+    render: function () {
+    	var name = this.getRoutes().reverse()[0].name;
+
+        return (
+            <div>
+            	<Header />
+            	<div className="clear"></div>
+		        <RouteHandler />
+            	<Footer />
+            </div>
+        );
+    }
+});
+var routes = (
+  <Route handler={App}>
+    <Route name="Home" handler={Home} />
+    <Route name="Quem" handler={Quem} />
+    <Route name="Chapada" handler={Chapada} />
+    <Route name="Roteiros" handler={Roteiros} />
+    <Route name="Onde" handler={Onde} />
+    <Route name="Galeria" handler={Galeria} />
+    <DefaultRoute handler={Home} />
+  </Route>
+);
 
 
-React.render(<Header />, document.getElementById('header'));
-React.render(<Home />, document.getElementById('home'));
-React.render(<Footer />, document.getElementById('footer'));
+Router.run(routes, function (Handler) {
+  React.render(<Handler/>, document.getElementById('app'));
+});
 
 /*
 - NavBar
