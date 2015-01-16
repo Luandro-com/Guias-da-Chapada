@@ -11,6 +11,15 @@
 /* ---------------------------------------------------------- */
 
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,900,700&subset=latin,latin-ext);
+// @import "../../node_modules/material-ui-sass/material-ui";
+
+* {
+	box-sizing: content-box;
+}
+html {
+	padding: 0px;
+	margin: 0px;
+}
 body {
 	margin: 0px;
 	padding: 0px;
@@ -29,10 +38,6 @@ i {
 i a {
 	color: #937448;
 	text-decoration: none;
-}
-html {
-		padding: 0px;
-		margin: 0px;
 }
 img {border:none;}
 ul, ol { margin: 0!important; padding: 0!important;}
@@ -177,6 +182,7 @@ nav a#pull {
 		position: relative;
 		width: 19.68%;
 		height: 50px;
+		line-height: 50px;
 		border-right: 4px solid #417505;
 }
 #navigation li ul li {
@@ -219,7 +225,7 @@ nav a#pull {
 #navigation li:hover > a {
 		background: #000;
 }
-#navigation ul ul :hover > a,
+#navigation ul li:hover > a,
 #navigation a:focus {
 		background: #417505;
 		color: #000;
@@ -227,7 +233,7 @@ nav a#pull {
 #navigation li:hover > a,
 #navigation a:focus {
 		background: #000; /* Show a solid color for older browsers */
-		color: #fff;
+		color: #417505;
 }
 #navigation ul li:hover > ul {
 		display: block;
@@ -236,7 +242,7 @@ nav a#pull {
 #navigation .current_page_ancestor > a {
 		font-weight: bold;
 		background-color: #000;
-		color: #fff;
+		color: #417505;
 }
 
 #menu-item-32 { border-right: none!important; width: 19.87%!important;}

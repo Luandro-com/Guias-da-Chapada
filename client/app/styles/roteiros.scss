@@ -1,0 +1,47 @@
+.grid_50_h {
+	height: 420px;
+}
+.roteiros-item-wrapper {
+	width: 95%;
+	margin: 0 auto;
+}
+.roteiros-h3 {
+	text-align: center;
+}
+.roteiros-img {
+	background: black;
+	height: 280px;
+	overflow: hidden;
+}
+.roteiros-img img {
+	min-width: 100%;
+}
+.roteiros-img p {
+	font-size: 28px;
+	position: relative;
+	top: -170px;
+	left: 12px;
+	color: white;
+	font-weight: 900;
+}
+.roteiros-img span {
+	color: #417505;
+}
+.roteiros-item h3 {
+	text-transform: uppercase;
+}
+.roteiros-item ul li {
+	display: inline;
+	list-style-type: none;
+	float: left;
+	font-size:24px;
+	color: #417505;
+	margin-right: 20px;
+	margin-top: 20px;
+}
+i {
+	position: inherit;
+}
+.fb-like {
+	float: right;
+}

@@ -1,75 +1,112 @@
 'use strict';
 
 var gulp = require('gulp'),
-	watch = require('gulp-watch'),
-	connect = require('gulp-connect'),
-	nodemon = require('gulp-nodemon'),
-	browserify = require('Browserify'),
+	changed = require('gulp-changed'),
 	watchify = require('watchify'),
 	source = require('vinyl-source-stream'),
- 	csso = require('gulp-csso'),
- 	uncss = require('gulp-uncss'),
- 	concat = require('gulp-concat'),
- 	imagemin = require('gulp-imagemin'),
- 	pngquant = require('imagemin-pngquant');
+	buffer = require('vinyl-buffer'),
+	notify = require('gulp-notify'),
+	browserSync = require('browser-sync'),
+	reload = browserSync.reload,
+	concat = require('gulp-concat'),
+	/* CSS */
+	sass = require('gulp-sass'),
+	csso = require('gulp-csso'),
+	autoprefixer = require('gulp-autoprefixer'),
+	/* Images */
+	imagemin = require('gulp-imagemin'),
+	pngquant = require('imagemin-pngquant'),
+	/* React and Browerify */
+	browserify = require('browserify'),
+	reactify = require('reactify'),
+	uglify = require('gulp-uglify'),
+	del = require('del'),
+	p = {
+	  html: './client/app/*.html',
+	  jsx: './client/app/js/app.jsx',
+	  scss: './client/app/styles/*.scss',
+	  img: './client/app/img/*.{gif,jpg,png,svg}',
+	  bundle: './app.js',
+	  distJs: './client/dist/js',
+	  distCss: './client/dist/styles',
+	  distImg: './client/dist/img'
+	};
+// Clean
+gulp.task('clean', function(cb) {
+  del(['./client/dist'], cb);
+});
+// BrowserSync
+gulp.task('browserSync', function() {
+  browserSync({
+	server: {
+	  baseDir: './client'
+	}
+  })
+});
+// Browserify and React
+gulp.task('watchify', function() {
+  var bundler = watchify(browserify(p.jsx, watchify.args));
 
- var paths = {
-    app: ['./client/js/app.jsx'],
-    js: ['./client/js/**/*.*'],
-};
+  function rebundle() {
+	return bundler
+	  .bundle()
+	  .on('error', notify.onError())
+	  .pipe(source(p.bundle))
+	  .pipe(gulp.dest(p.distJs))
+	  .pipe(reload({stream: true}));
+  }
+
+  bundler.transform(reactify)
+  .on('update', rebundle);
+  return rebundle();
+});
 
 gulp.task('browserify', function() {
-    // Browserify/bundle the JS.
-    browserify(paths.app)
-        .transform(reactify)
-        .bundle()
-        .pipe(source('bundle.js'))
-        .pipe(gulp.dest('../client/dist/js'))
-        .pipe(connect.reload());
+  browserify(p.jsx)
+	.transform(reactify)
+	.bundle()
+	.pipe(source(p.bundle))
+	.pipe(buffer())
+	.pipe(uglify())
+	.pipe(gulp.dest(p.distJs));
 });
-
-gulp.task('connect', function() {
-  connect.server({
-    root: 'client',
-    port: 8000,
-    livereload: true
-  });
+// Styles
+gulp.task('styles', function() {
+  return gulp.src(p.scss)
+	.pipe(changed(p.distCss))
+	.pipe(sass({errLogToConsole: true}))
+	.on('error', notify.onError())
+	.pipe(autoprefixer('last 1 version'))
+	.pipe(csso())
+	.pipe(concat('main.css'))
+	.pipe(gulp.dest(p.distCss))
+	.pipe(reload({stream: true}));
 });
-
-gulp.task('css', function() {
-    return gulp.src(['./client/app/styles/main.css', './client/app/styles/guias.css', './client/app/styles/mediaqueries.css', './client/app/styles/animations.css'])
-    	.pipe(concat('main.css'))
-    	.pipe(uncss({
-            html: ['./client/index.html']
-        }))
-        .pipe(gulp.dest('./client/dist/styles'))
-        .pipe(connect.reload());
-});
-
-gulp.task('html', function () {
-  gulp.src('./client/*.html')
-    .pipe(connect.reload());
-});
-
-gulp.task('nodemon', function(done){
-    nodemon({ script: './server/app.js', env: { 'NODE_ENV': 'development'}})
-    .on('restart');
-});
-
+// Image
 gulp.task('img', function () {
-    return gulp.src('./client/app/img/*')
-        .pipe(imagemin({
-            progressive: true,
-            svgoPlugins: [{removeViewBox: false}],
-            use: [pngquant()]
-        }))
-        .pipe(gulp.dest('./client/dist/img'));
+	return gulp.src(p.img)
+		.pipe(imagemin({
+			progressive: true,
+			svgoPlugins: [{removeViewBox: false}],
+			use: [pngquant()]
+		}))
+		.pipe(gulp.dest(p.distImg));
+});
+// Watch
+gulp.task('watchTask', function() {
+  gulp.watch(p.scss, ['styles']);
+  gulp.watch(p.img, ['img']);
 });
 
-gulp.task('watch', function () {
-  gulp.watch(['./client/*.html'], ['html']);
-  gulp.watch(['./client/app/styles/*.css'], ['css']);
-  gulp.watch(['./client/app/img/*'], ['img']);
+gulp.task('watch', ['clean'], function() {
+  gulp.start(['browserSync', 'watchTask', 'watchify', 'styles', 'img']);
 });
 
-gulp.task('serve', ['connect', 'watch']);
+gulp.task('build', ['clean'], function() {
+  process.env.NODE_ENV = 'production';
+  gulp.start(['browserify', 'styles']);
+});
+
+gulp.task('default', function() {
+  console.log('Run "gulp watch or gulp build"');
+});
