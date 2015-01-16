@@ -29,13 +29,16 @@ footer {
 	position: relative;
 	float: right;
 	bottom: -90px;
-	left: 45%;
-	right: 45%;
+	text-align: center;
 	margin: 0 auto;
 	font-size: 9px;
 	font-style: italic;
 }
 footer a {
+	color: #937448;
+	text-decoration: none;
+}
+footer a:hover {
 	color: #937448;
 	text-decoration: none;
 }
