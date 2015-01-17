@@ -5,7 +5,6 @@ var React = require('react'),
 	render: function() {
 		return (
 			<div className="galeria">
-					
 			</div>	
 		);
 	}

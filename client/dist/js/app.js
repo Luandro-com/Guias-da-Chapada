@@ -181,6 +181,7 @@ var React = require('react'),
 	render: function() {
 		return (
 			React.createElement("div", {className: "footer"}, 
+				React.createElement("h1", {className: "instagram-hash"}, React.createElement("span", {className: "hash"}, "#"), "vamoaprachapada"), 
 				React.createElement(PictureList, {apiKey: "642176ece1e7445e99244cec26f4de1f"}), 
 				React.createElement("div", {className: "grid_100"}, 
 					React.createElement("div", {className: "banner"}, 
@@ -303,7 +304,6 @@ var React = require('react'),
 	render: function() {
 		return (
 			React.createElement("div", {className: "galeria"}
-					
 			)	
 		);
 	}
@@ -867,7 +867,15 @@ var RoteirosItem = React.createClass({displayName: "RoteirosItem",
 						React.createElement("h3", null, "Caminhos de São Jorge"), 
 						React.createElement("div", {className: "roteiros-img"}, 
 							React.createElement("img", {src: "https://unsplash.imgix.net/photo-1419064642531-e575728395f2?fit=cropundefined00undefined0"}), 
-							React.createElement("p", null, React.createElement("span", {className: "roteiros-dia"}, "1"), " DIA")
+							React.createElement("p", null, React.createElement("span", {className: "roteiros-dia"}, "1"), " DIA"), 
+							React.createElement("figcaption", null, 
+								React.createElement("div", {className: "roteiros-box"}, 
+									React.createElement("p", null, "rain wonton soup camera claymore mine dissident savant bridge papier-mache franchise saturation point sign crypto- spook otaku bicycle long-chain hydrocarbons industrial grade Tokyo faded computer woman chrome Kowloon table face forwards realism vinyl voodoo god pen plastic Legba smart- human garage monofilament city -ware narrative paranoid construct office assassin apophenia convenience store San Francisco dolphin network bomb hacker vehicle shoes knife digital into corporation j-pop disposable sprawl assault systemic cartel tattoo pistol boat refrigerator tower car katana ablative shanty town nodal point sentient"), 
+									React.createElement("button", null, "ver no mapa")
+								), 
+								React.createElement("button", null, "Três diárias"), 
+								React.createElement("button", null, "Agendar")								
+							)
 						), 
 						React.createElement("ul", null, 
 							React.createElement("li", null, React.createElement("i", {className: "fa fa-bicycle"})), 
