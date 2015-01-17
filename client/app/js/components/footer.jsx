@@ -9,21 +9,7 @@ var React = require('react'),
 	render: function() {
 		return (
 			<div className="footer">
-				{/*<PictureList apiKey="642176ece1e7445e99244cec26f4de1f" />*/}
-				<div className="grid_100">
-					<div className="grid_25 instagram">
-						<img src="dist/img/slide.jpg" alt=""></img>
-					</div>
-					<div className="grid_25 instagram">
-						<img src="dist/img/slide.jpg" alt=""></img>
-					</div>
-					<div className="grid_25 instagram">
-						<img src="dist/img/slide.jpg" alt=""></img>
-					</div>
-					<div className="grid_25 instagram">
-						<img src="dist/img/slide.jpg" alt=""></img>
-					</div>
-				</div>
+				<PictureList apiKey="642176ece1e7445e99244cec26f4de1f" />
 				<div className="grid_100">
 					<div className="banner">
 						<a href="">

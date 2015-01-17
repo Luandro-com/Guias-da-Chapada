@@ -5,7 +5,8 @@ var React = require('react'),
 	TransitionGroup = require('react/lib/ReactCSSTransitionGroup');
 window.React = React;
 //Superagent
-var request = require('superagent');
+var request = require('superagent'),
+    jsonp = require('jsonp');
 //Material UI
 // var mui = require('material-ui-sass');
 //Router
@@ -71,17 +72,21 @@ Router.run(routes, function (Handler) {
 
 /*
 - NavBar
--- Agenda
--- Langs
--- Menu Itens
-- Home
--- Slider
--- Slider atrações
--- Slider galeria
+-- Agenda {TODO}
+-- Langs {TODO}
+-- Menu Itens *
+- Home *
+-- Slider *
+-- Slider atrações *
+-- Slider galeria {TODO}
+- Chapada
+-- Tabs {TODO}
+- Roteiros e Onde
+-- Info boxes c/ tooltips {TODO}
+-- Filter {TODO}
+- Galeria {TODO}
 - Footer
--- Picture List
+-- Picture List 
 --- Picture
-- Tabs a Chapada
-- Roteiros
--- Info boxes c/ tooltips
+
 */
