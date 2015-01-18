@@ -181,7 +181,7 @@ var React = require('react'),
 	render: function() {
 		return (
 			React.createElement("div", {className: "footer"}, 
-				React.createElement("h1", {className: "instagram-hash"}, React.createElement("span", {className: "hash"}, "#"), "vamoaprachapada"), 
+				React.createElement("h1", {className: "instagram-hash"}, React.createElement("span", {className: "hash"}, "#"), "vamoprachapada"), 
 				React.createElement(PictureList, {apiKey: "642176ece1e7445e99244cec26f4de1f"}), 
 				React.createElement("div", {className: "grid_100"}, 
 					React.createElement("div", {className: "banner"}, 
@@ -459,7 +459,7 @@ var React = require('react'),
 								React.createElement("li", {className: "bb"}, React.createElement("img", {className: "", src: "", title: "", alt: ""}), "Descubra as maravilhas da Chapada")
 							), 
 							React.createElement("a", {href: ""}, 
-								React.createElement("li", {className: "bb"}, React.createElement("img", {className: "", src: "", title: "", alt: ""}), "Vejas nossas dicas de roteiros")
+								React.createElement("li", null, React.createElement("img", {className: "", src: "", title: "", alt: ""}), "Vejas nossas dicas de roteiros")
 							)
 						)
 					)

@@ -42,7 +42,7 @@ var React = require('react'),
 								<li className="bb"><img className="" src="" title="" alt=""></img>Descubra as maravilhas da Chapada</li>
 							</a>
 							<a href="">
-								<li className="bb"><img className="" src="" title="" alt=""></img>Vejas nossas dicas de roteiros</li>
+								<li><img className="" src="" title="" alt=""></img>Vejas nossas dicas de roteiros</li>
 							</a>
 						</ul>
 					</div>
