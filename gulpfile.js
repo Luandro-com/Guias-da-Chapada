@@ -8,6 +8,7 @@ var gulp = require('gulp'),
 	notify = require('gulp-notify'),
 	browserSync = require('browser-sync'),
 	reload = browserSync.reload,
+	nodemon = require('gulp-nodemon'),
 	concat = require('gulp-concat'),
 	/* CSS */
 	sass = require('gulp-sass'),
@@ -42,6 +43,12 @@ gulp.task('browserSync', function() {
 	  baseDir: './client'
 	}
   })
+});
+gulp.task('serve', function () {
+  nodemon({ script: 'index.js', ext: 'html js css' })
+    .on('restart', function () {
+      console.log('restarted!')
+    })
 });
 // Browserify and React
 gulp.task('watchify', function() {
