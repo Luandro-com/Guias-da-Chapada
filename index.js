@@ -4,6 +4,7 @@ var express = require('express'),
 	app = express(),
   favicon = require('serve-favicon'),
 	bodyParser = require('body-parser'),
+  router = express.Router(),
   mdirect = require('mobile-redirect'),
 	passport = require('passport');
 
@@ -12,9 +13,29 @@ app.set('port', (process.env.PORT || 5000))
 app.use(favicon(__dirname + '/client/dist/img/favicon.ico'))
 app.use(express.static(__dirname + '/client'))
 app.use(bodyParser.json())
+// route middleware that will happen on every request
+router.use(function(req, res, next) {
 
+    // log each request to the console
+    console.log(req.method, req.url);
+
+    // continue doing what we were doing and go to the route
+    next(); 
+});
 app.get('/', function(request, response) {
+  response.send('Home!'); 
 })
+app.get('/mobile', function(request, response) {
+  response.send('Isso é mobile!');  
+})
+app.get('/login', function(request, response) {
+  response.send('Loga fdp!');  
+})
+app.get('/admin', function(request, response) {
+  response.send('Você é o Admin?');  
+})
+
+app.use('/', router);
 
 app.listen(app.get('port'), function() {
   console.log("Node app is running at localhost:" + app.get('port'))
@@ -22,7 +43,7 @@ app.listen(app.get('port'), function() {
 //Redirect mobile
 app.use(mdirect())
 //Auth
-app.post('/login', passport.authenticate('local', { successRedirect: '/',
+app.post('/login', passport.authenticate('local', { successRedirect: '/Admin',
                                                     failureRedirect: '/login' }))
 //API
 //GET
