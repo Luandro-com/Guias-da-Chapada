@@ -79,7 +79,7 @@ Router.run(routes, function (Handler) {
 - Home *
 -- Slider *
 -- Slider atrações *
--- Slider galeria {TODO}
+-- Slider galeria * 
 - Chapada
 -- Tabs {TODO}
 - Roteiros e Onde
@@ -778,6 +778,7 @@ module.exports = Quem;
 },{"react":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/react.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/roteiros.jsx":[function(require,module,exports){
 'use strict';
 var React = require('react'),
+	Tooltip = require('react-bootstrap').Tooltip,
 	RoteirosItem = require('./roteiros/roteirosItem.jsx'),
 	Roteiros = React.createClass({displayName: "Roteiros",
 
@@ -797,6 +798,9 @@ var React = require('react'),
 										React.createElement("p", null, React.createElement("span", {className: "roteiros-dia"}, "1"), " DIA")
 									), 
 									React.createElement("ul", null, 
+										React.createElement(OverlayTrigger, {placement: "left", overlay: React.createElement(Tooltip, null, React.createElement("strong", null, "Holy guacamole!"), " Check this info.")}, 
+									    	React.createElement(Button, {bsStyle: "default"}, "Holy guacamole!")
+									    ), 
 										React.createElement("li", null, React.createElement("i", {className: "fa fa-bicycle"})), 
 										React.createElement("li", null, React.createElement("i", {className: "fa fa-car"})), 
 										React.createElement("li", null, React.createElement("i", {className: "fa fa-bar-chart"})), 
@@ -855,7 +859,7 @@ var React = require('react'),
 });
 
 module.exports = Roteiros;
-},{"./roteiros/roteirosItem.jsx":"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/roteiros/roteirosItem.jsx","react":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/react.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/roteiros/roteirosItem.jsx":[function(require,module,exports){
+},{"./roteiros/roteirosItem.jsx":"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/roteiros/roteirosItem.jsx","react":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/react.js","react-bootstrap":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-bootstrap/main.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/roteiros/roteirosItem.jsx":[function(require,module,exports){
 'use strict';
 
 var RoteirosItem = React.createClass({displayName: "RoteirosItem",

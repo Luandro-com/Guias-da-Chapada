@@ -1,5 +1,6 @@
 'use strict';
 var React = require('react'),
+	Tooltip = require('react-bootstrap').Tooltip,
 	RoteirosItem = require('./roteiros/roteirosItem.jsx'),
 	Roteiros = React.createClass({
 
@@ -19,6 +20,9 @@ var React = require('react'),
 										<p><span className="roteiros-dia">1</span> DIA</p>
 									</div>
 									<ul>
+										<OverlayTrigger placement="left" overlay={<Tooltip><strong>Holy guacamole!</strong> Check this info.</Tooltip>}>
+									    	<Button bsStyle="default">Holy guacamole!</Button>
+									    </OverlayTrigger>
 										<li><i className="fa fa-bicycle"></i></li>
 										<li><i className="fa fa-car"></i></li>
 										<li><i className="fa fa-bar-chart"></i></li>

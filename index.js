@@ -2,11 +2,14 @@
 
 var express = require('express'),
 	app = express(),
+  favicon = require('serve-favicon'),
 	bodyParser = require('body-parser'),
+  mdirect = require('mobile-redirect'),
 	passport = require('passport');
 
 //Basic server
 app.set('port', (process.env.PORT || 5000))
+app.use(favicon(__dirname + '/client/dist/img/favicon.ico'))
 app.use(express.static(__dirname + '/client'))
 app.use(bodyParser.json())
 
@@ -16,9 +19,11 @@ app.get('/', function(request, response) {
 app.listen(app.get('port'), function() {
   console.log("Node app is running at localhost:" + app.get('port'))
 })
+//Redirect mobile
+app.use(mdirect())
 //Auth
 app.post('/login', passport.authenticate('local', { successRedirect: '/',
-                                                    failureRedirect: '/login' }));
+                                                    failureRedirect: '/login' }))
 //API
 //GET
 app.get('/api/:id', function(req, res) {
@@ -28,7 +33,7 @@ app.get('/api/:id', function(req, res) {
   }  
 var q = quotes[req.params.id];
   res.json(q);
-});
+})
 //POST
 app.post('/api', function(req, res) {
   if(!req.body.hasOwnProperty('author') || 

@@ -78,7 +78,7 @@ Router.run(routes, function (Handler) {
 - Home *
 -- Slider *
 -- Slider atrações *
--- Slider galeria {TODO}
+-- Slider galeria * 
 - Chapada
 -- Tabs {TODO}
 - Roteiros e Onde
