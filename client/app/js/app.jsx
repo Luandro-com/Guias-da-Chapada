@@ -4,12 +4,6 @@
 var React = require('react'),
 	TransitionGroup = require('react/lib/ReactCSSTransitionGroup');
 window.React = React;
-//Superagent
-var request = require('superagent'),
-    jsonp = require('jsonp');
-//Material UI
-// var mui = require('material-ui-sass');
-//Router
 var Router = require('react-router')
   , RouteHandler = Router.RouteHandler
   , Route = Router.Route
