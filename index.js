@@ -13,17 +13,17 @@ app.set('port', (process.env.PORT || 5000))
 app.use(favicon(__dirname + '/client/dist/img/favicon.ico'))
 app.use(express.static(__dirname + '/client'))
 app.use(bodyParser.json())
+//Redirect mobile
+app.use(mdirect())
 // route middleware that will happen on every request
-router.use(function(req, res, next) {
-
+router.use(function(request, response, next) {
     // log each request to the console
-    console.log(req.method, req.url);
-
+    console.log(request.method, request.url);
     // continue doing what we were doing and go to the route
     next(); 
 });
 app.get('/', function(request, response) {
-  response.send('Home!'); 
+  return next();
 })
 app.get('/mobile', function(request, response) {
   response.send('Isso é mobile!');  
@@ -40,8 +40,7 @@ app.use('/', router);
 app.listen(app.get('port'), function() {
   console.log("Node app is running at localhost:" + app.get('port'))
 })
-//Redirect mobile
-app.use(mdirect())
+
 //Auth
 app.post('/login', passport.authenticate('local', { successRedirect: '/Admin',
                                                     failureRedirect: '/login' }))
