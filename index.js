@@ -22,26 +22,7 @@ app.use(session())
 app.use(bodyParser())
 
 // authentication
-
-var user = { id: 1, username: 'test' }
-
-passport.serializeUser(function(user, done) {
-  done(null, user.id)
-})
-
-passport.deserializeUser(function(id, done) {
-  done(null, user)
-})
-
-var LocalStrategy = require('passport-local').Strategy
-passport.use(new LocalStrategy(function(username, password, done) {
-  // retrieve user ...
-  if (username === 'admin' && password === 'moinho2015') {
-    done(null, user)
-  } else {
-    done(null, false)
-  }
-}))
+require('./server/auth/auth')
 app.use(passport.initialize())
 app.use(passport.session())
 // append view renderer
@@ -49,10 +30,11 @@ app.use(views('./server/views', {
   map: { html: 'handlebars' },
   cache: false
 }))
-
 // public routes
 var public = new Router()
-
+public.get('/', function*() {
+  this.body = yield this.render('../../client/index')
+})
 public.get('/login', function*() {
   this.body = yield this.render('login')
 })
@@ -83,15 +65,13 @@ public.get('/logout', function*(next) {
   this.logout()
   this.redirect('/')
 })
-
 app.use(public.middleware())
-
-// Require authentication for now
+// Require authentication
 app.use(function*(next) {
   if (this.isAuthenticated()) {
     yield next
   } else {
-    this.redirect('/admin')
+    this.redirect('/login')
   }
 })
 
