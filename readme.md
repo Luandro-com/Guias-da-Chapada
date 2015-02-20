@@ -3,16 +3,16 @@ Página feita para Guias da Chapada dos Veadeiros
 
 ##Front-End
 
-1. ```npm install```
+1. `npm install`
 
-2. ```gulp watch```
+2. `gulp watch`
 
-3. ```localhost:3000```
+3. `http://localhost:3000`
 
 ##Back-End
 
-1. ```npm install```
+1. `npm install`
 
-2. ```gulp build```
+2. `gulp build`
 
-3. ```localhost:5000```
+3. `http://localhost:5000`
