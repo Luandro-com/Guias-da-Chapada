@@ -7,7 +7,7 @@ Página feita para Guias da Chapada dos Veadeiros
 
 2. ```gulp watch```
 
-3. ```http://localhost:3000```
+3. ```localhost:3000```
 
 ##Back-End
 
@@ -15,4 +15,4 @@ Página feita para Guias da Chapada dos Veadeiros
 
 2. ```gulp build```
 
-3. ```http://localhost:5000```
+3. ```localhost:5000```
