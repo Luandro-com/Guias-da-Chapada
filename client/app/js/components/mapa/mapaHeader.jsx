@@ -14,7 +14,7 @@ var React = require('react'),
 							<a href="#"><li data-hover="A Chapada">Alto Paraíso</li></a>
 							<a href="#"><li data-hover="Roteiros e Atrativos">Roteiros</li></a>
 							<li id="menu-item-32">
-								<ul className="social_icons">
+								<ul>
 									<li><a target="_blank" href="mailto:contato@guiasdachapada.com"><span className="icono-mail"></span></a></li>
 									<li><a target="_blank" href="https://twitter.com/guias"><span className="icono-facebook"></span></a></li>
 									<li><a target="_blank" href="https://www.facebook.com/guias"><span className="icono-instagram"></span></a></li>

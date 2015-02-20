@@ -18,6 +18,17 @@ var React = require('react'),
 						</a>
 					</div>
 				</div>
+				<div className="clear"></div>
+				<div className="outer_wrap">
+					 <div className="inner_wrap">
+					    <div className="content social-bottom">
+							<a href=""><span className="icono-mail"></span></a>
+							<a href=""><span className="icono-facebook"></span></a>
+							<a href=""><span className="icono-instagram"></span></a>
+					    	<div className="clear"></div>
+					    </div>
+					</div>
+				</div>
 			</div>	
 				);
 			}

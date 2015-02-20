@@ -406,6 +406,17 @@ var React = require('react'),
 							"Tenha garantia de um bom passeio, ", React.createElement("span", {className: "tlt verde", "data-in-effect": "tada", "data-out-effect": "flash"}, "agende um guia"), " conosco"
 						)
 					)
+				), 
+				React.createElement("div", {className: "clear"}), 
+				React.createElement("div", {className: "outer_wrap"}, 
+					 React.createElement("div", {className: "inner_wrap"}, 
+					    React.createElement("div", {className: "content social-bottom"}, 
+							React.createElement("a", {href: ""}, React.createElement("span", {className: "icono-mail"})), 
+							React.createElement("a", {href: ""}, React.createElement("span", {className: "icono-facebook"})), 
+							React.createElement("a", {href: ""}, React.createElement("span", {className: "icono-instagram"})), 
+					    	React.createElement("div", {className: "clear"})
+					    )
+					)
 				)
 			)	
 				);
@@ -850,14 +861,56 @@ var React = require('react/addons'),
 			return (
 				React.createElement("div", null, 
 					React.createElement("div", {id: "wrapper"}, 
-						React.createElement("div", {className: "outer_wrap"}, 
-							React.createElement("div", {className: "inner_wrap"}, 
+						React.createElement("div", {classNameName: "outer_wrap"}, 
+							React.createElement("div", {classNameName: "inner_wrap"}, 
 								React.createElement(MapaHeader, null), 
-				    			React.createElement("div", {className: "clear"}), 
+				    			React.createElement("div", {classNameName: "clear"}), 
 				    			React.createElement(MapaMap, null)
 							)
 						)
-					)
+					), 
+					React.createElement("div", {className: "infobox-wrapper"}, 
+				    React.createElement("div", {id: "infobox1"}, 
+			        	React.createElement("div", {className: "box-title"}, 
+			        		React.createElement("h3", null, "Cachoeira do Macaco")
+			        	), 
+			        	React.createElement("img", {src: "dist/img/slide.jpg", alt: ""}), 
+			        	React.createElement("div", {className: "grid_100"}, 
+			        		React.createElement("div", {className: "grid_20 "}, 
+				        		"4x4"
+				        	), 
+				        	React.createElement("div", {className: "grid_20 "}, 
+				        		"1 DIA"
+				        	), 
+				        	React.createElement("div", {className: "grid_20 "}, 
+				        		"omg"
+				        	), 
+				        	React.createElement("div", {className: "grid_20 "}, 
+				        		"omg"
+				        	), 
+				        	React.createElement("div", {className: "grid_20 "}, 
+				        		"omg"
+				        	)
+			        	), 
+			        	React.createElement("div", {className: "grid_100"}, 
+			        		React.createElement("div", {className: "grid_20 "}, 
+				        		"omg"
+				        	), 
+				        	React.createElement("div", {className: "grid_20 "}, 
+				        		"omg"
+				        	), 
+				        	React.createElement("div", {className: "grid_20 "}, 
+				        		"omg"
+				        	), 
+				        	React.createElement("div", {className: "grid_20 "}, 
+				        		"omg"
+				        	), 
+				        	React.createElement("div", {className: "grid_20 "}, 
+				        		"omg"
+				        	)
+			        	)
+				    )
+				)
 				)
 			);
 		}
@@ -882,7 +935,7 @@ var React = require('react'),
 							React.createElement("a", {href: "#"}, React.createElement("li", {"data-hover": "A Chapada"}, "Alto Paraíso")), 
 							React.createElement("a", {href: "#"}, React.createElement("li", {"data-hover": "Roteiros e Atrativos"}, "Roteiros")), 
 							React.createElement("li", {id: "menu-item-32"}, 
-								React.createElement("ul", {className: "social_icons"}, 
+								React.createElement("ul", null, 
 									React.createElement("li", null, React.createElement("a", {target: "_blank", href: "mailto:contato@guiasdachapada.com"}, React.createElement("span", {className: "icono-mail"}))), 
 									React.createElement("li", null, React.createElement("a", {target: "_blank", href: "https://twitter.com/guias"}, React.createElement("span", {className: "icono-facebook"}))), 
 									React.createElement("li", null, React.createElement("a", {target: "_blank", href: "https://www.facebook.com/guias"}, React.createElement("span", {className: "icono-instagram"})))
@@ -902,19 +955,59 @@ module.exports = MapaHeader;
 },{"react":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/react.js","react-router":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-router/modules/index.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/mapa/mapaMap.jsx":[function(require,module,exports){
 'use strict';
 var React = require('react'),
-	{GoogleMapsMixin, Map, Marker} = require("react-google-maps"),
+	InfoBox = require('google-maps-infobox'),
 	MapaMap = React.createClass({displayName: "MapaMap",
+	getDefaultProps: function () {
+        return {
+            initialZoom: 12,
+            mapCenterLat: -14.137153,
+            mapCenterLng: -47.519503,
+        };
+    },
+    componentDidMount: function (rootNode) {
+        var mapOptions = {
+            center: this.mapCenterLatLng(),
+            zoom: this.props.initialZoom
+        },
+        map = new google.maps.Map(this.getDOMNode(), mapOptions);
+        var marker = new google.maps.Marker({position: this.mapCenterLatLng(), title: 'Hi', map: map});
+        this.setState({map: map});
+        infobox = new InfoBox({
+		    content: document.getElementById("infobox1"),
+		    disableAutoPan: false,
+		    maxWidth: 150,
+		    pixelOffset: new google.maps.Size(-140, -450),
+		    zIndex: null,
+		    boxStyle: {
+		                background: "#417505",
+		                width: "330px",
+		                height: "420px"
+		        },    
+		    closeBoxMargin: "12px 4px 2px 2px",
+		    closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif",
+		    infoBoxClearance: new google.maps.Size(1, 1)
+		});
 
-		render: function() {
-			return (
-				React.createElement("div", null, "OMG")
-			);
-		}
+		google.maps.event.addListener(marker, 'mouseover', function() {
+		    infobox.open(map, this);
+		    map.panTo(marker.getPosition());
+		    map.panBy(0, -200);
+		});
+    },
+    mapCenterLatLng: function () {
+        var props = this.props;
+        return new google.maps.LatLng(props.mapCenterLat, props.mapCenterLng);
+    },
+    render: function () {
+        return (
+        	React.createElement("div", {id: "map"})
+        );
+    }
 
-});
+	});
 
 module.exports = MapaMap;
-},{"react":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/react.js","react-google-maps":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-google-maps/lib/index.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/onde.jsx":[function(require,module,exports){
+},{"google-maps-infobox":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/google-maps-infobox/infobox-module.js","react":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/react.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/onde.jsx":[function(require,module,exports){
 'use strict';
 var React = require('react'),
 	OndeItem = require('./onde/ondeItem.jsx'),
@@ -2862,6 +2955,828 @@ R.prototype.de=function(a,b){F("Firebase.changeEmail",2,2,arguments.length);J("F
 R.prototype.Me=function(a,b){F("Firebase.resetPassword",2,2,arguments.length);J("Firebase.resetPassword",1,a,!1);K("Firebase.resetPassword",a,"email");H("Firebase.resetPassword",2,b,!1);this.k.Q.Me(a,b)};R.prototype.resetPassword=R.prototype.Me;R.goOffline=function(){F("Firebase.goOffline",0,0,arguments.length);Th.Nb().pb()};R.goOnline=function(){F("Firebase.goOnline",0,0,arguments.length);Th.Nb().hc()};
 function nb(a,b){y(!b||!0===a||!1===a,"Can't turn on custom loggers persistently.");!0===a?("undefined"!==typeof console&&("function"===typeof console.log?lb=q(console.log,console):"object"===typeof console.log&&(lb=function(a){console.log(a)})),b&&v.set("logging_enabled",!0)):a?lb=a:(lb=null,v.remove("logging_enabled"))}R.enableLogging=nb;R.ServerValue={TIMESTAMP:{".sv":"timestamp"}};R.SDK_VERSION="2.1.2";R.INTERNAL=Y;R.Context=Th;R.TEST_ACCESS=$;})();
 module.exports = Firebase;
+
+},{}],"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/google-maps-infobox/infobox-module.js":[function(require,module,exports){
+/**
+ * @name InfoBox
+ * @version 1.1.13 [March 19, 2014]
+ * @author Gary Little (inspired by proof-of-concept code from Pamela Fox of Google)
+ * @copyright Copyright 2010 Gary Little [gary at luxcentral.com]
+ * @fileoverview InfoBox extends the Google Maps JavaScript API V3 <tt>OverlayView</tt> class.
+ *  <p>
+ *  An InfoBox behaves like a <tt>google.maps.InfoWindow</tt>, but it supports several
+ *  additional properties for advanced styling. An InfoBox can also be used as a map label.
+ *  <p>
+ *  An InfoBox also fires the same events as a <tt>google.maps.InfoWindow</tt>.
+ */
+
+/*!
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/*jslint browser:true */
+/*global google */
+
+/**
+ * @name InfoBoxOptions
+ * @class This class represents the optional parameter passed to the {@link InfoBox} constructor.
+ * @property {string|Node} content The content of the InfoBox (plain text or an HTML DOM node).
+ * @property {boolean} [disableAutoPan=false] Disable auto-pan on <tt>open</tt>.
+ * @property {number} maxWidth The maximum width (in pixels) of the InfoBox. Set to 0 if no maximum.
+ * @property {Size} pixelOffset The offset (in pixels) from the top left corner of the InfoBox
+ *  (or the bottom left corner if the <code>alignBottom</code> property is <code>true</code>)
+ *  to the map pixel corresponding to <tt>position</tt>.
+ * @property {LatLng} position The geographic location at which to display the InfoBox.
+ * @property {number} zIndex The CSS z-index style value for the InfoBox.
+ *  Note: This value overrides a zIndex setting specified in the <tt>boxStyle</tt> property.
+ * @property {string} [boxClass="infoBox"] The name of the CSS class defining the styles for the InfoBox container.
+ * @property {Object} [boxStyle] An object literal whose properties define specific CSS
+ *  style values to be applied to the InfoBox. Style values defined here override those that may
+ *  be defined in the <code>boxClass</code> style sheet. If this property is changed after the
+ *  InfoBox has been created, all previously set styles (except those defined in the style sheet)
+ *  are removed from the InfoBox before the new style values are applied.
+ * @property {string} closeBoxMargin The CSS margin style value for the close box.
+ *  The default is "2px" (a 2-pixel margin on all sides).
+ * @property {string} closeBoxURL The URL of the image representing the close box.
+ *  Note: The default is the URL for Google's standard close box.
+ *  Set this property to "" if no close box is required.
+ * @property {Size} infoBoxClearance Minimum offset (in pixels) from the InfoBox to the
+ *  map edge after an auto-pan.
+ * @property {boolean} [isHidden=false] Hide the InfoBox on <tt>open</tt>.
+ *  [Deprecated in favor of the <tt>visible</tt> property.]
+ * @property {boolean} [visible=true] Show the InfoBox on <tt>open</tt>.
+ * @property {boolean} alignBottom Align the bottom left corner of the InfoBox to the <code>position</code>
+ *  location (default is <tt>false</tt> which means that the top left corner of the InfoBox is aligned).
+ * @property {string} pane The pane where the InfoBox is to appear (default is "floatPane").
+ *  Set the pane to "mapPane" if the InfoBox is being used as a map label.
+ *  Valid pane names are the property names for the <tt>google.maps.MapPanes</tt> object.
+ * @property {boolean} enableEventPropagation Propagate mousedown, mousemove, mouseover, mouseout,
+ *  mouseup, click, dblclick, touchstart, touchend, touchmove, and contextmenu events in the InfoBox
+ *  (default is <tt>false</tt> to mimic the behavior of a <tt>google.maps.InfoWindow</tt>). Set
+ *  this property to <tt>true</tt> if the InfoBox is being used as a map label.
+ */
+
+/**
+ * Creates an InfoBox with the options specified in {@link InfoBoxOptions}.
+ *  Call <tt>InfoBox.open</tt> to add the box to the map.
+ * @constructor
+ * @param {InfoBoxOptions} [opt_opts]
+ */
+function InfoBox(opt_opts) {
+
+  opt_opts = opt_opts || {};
+
+  google.maps.OverlayView.apply(this, arguments);
+
+  // Standard options (in common with google.maps.InfoWindow):
+  //
+  this.content_ = opt_opts.content || "";
+  this.disableAutoPan_ = opt_opts.disableAutoPan || false;
+  this.maxWidth_ = opt_opts.maxWidth || 0;
+  this.pixelOffset_ = opt_opts.pixelOffset || new google.maps.Size(0, 0);
+  this.position_ = opt_opts.position || new google.maps.LatLng(0, 0);
+  this.zIndex_ = opt_opts.zIndex || null;
+
+  // Additional options (unique to InfoBox):
+  //
+  this.boxClass_ = opt_opts.boxClass || "infoBox";
+  this.boxStyle_ = opt_opts.boxStyle || {};
+  this.closeBoxMargin_ = opt_opts.closeBoxMargin || "2px";
+  this.closeBoxURL_ = opt_opts.closeBoxURL || "http://www.google.com/intl/en_us/mapfiles/close.gif";
+  if (opt_opts.closeBoxURL === "") {
+    this.closeBoxURL_ = "";
+  }
+  this.infoBoxClearance_ = opt_opts.infoBoxClearance || new google.maps.Size(1, 1);
+
+  if (typeof opt_opts.visible === "undefined") {
+    if (typeof opt_opts.isHidden === "undefined") {
+      opt_opts.visible = true;
+    } else {
+      opt_opts.visible = !opt_opts.isHidden;
+    }
+  }
+  this.isHidden_ = !opt_opts.visible;
+
+  this.alignBottom_ = opt_opts.alignBottom || false;
+  this.pane_ = opt_opts.pane || "floatPane";
+  this.enableEventPropagation_ = opt_opts.enableEventPropagation || false;
+
+  this.div_ = null;
+  this.closeListener_ = null;
+  this.moveListener_ = null;
+  this.contextListener_ = null;
+  this.eventListeners_ = null;
+  this.fixedWidthSet_ = null;
+}
+
+/* InfoBox extends OverlayView in the Google Maps API v3.
+ */
+InfoBox.prototype = new google.maps.OverlayView();
+
+/**
+ * Creates the DIV representing the InfoBox.
+ * @private
+ */
+InfoBox.prototype.createInfoBoxDiv_ = function () {
+
+  var i;
+  var events;
+  var bw;
+  var me = this;
+
+  // This handler prevents an event in the InfoBox from being passed on to the map.
+  //
+  var cancelHandler = function (e) {
+    e.cancelBubble = true;
+    if (e.stopPropagation) {
+      e.stopPropagation();
+    }
+  };
+
+  // This handler ignores the current event in the InfoBox and conditionally prevents
+  // the event from being passed on to the map. It is used for the contextmenu event.
+  //
+  var ignoreHandler = function (e) {
+
+    e.returnValue = false;
+
+    if (e.preventDefault) {
+
+      e.preventDefault();
+    }
+
+    if (!me.enableEventPropagation_) {
+
+      cancelHandler(e);
+    }
+  };
+
+  if (!this.div_) {
+
+    this.div_ = document.createElement("div");
+
+    this.setBoxStyle_();
+
+    if (typeof this.content_.nodeType === "undefined") {
+      this.div_.innerHTML = this.getCloseBoxImg_() + this.content_;
+    } else {
+      this.div_.innerHTML = this.getCloseBoxImg_();
+      this.div_.appendChild(this.content_);
+    }
+
+    // Add the InfoBox DIV to the DOM
+    this.getPanes()[this.pane_].appendChild(this.div_);
+
+    this.addClickHandler_();
+
+    if (this.div_.style.width) {
+
+      this.fixedWidthSet_ = true;
+
+    } else {
+
+      if (this.maxWidth_ !== 0 && this.div_.offsetWidth > this.maxWidth_) {
+
+        this.div_.style.width = this.maxWidth_;
+        this.div_.style.overflow = "auto";
+        this.fixedWidthSet_ = true;
+
+      } else { // The following code is needed to overcome problems with MSIE
+
+        bw = this.getBoxWidths_();
+
+        this.div_.style.width = (this.div_.offsetWidth - bw.left - bw.right) + "px";
+        this.fixedWidthSet_ = false;
+      }
+    }
+
+    this.panBox_(this.disableAutoPan_);
+
+    if (!this.enableEventPropagation_) {
+
+      this.eventListeners_ = [];
+
+      // Cancel event propagation.
+      //
+      // Note: mousemove not included (to resolve Issue 152)
+      events = ["mousedown", "mouseover", "mouseout", "mouseup",
+      "click", "dblclick", "touchstart", "touchend", "touchmove"];
+
+      for (i = 0; i < events.length; i++) {
+
+        this.eventListeners_.push(google.maps.event.addDomListener(this.div_, events[i], cancelHandler));
+      }
+      
+      // Workaround for Google bug that causes the cursor to change to a pointer
+      // when the mouse moves over a marker underneath InfoBox.
+      this.eventListeners_.push(google.maps.event.addDomListener(this.div_, "mouseover", function (e) {
+        this.style.cursor = "default";
+      }));
+    }
+
+    this.contextListener_ = google.maps.event.addDomListener(this.div_, "contextmenu", ignoreHandler);
+
+    /**
+     * This event is fired when the DIV containing the InfoBox's content is attached to the DOM.
+     * @name InfoBox#domready
+     * @event
+     */
+    google.maps.event.trigger(this, "domready");
+  }
+};
+
+/**
+ * Returns the HTML <IMG> tag for the close box.
+ * @private
+ */
+InfoBox.prototype.getCloseBoxImg_ = function () {
+
+  var img = "";
+
+  if (this.closeBoxURL_ !== "") {
+
+    img  = "<img";
+    img += " src='" + this.closeBoxURL_ + "'";
+    img += " align=right"; // Do this because Opera chokes on style='float: right;'
+    img += " style='";
+    img += " position: relative;"; // Required by MSIE
+    img += " cursor: pointer;";
+    img += " margin: " + this.closeBoxMargin_ + ";";
+    img += "'>";
+  }
+
+  return img;
+};
+
+/**
+ * Adds the click handler to the InfoBox close box.
+ * @private
+ */
+InfoBox.prototype.addClickHandler_ = function () {
+
+  var closeBox;
+
+  if (this.closeBoxURL_ !== "") {
+
+    closeBox = this.div_.firstChild;
+    this.closeListener_ = google.maps.event.addDomListener(closeBox, "click", this.getCloseClickHandler_());
+
+  } else {
+
+    this.closeListener_ = null;
+  }
+};
+
+/**
+ * Returns the function to call when the user clicks the close box of an InfoBox.
+ * @private
+ */
+InfoBox.prototype.getCloseClickHandler_ = function () {
+
+  var me = this;
+
+  return function (e) {
+
+    // 1.0.3 fix: Always prevent propagation of a close box click to the map:
+    e.cancelBubble = true;
+
+    if (e.stopPropagation) {
+
+      e.stopPropagation();
+    }
+
+    /**
+     * This event is fired when the InfoBox's close box is clicked.
+     * @name InfoBox#closeclick
+     * @event
+     */
+    google.maps.event.trigger(me, "closeclick");
+
+    me.close();
+  };
+};
+
+/**
+ * Pans the map so that the InfoBox appears entirely within the map's visible area.
+ * @private
+ */
+InfoBox.prototype.panBox_ = function (disablePan) {
+
+  var map;
+  var bounds;
+  var xOffset = 0, yOffset = 0;
+
+  if (!disablePan) {
+
+    map = this.getMap();
+
+    if (map instanceof google.maps.Map) { // Only pan if attached to map, not panorama
+
+      if (!map.getBounds().contains(this.position_)) {
+      // Marker not in visible area of map, so set center
+      // of map to the marker position first.
+        map.setCenter(this.position_);
+      }
+
+      bounds = map.getBounds();
+
+      var mapDiv = map.getDiv();
+      var mapWidth = mapDiv.offsetWidth;
+      var mapHeight = mapDiv.offsetHeight;
+      var iwOffsetX = this.pixelOffset_.width;
+      var iwOffsetY = this.pixelOffset_.height;
+      var iwWidth = this.div_.offsetWidth;
+      var iwHeight = this.div_.offsetHeight;
+      var padX = this.infoBoxClearance_.width;
+      var padY = this.infoBoxClearance_.height;
+      var pixPosition = this.getProjection().fromLatLngToContainerPixel(this.position_);
+
+      if (pixPosition.x < (-iwOffsetX + padX)) {
+        xOffset = pixPosition.x + iwOffsetX - padX;
+      } else if ((pixPosition.x + iwWidth + iwOffsetX + padX) > mapWidth) {
+        xOffset = pixPosition.x + iwWidth + iwOffsetX + padX - mapWidth;
+      }
+      if (this.alignBottom_) {
+        if (pixPosition.y < (-iwOffsetY + padY + iwHeight)) {
+          yOffset = pixPosition.y + iwOffsetY - padY - iwHeight;
+        } else if ((pixPosition.y + iwOffsetY + padY) > mapHeight) {
+          yOffset = pixPosition.y + iwOffsetY + padY - mapHeight;
+        }
+      } else {
+        if (pixPosition.y < (-iwOffsetY + padY)) {
+          yOffset = pixPosition.y + iwOffsetY - padY;
+        } else if ((pixPosition.y + iwHeight + iwOffsetY + padY) > mapHeight) {
+          yOffset = pixPosition.y + iwHeight + iwOffsetY + padY - mapHeight;
+        }
+      }
+
+      if (!(xOffset === 0 && yOffset === 0)) {
+
+        // Move the map to the shifted center.
+        //
+        var c = map.getCenter();
+        map.panBy(xOffset, yOffset);
+      }
+    }
+  }
+};
+
+/**
+ * Sets the style of the InfoBox by setting the style sheet and applying
+ * other specific styles requested.
+ * @private
+ */
+InfoBox.prototype.setBoxStyle_ = function () {
+
+  var i, boxStyle;
+
+  if (this.div_) {
+
+    // Apply style values from the style sheet defined in the boxClass parameter:
+    this.div_.className = this.boxClass_;
+
+    // Clear existing inline style values:
+    this.div_.style.cssText = "";
+
+    // Apply style values defined in the boxStyle parameter:
+    boxStyle = this.boxStyle_;
+    for (i in boxStyle) {
+
+      if (boxStyle.hasOwnProperty(i)) {
+
+        this.div_.style[i] = boxStyle[i];
+      }
+    }
+
+    // Fix for iOS disappearing InfoBox problem.
+    // See http://stackoverflow.com/questions/9229535/google-maps-markers-disappear-at-certain-zoom-level-only-on-iphone-ipad
+    this.div_.style.WebkitTransform = "translateZ(0)";
+
+    // Fix up opacity style for benefit of MSIE:
+    //
+    if (typeof this.div_.style.opacity !== "undefined" && this.div_.style.opacity !== "") {
+      // See http://www.quirksmode.org/css/opacity.html
+      this.div_.style.MsFilter = "\"progid:DXImageTransform.Microsoft.Alpha(Opacity=" + (this.div_.style.opacity * 100) + ")\"";
+      this.div_.style.filter = "alpha(opacity=" + (this.div_.style.opacity * 100) + ")";
+    }
+
+    // Apply required styles:
+    //
+    this.div_.style.position = "absolute";
+    this.div_.style.visibility = 'hidden';
+    if (this.zIndex_ !== null) {
+
+      this.div_.style.zIndex = this.zIndex_;
+    }
+  }
+};
+
+/**
+ * Get the widths of the borders of the InfoBox.
+ * @private
+ * @return {Object} widths object (top, bottom left, right)
+ */
+InfoBox.prototype.getBoxWidths_ = function () {
+
+  var computedStyle;
+  var bw = {top: 0, bottom: 0, left: 0, right: 0};
+  var box = this.div_;
+
+  if (document.defaultView && document.defaultView.getComputedStyle) {
+
+    computedStyle = box.ownerDocument.defaultView.getComputedStyle(box, "");
+
+    if (computedStyle) {
+
+      // The computed styles are always in pixel units (good!)
+      bw.top = parseInt(computedStyle.borderTopWidth, 10) || 0;
+      bw.bottom = parseInt(computedStyle.borderBottomWidth, 10) || 0;
+      bw.left = parseInt(computedStyle.borderLeftWidth, 10) || 0;
+      bw.right = parseInt(computedStyle.borderRightWidth, 10) || 0;
+    }
+
+  } else if (document.documentElement.currentStyle) { // MSIE
+
+    if (box.currentStyle) {
+
+      // The current styles may not be in pixel units, but assume they are (bad!)
+      bw.top = parseInt(box.currentStyle.borderTopWidth, 10) || 0;
+      bw.bottom = parseInt(box.currentStyle.borderBottomWidth, 10) || 0;
+      bw.left = parseInt(box.currentStyle.borderLeftWidth, 10) || 0;
+      bw.right = parseInt(box.currentStyle.borderRightWidth, 10) || 0;
+    }
+  }
+
+  return bw;
+};
+
+/**
+ * Invoked when <tt>close</tt> is called. Do not call it directly.
+ */
+InfoBox.prototype.onRemove = function () {
+
+  if (this.div_) {
+
+    this.div_.parentNode.removeChild(this.div_);
+    this.div_ = null;
+  }
+};
+
+/**
+ * Draws the InfoBox based on the current map projection and zoom level.
+ */
+InfoBox.prototype.draw = function () {
+
+  this.createInfoBoxDiv_();
+
+  var pixPosition = this.getProjection().fromLatLngToDivPixel(this.position_);
+
+  this.div_.style.left = (pixPosition.x + this.pixelOffset_.width) + "px";
+  
+  if (this.alignBottom_) {
+    this.div_.style.bottom = -(pixPosition.y + this.pixelOffset_.height) + "px";
+  } else {
+    this.div_.style.top = (pixPosition.y + this.pixelOffset_.height) + "px";
+  }
+
+  if (this.isHidden_) {
+
+    this.div_.style.visibility = "hidden";
+
+  } else {
+
+    this.div_.style.visibility = "visible";
+  }
+};
+
+/**
+ * Sets the options for the InfoBox. Note that changes to the <tt>maxWidth</tt>,
+ *  <tt>closeBoxMargin</tt>, <tt>closeBoxURL</tt>, and <tt>enableEventPropagation</tt>
+ *  properties have no affect until the current InfoBox is <tt>close</tt>d and a new one
+ *  is <tt>open</tt>ed.
+ * @param {InfoBoxOptions} opt_opts
+ */
+InfoBox.prototype.setOptions = function (opt_opts) {
+  if (typeof opt_opts.boxClass !== "undefined") { // Must be first
+
+    this.boxClass_ = opt_opts.boxClass;
+    this.setBoxStyle_();
+  }
+  if (typeof opt_opts.boxStyle !== "undefined") { // Must be second
+
+    this.boxStyle_ = opt_opts.boxStyle;
+    this.setBoxStyle_();
+  }
+  if (typeof opt_opts.content !== "undefined") {
+
+    this.setContent(opt_opts.content);
+  }
+  if (typeof opt_opts.disableAutoPan !== "undefined") {
+
+    this.disableAutoPan_ = opt_opts.disableAutoPan;
+  }
+  if (typeof opt_opts.maxWidth !== "undefined") {
+
+    this.maxWidth_ = opt_opts.maxWidth;
+  }
+  if (typeof opt_opts.pixelOffset !== "undefined") {
+
+    this.pixelOffset_ = opt_opts.pixelOffset;
+  }
+  if (typeof opt_opts.alignBottom !== "undefined") {
+
+    this.alignBottom_ = opt_opts.alignBottom;
+  }
+  if (typeof opt_opts.position !== "undefined") {
+
+    this.setPosition(opt_opts.position);
+  }
+  if (typeof opt_opts.zIndex !== "undefined") {
+
+    this.setZIndex(opt_opts.zIndex);
+  }
+  if (typeof opt_opts.closeBoxMargin !== "undefined") {
+
+    this.closeBoxMargin_ = opt_opts.closeBoxMargin;
+  }
+  if (typeof opt_opts.closeBoxURL !== "undefined") {
+
+    this.closeBoxURL_ = opt_opts.closeBoxURL;
+  }
+  if (typeof opt_opts.infoBoxClearance !== "undefined") {
+
+    this.infoBoxClearance_ = opt_opts.infoBoxClearance;
+  }
+  if (typeof opt_opts.isHidden !== "undefined") {
+
+    this.isHidden_ = opt_opts.isHidden;
+  }
+  if (typeof opt_opts.visible !== "undefined") {
+
+    this.isHidden_ = !opt_opts.visible;
+  }
+  if (typeof opt_opts.enableEventPropagation !== "undefined") {
+
+    this.enableEventPropagation_ = opt_opts.enableEventPropagation;
+  }
+
+  if (this.div_) {
+
+    this.draw();
+  }
+};
+
+/**
+ * Sets the content of the InfoBox.
+ *  The content can be plain text or an HTML DOM node.
+ * @param {string|Node} content
+ */
+InfoBox.prototype.setContent = function (content) {
+  this.content_ = content;
+
+  if (this.div_) {
+
+    if (this.closeListener_) {
+
+      google.maps.event.removeListener(this.closeListener_);
+      this.closeListener_ = null;
+    }
+
+    // Odd code required to make things work with MSIE.
+    //
+    if (!this.fixedWidthSet_) {
+
+      this.div_.style.width = "";
+    }
+
+    if (typeof content.nodeType === "undefined") {
+      this.div_.innerHTML = this.getCloseBoxImg_() + content;
+    } else {
+      this.div_.innerHTML = this.getCloseBoxImg_();
+      this.div_.appendChild(content);
+    }
+
+    // Perverse code required to make things work with MSIE.
+    // (Ensures the close box does, in fact, float to the right.)
+    //
+    if (!this.fixedWidthSet_) {
+      this.div_.style.width = this.div_.offsetWidth + "px";
+      if (typeof content.nodeType === "undefined") {
+        this.div_.innerHTML = this.getCloseBoxImg_() + content;
+      } else {
+        this.div_.innerHTML = this.getCloseBoxImg_();
+        this.div_.appendChild(content);
+      }
+    }
+
+    this.addClickHandler_();
+  }
+
+  /**
+   * This event is fired when the content of the InfoBox changes.
+   * @name InfoBox#content_changed
+   * @event
+   */
+  google.maps.event.trigger(this, "content_changed");
+};
+
+/**
+ * Sets the geographic location of the InfoBox.
+ * @param {LatLng} latlng
+ */
+InfoBox.prototype.setPosition = function (latlng) {
+
+  this.position_ = latlng;
+
+  if (this.div_) {
+
+    this.draw();
+  }
+
+  /**
+   * This event is fired when the position of the InfoBox changes.
+   * @name InfoBox#position_changed
+   * @event
+   */
+  google.maps.event.trigger(this, "position_changed");
+};
+
+/**
+ * Sets the zIndex style for the InfoBox.
+ * @param {number} index
+ */
+InfoBox.prototype.setZIndex = function (index) {
+
+  this.zIndex_ = index;
+
+  if (this.div_) {
+
+    this.div_.style.zIndex = index;
+  }
+
+  /**
+   * This event is fired when the zIndex of the InfoBox changes.
+   * @name InfoBox#zindex_changed
+   * @event
+   */
+  google.maps.event.trigger(this, "zindex_changed");
+};
+
+/**
+ * Sets the visibility of the InfoBox.
+ * @param {boolean} isVisible
+ */
+InfoBox.prototype.setVisible = function (isVisible) {
+
+  this.isHidden_ = !isVisible;
+  if (this.div_) {
+    this.div_.style.visibility = (this.isHidden_ ? "hidden" : "visible");
+  }
+};
+
+/**
+ * Returns the content of the InfoBox.
+ * @returns {string}
+ */
+InfoBox.prototype.getContent = function () {
+
+  return this.content_;
+};
+
+/**
+ * Returns the geographic location of the InfoBox.
+ * @returns {LatLng}
+ */
+InfoBox.prototype.getPosition = function () {
+
+  return this.position_;
+};
+
+/**
+ * Returns the zIndex for the InfoBox.
+ * @returns {number}
+ */
+InfoBox.prototype.getZIndex = function () {
+
+  return this.zIndex_;
+};
+
+/**
+ * Returns a flag indicating whether the InfoBox is visible.
+ * @returns {boolean}
+ */
+InfoBox.prototype.getVisible = function () {
+
+  var isVisible;
+
+  if ((typeof this.getMap() === "undefined") || (this.getMap() === null)) {
+    isVisible = false;
+  } else {
+    isVisible = !this.isHidden_;
+  }
+  return isVisible;
+};
+
+/**
+ * Shows the InfoBox. [Deprecated; use <tt>setVisible</tt> instead.]
+ */
+InfoBox.prototype.show = function () {
+
+  this.isHidden_ = false;
+  if (this.div_) {
+    this.div_.style.visibility = "visible";
+  }
+};
+
+/**
+ * Hides the InfoBox. [Deprecated; use <tt>setVisible</tt> instead.]
+ */
+InfoBox.prototype.hide = function () {
+
+  this.isHidden_ = true;
+  if (this.div_) {
+    this.div_.style.visibility = "hidden";
+  }
+};
+
+/**
+ * Adds the InfoBox to the specified map or Street View panorama. If <tt>anchor</tt>
+ *  (usually a <tt>google.maps.Marker</tt>) is specified, the position
+ *  of the InfoBox is set to the position of the <tt>anchor</tt>. If the
+ *  anchor is dragged to a new location, the InfoBox moves as well.
+ * @param {Map|StreetViewPanorama} map
+ * @param {MVCObject} [anchor]
+ */
+InfoBox.prototype.open = function (map, anchor) {
+
+  var me = this;
+
+  if (anchor) {
+
+    this.position_ = anchor.getPosition();
+    this.moveListener_ = google.maps.event.addListener(anchor, "position_changed", function () {
+      me.setPosition(this.getPosition());
+    });
+  }
+
+  this.setMap(map);
+
+  if (this.div_) {
+
+    this.panBox_();
+  }
+};
+
+/**
+ * Removes the InfoBox from the map.
+ */
+InfoBox.prototype.close = function () {
+
+  var i;
+
+  if (this.closeListener_) {
+
+    google.maps.event.removeListener(this.closeListener_);
+    this.closeListener_ = null;
+  }
+
+  if (this.eventListeners_) {
+    
+    for (i = 0; i < this.eventListeners_.length; i++) {
+
+      google.maps.event.removeListener(this.eventListeners_[i]);
+    }
+    this.eventListeners_ = null;
+  }
+
+  if (this.moveListener_) {
+
+    google.maps.event.removeListener(this.moveListener_);
+    this.moveListener_ = null;
+  }
+
+  if (this.contextListener_) {
+
+    google.maps.event.removeListener(this.contextListener_);
+    this.contextListener_ = null;
+  }
+
+  this.setMap(null);
+};
+
+
+module.exports = InfoBox;
 
 },{}],"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/instafeed.js/instafeed.js":[function(require,module,exports){
 // Generated by CoffeeScript 1.3.3
@@ -8208,562 +9123,6 @@ function joinClasses(className/*, ... */) {
 }
 
 module.exports = joinClasses;
-
-},{}],"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-google-maps/lib/Map.js":[function(require,module,exports){
-"use strict";
-var React = require("react/addons"),
-    deepEqual = require("deep-equal"),
-
-    expose_getters_from = require("./helpers/expose_getters_from"),
-    to_event_map = require("./helpers/to_event_map"),
-    assign_event_map_to_prop_types_and_spec = require("./helpers/assign_event_map_to_prop_types_and_spec"),
-    EventBindingMixin = require("./mixins/EventBindingMixin"),
-
-    EVENT_NAMES = "bounds_changed center_changed click dblclick drag dragend dragstart heading_changed idle maptypeid_changed mousemove mouseout mouseover projection_changed resize rightclick tilesloaded tilt_changed zoom_changed",
-    EVENT_MAP = to_event_map(EVENT_NAMES),
-
-    MapSpec,
-    MapPropTypes;
-
-function ensure_map_created (component, createdCallback, createFactory) {
-  var $__0=  component,context=$__0.context,
-      map = context.getMap(),
-      noMap = !map;
-
-  if (noMap && context.getApi() && createFactory) {
-    map = createFactory(component, context);
-  }
-  if (map) {
-    createdCallback(map);
-    if (noMap) {
-      component.setState({_initialized: true});
-    }
-  }
-}
-
-function create_map (component, context) {
-  var $__0=  context.getApi(),Map=$__0.Map,
-      map = new Map(
-    component.refs.mapCanvas.getDOMNode(),
-    component.props
-  );
-  expose_getters_from(component, Map.prototype, map);
-  return context._set_map(map);
-}
-
-MapPropTypes = {
-
-};
-
-MapSpec = {
-  displayName: "Map",
-
-  mixins: [EventBindingMixin(EVENT_MAP)],
-
-  propTypes: MapPropTypes,
-
-  contextTypes: {
-    getMap: React.PropTypes.func,
-    getApi: React.PropTypes.func,
-    hasMap: React.PropTypes.func,
-    _set_map: React.PropTypes.func
-  },
-
-  /*
-   * Some public API we'd like to expose
-   */
-  panBy:function (x, y) {
-    ensure_map_created(this, function(map)  {
-      map.panBy(x, y);
-    });
-  },
-
-  panTo:function (latLng) {
-    ensure_map_created(this, function(map)  {
-      map.panTo(latLng);
-    });
-  },
-
-  panToBounds:function (latLngBounds) {
-    ensure_map_created(this, function(map)  {
-      map.panToBounds(latLngBounds);
-    });
-  },
-
-  fitBounds:function (latLngBounds) {
-    ensure_map_created(this, function(map)  {
-      map.fitBounds(latLngBounds);
-    });
-  },
-
-  getInitialState:function () {
-    return {
-      /* [null, false, true] => ["init", "api loaded", "done"] */
-      _initialized: null,
-    };
-  },
-
-  shouldComponentUpdate:function(nextProps, nextState) {
-    return !deepEqual(nextProps, this.props) || nextState._initialized !== this.state._initialized;
-  },
-
-  componentDidMount:function () {
-    ensure_map_created(this, this.add_listeners, create_map);
-  },
-
-  componentWillReceiveProps:function (nextProps, nextContext) {
-    if (null == this.state._initialized && nextContext.getApi()) {
-      this.setState({
-        _initialized: false,
-      });
-    }
-  },
-
-  componentDidUpdate:function () {
-    ensure_map_created(this, function(map)  {
-      map.setOptions(this.props);
-      this.add_listeners(map);
-    }.bind(this), create_map);
-  },
-
-  componentWillUnmount:function () {
-    ensure_map_created(this, function(map)  {
-      this.clear_listeners(map);
-      this.context._set_map(null);
-    }.bind(this));
-  },
-
-  render:function () {
-    return this._render(this.props, this.state);
-  },
-
-  _render:function (props, state) {
-    return React.createElement("div", {ref: "mapCanvas", 
-      id: props.id, className: props.className, style: props.style}
-    );
-  }
-};
-
-assign_event_map_to_prop_types_and_spec(EVENT_MAP, MapPropTypes, MapSpec);
-
-module.exports = React.createClass(MapSpec);
-
-},{"./helpers/assign_event_map_to_prop_types_and_spec":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-google-maps/lib/helpers/assign_event_map_to_prop_types_and_spec.js","./helpers/expose_getters_from":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-google-maps/lib/helpers/expose_getters_from.js","./helpers/to_event_map":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-google-maps/lib/helpers/to_event_map.js","./mixins/EventBindingMixin":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-google-maps/lib/mixins/EventBindingMixin.js","deep-equal":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-google-maps/node_modules/deep-equal/index.js","react/addons":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/addons.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-google-maps/lib/helpers/assign_event_map_to_prop_types_and_spec.js":[function(require,module,exports){
-"use strict";
-var React = require("react/addons"),
-    $__0=  React,PropTypes=$__0.PropTypes;
-
-function noop () {}
-
-module.exports = function (eventMap, propTypes, spec) {
-  eventMap.__keys__.forEach(function (eventName) {
-    propTypes[eventName] = PropTypes.func;
-    spec[eventName] = function () {for (var args=[],$__0=0,$__1=arguments.length;$__0<$__1;$__0++) args.push(arguments[$__0]);
-      (this.props[eventName] || noop).apply(null, args);
-    };
-  });
-};
-
-},{"react/addons":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/addons.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-google-maps/lib/helpers/create_child_component.js":[function(require,module,exports){
-"use strict";
-var React = require("react/addons"),
-
-    expose_getters_from = require("./expose_getters_from"),
-    to_event_map = require("../helpers/to_event_map"),
-    assign_event_map_to_prop_types_and_spec = require("../helpers/assign_event_map_to_prop_types_and_spec"),
-    EventBindingMixin = require("../mixins/EventBindingMixin");
-
-function ensure_instance_created (component, createdCallback, createFactory) {
-  var $__0=  component,context=$__0.context,
-      $__1=  component.state,_instance=$__1._instance,
-      noInstance = !_instance;
-  
-  if (noInstance && context.getApi() && context.hasMap() && createFactory) {
-    _instance = createFactory(component, context);
-  }
-  if (_instance) {
-    createdCallback(_instance);
-    if (noInstance) {
-      component.setState({_instance:_instance});
-    }
-  }
-}
-
-function setMapToInstance (component, instance) {
-  instance.setMap(component.context.getMap());
-}
-
-module.exports = function(childName, eventNames, _created_callback)  {
-  var createdCallback = _created_callback || setMapToInstance,
-
-      EVENT_MAP = to_event_map(eventNames),
-
-      ChildPropTypes,
-      ChildSpec;
-
-  function create_instance (component, context) {
-    var ChildClass = context.getApi()[childName],
-        instance = new ChildClass(component.props);
-
-    expose_getters_from(component, ChildClass.prototype, instance);
-    return instance;
-  }
-
-  ChildPropTypes = {
-
-  };
-
-  /*
-   * shouldComponentUpdate: true. Always rerender for child
-   */
-  ChildSpec = {
-    displayName: childName,
-
-    mixins: [EventBindingMixin(EVENT_MAP)],
-
-    contextTypes: {
-      getMap: React.PropTypes.func,
-      getApi: React.PropTypes.func,
-      hasMap: React.PropTypes.func,
-      getInstanceByRef: React.PropTypes.func
-    },
-
-    propTypes: ChildPropTypes,
-
-    getInitialState:function () {
-      return {
-        _instance: null
-      };
-    },
-
-    componentDidMount:function () {
-      ensure_instance_created(this, function(instance)  {
-        this.add_listeners(instance);
-        createdCallback(this, instance);
-      }.bind(this), create_instance);
-    },
-
-    componentDidUpdate:function () {
-      ensure_instance_created(this, function(instance)  {
-        instance.setOptions(this.props);
-        this.add_listeners(instance);
-        createdCallback(this, instance);
-      }.bind(this), create_instance);
-    },
-
-    componentWillUnmount:function () {
-      ensure_instance_created(this, function(instance)  {
-        this.clear_listeners(instance);
-        instance.setMap(null);
-      }.bind(this));
-    },
-
-    render:function () {
-      return this._render(this.props, this.state);
-    },
-
-    _render:function (props, state) {
-      return null;
-    }
-  };
-
-  assign_event_map_to_prop_types_and_spec(EVENT_MAP, ChildPropTypes, ChildSpec);
-
-  return React.createClass(ChildSpec);
-}.bind(this);
-
-
-},{"../helpers/assign_event_map_to_prop_types_and_spec":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-google-maps/lib/helpers/assign_event_map_to_prop_types_and_spec.js","../helpers/to_event_map":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-google-maps/lib/helpers/to_event_map.js","../mixins/EventBindingMixin":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-google-maps/lib/mixins/EventBindingMixin.js","./expose_getters_from":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-google-maps/lib/helpers/expose_getters_from.js","react/addons":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/addons.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-google-maps/lib/helpers/expose_getters_from.js":[function(require,module,exports){
-"use strict";
-
-module.exports = function (component, prototype, instance) {
-  for (var key in prototype) {
-    if (key.match(/^get/) && !key.match(/Map$/)) {
-      component[key] = instance[key].bind(instance);
-    }
-  }
-};
-
-},{}],"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-google-maps/lib/helpers/to_event_map.js":[function(require,module,exports){
-"use strict";
-
-module.exports = function(event_names)  {
-  return event_names.split(" ").reduce(listToMap, {__keys__: []});
-};
-
-function listToMap (map, event_name, index, list) {
-  var eventName = toEventName(event_name);
-  map.__keys__.push(eventName);
-  map[eventName] = event_name;
-  return map;
-}
-
-function toEventName(name) {
-  return ("on" +  name
-    .replace(/^(.)/, groupToUpperCase)
-    .replace(/_(.)/g, groupToUpperCase));
-}
-
-function groupToUpperCase (match, group) {
-  return group.toUpperCase();
-}
-
-},{}],"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-google-maps/lib/index.js":[function(require,module,exports){
-"use strict";
-var create_child_component = require("./helpers/create_child_component"),
-
-    BASIC_EVENT_NAMES = "click dblclick drag dragend dragstart mousedown mousemove mouseout mouseover mouseup rightclick";
-
-exports.GoogleMapsMixin = require("./mixins/GoogleMapsMixin");
-exports.Map = require("./Map");
-
-[
-  [
-    "Marker",
-    "animation_changed click clickable_changed cursor_changed dblclick drag dragend draggable_changed dragstart flat_changed icon_changed mousedown mouseout mouseover mouseup position_changed rightclick shape_changed title_changed visible_changed zindex_changed",
-  ],
-  [
-    "Polyline",
-    BASIC_EVENT_NAMES,
-  ],
-  [
-    "Polygon",
-    BASIC_EVENT_NAMES,
-  ],
-  [
-    "InfoWindow",
-    "closeclick content_changed domready position_changed zindex_changed",
-    function(component, infoWindow)  {
-      var $__0=  component,context=$__0.context,
-          $__1=  component.props,owner=$__1.owner;
-      infoWindow.open(
-        context.getMap(),
-        owner ? context.getInstanceByRef(owner) : undefined
-      );
-    }
-  ],
-].forEach(function(args)  {
-  exports[args[0]] = create_child_component.apply(null, args);
-});
-
-},{"./Map":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-google-maps/lib/Map.js","./helpers/create_child_component":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-google-maps/lib/helpers/create_child_component.js","./mixins/GoogleMapsMixin":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-google-maps/lib/mixins/GoogleMapsMixin.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-google-maps/lib/mixins/EventBindingMixin.js":[function(require,module,exports){
-"use strict";
-
-module.exports = function (EVENT_MAP) {
-  return {
-    add_listeners:function (instance) {
-      var $__0=  this.context.getApi(),event=$__0.event,
-          $__1=  this.state,_event_handles=$__1._event_handles;
-      if (_event_handles) {
-        return;
-      }
-
-      _event_handles = EVENT_MAP.__keys__.map(function(eventName)  {
-        return event.addListener(instance, EVENT_MAP[eventName], this[eventName]);
-      }.bind(this));
-      this.setState({ _event_handles:_event_handles });
-    },
-
-    clear_listeners:function (instance) {
-      var $__0=  this.context.getApi(),event=$__0.event,
-          $__1=  this.state,_event_handles=$__1._event_handles;
-      if (!_event_handles) {
-        return;
-      }
-      _event_handles.map(event.removeListener, event);
-    },
-  };
-};
-
-},{}],"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-google-maps/lib/mixins/GoogleMapsMixin.js":[function(require,module,exports){
-"use strict";
-var React = require("react/addons");
-
-module.exports = {
-
-  getInitialState:function () {
-    return {
-      googleMapsApi: this.props.googleMapsApi,
-      map: null
-    };
-  },
-
-  childContextTypes: {
-    getMap: React.PropTypes.func,
-    getApi: React.PropTypes.func,
-    hasMap: React.PropTypes.func,
-    getInstanceByRef: React.PropTypes.func,
-    _set_map: React.PropTypes.func
-  },
-
-  getChildContext:function () {
-    return {
-      getMap: this._get_map,
-      getApi: this._get_api,
-      hasMap: this._has_map,
-      getInstanceByRef: this._get_instance_by_ref,
-      _set_map: this._set_map
-    };
-  },
-
-  componentWillReceiveProps:function (nextProps) {
-    if (!this.state.googleMapsApi && nextProps.googleMapsApi) {
-      this.setState({
-        googleMapsApi: nextProps.googleMapsApi
-      });
-    }
-  },
-
-  _get_map:function () {
-    return this.state.map;
-  },
-
-  _get_api:function () {
-    return this.state.googleMapsApi;
-  },
-
-  _has_map:function () {
-    return !!this._get_map();
-  },
-
-  _get_instance_by_ref:function (key) {
-    return this.refs[key].state._instance;
-  },
-
-  _set_map:function (map) {
-    this.setState({ map:map });
-    return map;
-  }
-};
-
-},{"react/addons":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/addons.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-google-maps/node_modules/deep-equal/index.js":[function(require,module,exports){
-var pSlice = Array.prototype.slice;
-var objectKeys = require('./lib/keys.js');
-var isArguments = require('./lib/is_arguments.js');
-
-var deepEqual = module.exports = function (actual, expected, opts) {
-  if (!opts) opts = {};
-  // 7.1. All identical values are equivalent, as determined by ===.
-  if (actual === expected) {
-    return true;
-
-  } else if (actual instanceof Date && expected instanceof Date) {
-    return actual.getTime() === expected.getTime();
-
-  // 7.3. Other pairs that do not both pass typeof value == 'object',
-  // equivalence is determined by ==.
-  } else if (typeof actual != 'object' && typeof expected != 'object') {
-    return opts.strict ? actual === expected : actual == expected;
-
-  // 7.4. For all other Object pairs, including Array objects, equivalence is
-  // determined by having the same number of owned properties (as verified
-  // with Object.prototype.hasOwnProperty.call), the same set of keys
-  // (although not necessarily the same order), equivalent values for every
-  // corresponding key, and an identical 'prototype' property. Note: this
-  // accounts for both named and indexed properties on Arrays.
-  } else {
-    return objEquiv(actual, expected, opts);
-  }
-}
-
-function isUndefinedOrNull(value) {
-  return value === null || value === undefined;
-}
-
-function isBuffer (x) {
-  if (!x || typeof x !== 'object' || typeof x.length !== 'number') return false;
-  if (typeof x.copy !== 'function' || typeof x.slice !== 'function') {
-    return false;
-  }
-  if (x.length > 0 && typeof x[0] !== 'number') return false;
-  return true;
-}
-
-function objEquiv(a, b, opts) {
-  var i, key;
-  if (isUndefinedOrNull(a) || isUndefinedOrNull(b))
-    return false;
-  // an identical 'prototype' property.
-  if (a.prototype !== b.prototype) return false;
-  //~~~I've managed to break Object.keys through screwy arguments passing.
-  //   Converting to array solves the problem.
-  if (isArguments(a)) {
-    if (!isArguments(b)) {
-      return false;
-    }
-    a = pSlice.call(a);
-    b = pSlice.call(b);
-    return deepEqual(a, b, opts);
-  }
-  if (isBuffer(a)) {
-    if (!isBuffer(b)) {
-      return false;
-    }
-    if (a.length !== b.length) return false;
-    for (i = 0; i < a.length; i++) {
-      if (a[i] !== b[i]) return false;
-    }
-    return true;
-  }
-  try {
-    var ka = objectKeys(a),
-        kb = objectKeys(b);
-  } catch (e) {//happens when one is a string literal and the other isn't
-    return false;
-  }
-  // having the same number of owned properties (keys incorporates
-  // hasOwnProperty)
-  if (ka.length != kb.length)
-    return false;
-  //the same set of keys (although not necessarily the same order),
-  ka.sort();
-  kb.sort();
-  //~~~cheap key test
-  for (i = ka.length - 1; i >= 0; i--) {
-    if (ka[i] != kb[i])
-      return false;
-  }
-  //equivalent values for every corresponding key, and
-  //~~~possibly expensive deep test
-  for (i = ka.length - 1; i >= 0; i--) {
-    key = ka[i];
-    if (!deepEqual(a[key], b[key], opts)) return false;
-  }
-  return typeof a === typeof b;
-}
-
-},{"./lib/is_arguments.js":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-google-maps/node_modules/deep-equal/lib/is_arguments.js","./lib/keys.js":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-google-maps/node_modules/deep-equal/lib/keys.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-google-maps/node_modules/deep-equal/lib/is_arguments.js":[function(require,module,exports){
-var supportsArgumentsClass = (function(){
-  return Object.prototype.toString.call(arguments)
-})() == '[object Arguments]';
-
-exports = module.exports = supportsArgumentsClass ? supported : unsupported;
-
-exports.supported = supported;
-function supported(object) {
-  return Object.prototype.toString.call(object) == '[object Arguments]';
-};
-
-exports.unsupported = unsupported;
-function unsupported(object){
-  return object &&
-    typeof object == 'object' &&
-    typeof object.length == 'number' &&
-    Object.prototype.hasOwnProperty.call(object, 'callee') &&
-    !Object.prototype.propertyIsEnumerable.call(object, 'callee') ||
-    false;
-};
-
-},{}],"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-google-maps/node_modules/deep-equal/lib/keys.js":[function(require,module,exports){
-exports = module.exports = typeof Object.keys === 'function'
-  ? Object.keys : shim;
-
-exports.shim = shim;
-function shim (obj) {
-  var keys = [];
-  for (var key in obj) keys.push(key);
-  return keys;
-}
 
 },{}],"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-router/modules/actions/LocationActions.js":[function(require,module,exports){
 /**
