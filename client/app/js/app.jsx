@@ -8,6 +8,7 @@ var Router = require('react-router')
   , RouteHandler = Router.RouteHandler
   , Route = Router.Route
   , Link = Router.Link
+  , Location = Router.Location
   , DefaultRoute = Router.DefaultRoute;
 //ReactBootstrap
 var ReactBootstrap = require('react-bootstrap')
@@ -18,14 +19,16 @@ var ReactBootstrap = require('react-bootstrap')
 var Header = require('./components/header.jsx');
 var Home = require('./components/home.jsx');
 var Quem = require('./components/quem.jsx');
-var Chapada = require('./components/chapada.jsx'),
-    Cerrado = Chapada.Cerrado,
-    Historia = Chapada.Historia,
-    Cultura = Chapada.Cultura;
+var Chapada = require('./components/chapada.jsx');
 var Roteiros = require('./components/roteiros.jsx');
 var Onde = require('./components/onde.jsx');
 var Galeria = require('./components/galeria.jsx');
 var Footer = require('./components/footer.jsx');
+var Mapa = require('./components/mapa.jsx');
+var Auth = require('./components/auth.jsx'),
+    Login = require('./components/auth/AuthLogin.jsx'),
+    Logout = require('./components/auth/AuthLogout.jsx'),
+    Admin = require('./components/auth/AuthAdmin.jsx');
 
 var App = React.createClass({
 	mixins: [ Router.State ],
@@ -35,30 +38,47 @@ var App = React.createClass({
 
         return (
             <div>
-            	<Header />
-            	<div className="clear"></div>
+    
 		          <RouteHandler />
-            	<Footer />
             </div>
         );
     }
 });
+var Main = React.createClass({
+  mixins: [ Router.State ],
+
+    render: function () {
+      var name = this.getRoutes().reverse()[0].name;
+
+        return (
+            <div>
+              <Header />
+              <div className="clear"></div>
+              <RouteHandler />
+              <Footer />
+            </div>
+        );
+    }
+}); 
 var routes = (
   <Route handler={App}>
-    <Route name="Home" handler={Home} />
-    <Route name="Quem" handler={Quem} />
-    <Route name="Chapada" handler={Chapada} >
-      <Route name="cerrado" handler={Cerrado} />
-      <Route name="historia" handler={Historia} />
-      <Route name="cultura" handler={Cultura} />
-    </Route>  
-    <Route name="Roteiros" handler={Roteiros} />
-    <Route name="Onde" handler={Onde} />
-    <Route name="Galeria" handler={Galeria} />
+    <Route handler={Main}>
+      <Route name="Home" handler={Home} path="/" />
+      <Route name="quem" handler={Quem} path="/quem" />
+      <Route name="chapada" handler={Chapada} path="/chapada" />
+      <Route name="roteiros" handler={Roteiros} path="/roteiros" />
+      <Route name="onde" handler={Onde} path="/onde" />
+      <Route name="galeria" handler={Galeria} path="/galeria" />
+      <Route name="auth" handler={Auth} path="/auth" >
+        <Route name="login" handler={Login} path="/login" />
+        <Route name="logout" handler={Logout} path="/logout" />
+        <Route name="admin" handler={Admin} path="/admin" />
+      </Route>
+    </Route>
+    <Route handler={Mapa} name="mapa" path="/mapa" />    
     <DefaultRoute handler={Home} />
   </Route>
 );
-
 
 Router.run(routes, function (Handler) {
   React.render(<Handler/>, document.getElementById('app'));

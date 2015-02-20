@@ -1,6 +1,7 @@
 'use strict';
 
-var RoteirosItem = React.createClass({
+var RoteirosItemInfo = require('./roteirosItemInfo.jsx'),
+	RoteirosItem = React.createClass({
 	render: function() {
 		return (
 			<div className="grid_50_h br">
@@ -20,7 +21,7 @@ var RoteirosItem = React.createClass({
 							</figcaption>
 						</div>
 						<ul>
-							<li><i className="fa fa-bicycle"></i></li>
+							<RoteirosItemInfo />
 							<li><i className="fa fa-car"></i></li>
 							<li><i className="fa fa-bar-chart"></i></li>
 							<li><i className="fa fa-cutlery"></i></li>

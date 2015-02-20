@@ -1,6 +1,34 @@
 'use strict';
+
 var React = require('react'),
+	Firebase = require("firebase"),
 	HomeContent = React.createClass({
+		loadData: function () {
+			var myFirebaseRef = new Firebase("https://guias.firebaseio.com/");
+			 myFirebaseRef.child("conteudo/quemsomos").on("value", function(snapshot) {
+			  var quemsomos = snapshot.val();
+
+			  this.setState({
+				quemsomos : quemsomos
+			});
+			}.bind(this));
+			myFirebaseRef.child("conteudo/achapada").on("value", function(snapshot) {
+			  var achapada = snapshot.val();
+
+			  this.setState({
+				achapada : achapada
+			});
+			}.bind(this));
+
+		},
+		getInitialState: function() {
+			this.loadData();
+			return {
+				quemsomos : "...",
+				achapada : "..."
+			};
+		},
+
 		render: function () {
 			return (
 			<div className="home-content">	
@@ -11,14 +39,14 @@ var React = require('react'),
 								<h2 className="hp_dest">Quem somos</h2>
 							</a>
 							<div className="upcoming_txt">
-								<p>Are selfies just selfish, or can you focus on yourself while also thinking of others? Launching the best selfie phone to date, we thought it was time to ask: Can a Selfie really do good?  Introducing The “Selfie Collection”, a fashion collection with a twist. All shot with the new Lumia 735. All selfies will contain a fashion item going up for auction, donating money to the fight against online bullying. Take a look around the “Selfie Collection”, go to the auction, and place your bid now.</p>
+								<p>{this.state.quemsomos}</p>
 								<a className="more" href="">Veja mais &gt;</a>
 							</div>
 						</div>
 						<div className="grid_50_h">
 							<h2 className="hp_dest">Chapada dos Veadeiros</h2>
 							<div className="upcoming_txt">
-								<p>Are selfies just selfish, or can you focus on yourself while also thinking of others? Launching the best selfie phone to date, we thought it was time to ask: Can a Selfie really do good?  Introducing The “Selfie Collection”, a fashion collection with a twist. All shot with the new Lumia 735. All selfies will contain a fashion item going up for auction, donating money to the fight against online bullying. Take a look around the “Selfie Collection”, go to the auction, and place your bid now.</p>
+								<p>{this.state.achapada}</p>
 								<a className="more" href="">Veja mais &gt;</a>
 							</div>
 						</div>

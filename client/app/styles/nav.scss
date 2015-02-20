@@ -11,13 +11,24 @@
 #header h1 img { margin-left: 22%; width: 56%; margin-top: 3%; }
 #social { height: 100px;}
 .social_icons {height: 50px;}
-.social_icons li {list-style: none; float: left; display: inline; width: 31.7%; padding: 0; margin: 0;  }
-.social_icons li  img { text-align: center; display: block; padding: 17px; margin: 0 auto;}
+.social_icons .icono-mail,
+.social_icons .icono-facebook,
+.social_icons .icono-instagram {
+	color: #417505;
+}
+.social_icons .icono-mail:hover,
+.social_icons .icono-facebook:hover,
+.social_icons .icono-instagram:hover {
+	color: #000;
+}
+.social_icons li {height: 50px; list-style: none; float: left; display: inline; width: 31.7%; padding: 0; margin: 0;  }
+.social_icons li  span { text-align: center; display: block; margin: 10px auto;}
 .social_icons { 
 	float: left; 
 	border-bottom: 4px solid #417505; 
 	border-left: 4px solid #417505; 
-	width: 33.145%}
+	width: 33.145%
+}
 .nav-lang { 
 	width: 66.3%; 
 	float: left; 
@@ -34,6 +45,7 @@
 	margin-top: 1.4%; 
 	margin-right: 5%; 
 }
+
 /*
 .fb a img, .gplus a img { padding: 14px!important;}
 */
@@ -45,19 +57,8 @@
 	text-align: center;
 	line-height: 40px; 
 }
-
-.social_icons .mail{ border-right: 4px solid #417505;}
-.social_icons .fb { border-right: 4px solid #417505;}
-
-.social_icons .mail a{ background: url(../img/Guias_social-icons_mail_g.png) no-repeat; width: 70px; height: 50px; display: block; background-position: 55% 55%; }
-.social_icons .mail a:hover{ background: url(../img/Guias_social-icons_mail_b.png) no-repeat; background-position: 55% 55%;  }
-
-.social_icons .fb a{ background: url(../img/Guias_social-icons_fb_g.png) no-repeat;  width: 70px; height: 50px; display: block; background-position: 55% 55%;  }
-.social_icons .fb a:hover{ background: url(../img/Guias_social-icons_fb_b.png) no-repeat; display: block; background-position: 55% 55%; }
-
-.social_icons .in a{ background: url(../img/Guias_social-icons_in_g.png) no-repeat;width: 70px; height: 50px;  display: block; background-position: 55% 55%;  }
-.social_icons .in a:hover{ background: url(../img/Guias_social-icons_in_b.png) no-repeat; display: block; background-position: 55% 55%; }
-
+.social_icons li:nth-child(1) { border-right: 4px solid #417505;}
+.social_icons  li:nth-child(2) { border-right: 4px solid #417505;}
 .nav-galeria { 
 	height: 50px;
 	float: left; 

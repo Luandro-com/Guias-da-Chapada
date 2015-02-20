@@ -23,14 +23,14 @@ var React = require('react'),
 										<div>ENGLISH / ESPAÑOL</div>
 									</div>
 									<ul className="social_icons">
-										<li className="mail"><a target="_blank" href="mailto:contato@guiasdachapada.com"></a></li>
-										<li className="fb"><a target="_blank" href="https://twitter.com/guias"></a></li>
-										<li className="in"><a target="_blank" href="https://www.facebook.com/guias"></a></li>
+										<li><a target="_blank" href="mailto:contato@guiasdachapada.com"><span className="icono-mail"></span></a></li>
+										<li><a target="_blank" href="https://twitter.com/guias"><span className="icono-facebook"></span></a></li>
+										<li><a target="_blank" href="https://www.facebook.com/guias"><span className="icono-instagram"></span></a></li>
 									</ul>
 								</div>
 								<div>
 									<div className="nav-agenda">Sua agenda está vazia</div>
-									<div className="nav-galeria"><Link to="Galeria">GALERIA</Link></div>
+									<div className="nav-galeria"><Link to="galeria">GALERIA</Link></div>
 								</div>
 							</div>
 			    		</div>

@@ -11,11 +11,11 @@ var React = require('react'),
 				<div id="navigation" className="grid_100">
 					<div>
 						<ul className="word-rotate">
-							<a href="./mapa.html"><li>Mapa Interativo</li></a>
-							<Link to="Quem"><li>Quem Somos</li></Link>
-							<Link to="Chapada"><li>A Chapada</li></Link>
-							<Link to="Roteiros"><li>Roteiros e Atrativos</li></Link>
-							<Link to="Onde"><li id="menu-item-32">Onde Fica e Comer</li></Link>
+							<Link to="mapa"><li>Mapa Interativo</li></Link>
+							<Link to="quem"><li>Quem Somos</li></Link>
+							<Link to="chapada"><li>A Chapada</li></Link>
+							<Link to="roteiros"><li>Roteiros e Atrativos</li></Link>
+							<Link to="onde"><li id="menu-item-32">Onde Fica e Comer</li></Link>
 						</ul>
 					</div>     
 					<div className="clear"></div>

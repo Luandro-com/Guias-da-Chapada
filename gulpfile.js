@@ -110,7 +110,7 @@ gulp.task('watch', ['clean'], function() {
 
 gulp.task('build', ['clean'], function() {
   process.env.NODE_ENV = 'production';
-  gulp.start(['browserify', 'styles']);
+  gulp.start(['browserify', 'styles', 'img']);
 });
 
 gulp.task('default', function() {

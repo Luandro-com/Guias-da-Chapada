@@ -1,10 +1,9 @@
 'use strict';
 var React = require('react'),
 	Router = require('react-router'),
-  	Link = Router.Link,
   	RouteHandler = Router.RouteHandler,
 	Chapada = React.createClass({
-
+		
 	render: function() {
 		return (
 		<div classNameName="chapada">
@@ -22,15 +21,15 @@ var React = require('react'),
 						</div>
 					</div>
 					<div className="grid_50_h">
-						<Link to="cerrado"><div className="grid_100 chapada-cerrado">
+						<a to="cerrado"><div className="grid_100 chapada-cerrado">
 							<h2 className="hp_dest">O Cerrado</h2>
-						</div></Link>
-						<Link to="cerrado"><div className="grid_100 chapada-historia">
+						</div></a>
+						<a to="cerrado"><div className="grid_100 chapada-historia">
 							<h2 className="hp_dest">História</h2>
-						</div></Link>
-						<Link to="cerrado"><div className="grid_100 chapada-cultura">
+						</div></a>
+						<a to="cerrado"><div className="grid_100 chapada-cultura">
 							<h2 className="hp_dest">Cultura</h2>
-						</div></Link>
+						</div></a>
 					</div>
 				</div>
 			</div>
