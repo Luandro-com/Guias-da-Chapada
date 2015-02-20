@@ -1,6 +1,6 @@
 #Guias da Chapada
 Página feita para Guias da Chapada dos Veadeiros
 
-```npm install```
+1. ```npm install```
 
-```npm start``` or ```gulp watch```
+2. ```npm start``` or ```gulp watch```
