@@ -4,7 +4,7 @@
   "description": "Guias da Chapada dos Veadeiros",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon index.js --watch"
   },
   "engines": {
     "node": "0.10.x"

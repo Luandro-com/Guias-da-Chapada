@@ -856,61 +856,19 @@ module.exports = HomeSlider;
 var React = require('react/addons'),
 	MapaHeader = require('./mapa/mapaHeader.jsx'),
 	MapaMap = require('./mapa/mapaMap.jsx'),
+	InfoBoxes = require('./mapa/mapaInfoBoxes.jsx'),
 	Mapa = React.createClass({displayName: "Mapa",
 		render: function() {
 			return (
 				React.createElement("div", null, 
-					React.createElement("div", {id: "wrapper"}, 
-						React.createElement("div", {classNameName: "outer_wrap"}, 
-							React.createElement("div", {classNameName: "inner_wrap"}, 
-								React.createElement(MapaHeader, null), 
-				    			React.createElement("div", {classNameName: "clear"}), 
-				    			React.createElement(MapaMap, null)
-							)
+					React.createElement("div", {classNameName: "outer_wrap"}, 
+						React.createElement("div", {classNameName: "inner_wrap"}, 
+							React.createElement(MapaHeader, null), 
+			    			React.createElement("div", {classNameName: "clear"}), 
+			    			React.createElement(MapaMap, null)
 						)
 					), 
-					React.createElement("div", {className: "infobox-wrapper"}, 
-				    React.createElement("div", {id: "infobox1"}, 
-			        	React.createElement("div", {className: "box-title"}, 
-			        		React.createElement("h3", null, "Cachoeira do Macaco")
-			        	), 
-			        	React.createElement("img", {src: "dist/img/slide.jpg", alt: ""}), 
-			        	React.createElement("div", {className: "grid_100"}, 
-			        		React.createElement("div", {className: "grid_20 "}, 
-				        		"4x4"
-				        	), 
-				        	React.createElement("div", {className: "grid_20 "}, 
-				        		"1 DIA"
-				        	), 
-				        	React.createElement("div", {className: "grid_20 "}, 
-				        		"omg"
-				        	), 
-				        	React.createElement("div", {className: "grid_20 "}, 
-				        		"omg"
-				        	), 
-				        	React.createElement("div", {className: "grid_20 "}, 
-				        		"omg"
-				        	)
-			        	), 
-			        	React.createElement("div", {className: "grid_100"}, 
-			        		React.createElement("div", {className: "grid_20 "}, 
-				        		"omg"
-				        	), 
-				        	React.createElement("div", {className: "grid_20 "}, 
-				        		"omg"
-				        	), 
-				        	React.createElement("div", {className: "grid_20 "}, 
-				        		"omg"
-				        	), 
-				        	React.createElement("div", {className: "grid_20 "}, 
-				        		"omg"
-				        	), 
-				        	React.createElement("div", {className: "grid_20 "}, 
-				        		"omg"
-				        	)
-			        	)
-				    )
-				)
+				    React.createElement(InfoBoxes, null)
 				)
 			);
 		}
@@ -918,22 +876,87 @@ var React = require('react/addons'),
 });
 
 module.exports = Mapa;
-},{"./mapa/mapaHeader.jsx":"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/mapa/mapaHeader.jsx","./mapa/mapaMap.jsx":"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/mapa/mapaMap.jsx","react/addons":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/addons.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/mapa/mapaHeader.jsx":[function(require,module,exports){
+},{"./mapa/mapaHeader.jsx":"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/mapa/mapaHeader.jsx","./mapa/mapaInfoBoxes.jsx":"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/mapa/mapaInfoBoxes.jsx","./mapa/mapaMap.jsx":"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/mapa/mapaMap.jsx","react/addons":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/addons.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/mapa/ZoomControl.js":[function(require,module,exports){
+/**
+ * The ZoomControl adds +/- button for the map
+ *
+ */
+
+function ZoomControl(controlDiv, map) {
+  
+  // Creating divs & styles for custom zoom control
+  controlDiv.style.padding = '5px';
+
+  // Set CSS for the control wrapper
+  var controlWrapper = document.createElement('div');
+  controlWrapper.style.backgroundColor = 'white';
+  controlWrapper.style.borderStyle = 'solid';
+  controlWrapper.style.borderWidth = '0';
+  controlWrapper.style.cursor = 'pointer';
+  controlWrapper.style.textAlign = 'center';
+  controlWrapper.style.width = '64px'; 
+  controlWrapper.style.height = '128px';
+  controlWrapper.style.margin = '0 30px 0 0';
+  controlDiv.appendChild(controlWrapper);
+  
+  // Set CSS for the zoomIn
+  var zoomInButton = document.createElement('div');
+  zoomInButton.style.width = '64px'; 
+  zoomInButton.style.height = '64px';
+  zoomInButton.style.backgroundColor = '#417505';
+  zoomInButton.style.insertBefore = '+';
+  /* Change this to be the .png image you want to use */
+  // zoomInButton.style.backgroundImage = 'url("http://placehold.it/32/00ff00")';
+  controlWrapper.appendChild(zoomInButton);
+    
+  // Set CSS for the zoomOut
+  var zoomOutButton = document.createElement('div');
+  zoomOutButton.style.width = '64px'; 
+  zoomOutButton.style.height = '64px';
+  zoomOutButton.style.backgroundColor = 'white';
+  /* Change this to be the .png image you want to use */
+  // zoomOutButton.style.backgroundImage = 'url("http://placehold.it/32/0000ff")';
+  controlWrapper.appendChild(zoomOutButton);
+
+  // Setup the click event listener - zoomIn
+  google.maps.event.addDomListener(zoomInButton, 'click', function() {
+    map.setZoom(map.getZoom() + 1);
+  });
+    
+  // Setup the click event listener - zoomOut
+  google.maps.event.addDomListener(zoomOutButton, 'click', function() {
+    map.setZoom(map.getZoom() - 1);
+  });  
+    
+}
+
+module.exports = ZoomControl;
+},{}],"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/mapa/mapaHeader.jsx":[function(require,module,exports){
 'use strict';
 var React = require('react'),
 	Link = require('react-router').Link,
 	MapaHeader = React.createClass({displayName: "MapaHeader",
 
+	getInitialState: function() {
+		return {
+			menua:'São Jorge',
+			menub:'Alto Paraíso',
+			menuc: 'Roteiros'
+		};
+	},
+	handleClick: function(event) {
+    this.setState({menua:'Alto Paraíso'});
+  	},
 	render: function() {
 		return (
 			React.createElement("nav", null, 
 	  			React.createElement("div", {id: "navigation", className: "grid_100"}, 
 	    			React.createElement("div", null, 
 	    				React.createElement("ul", {className: "word-rotate"}, 
-	    					React.createElement(Link, {to: "/"}, React.createElement("li", {"data-hover": "Mapa Interativo"}, "Guias da Chapada")), 
-							React.createElement("a", {href: "#"}, React.createElement("li", {"data-hover": "Quem Somos"}, "São Jorge")), 
-							React.createElement("a", {href: "#"}, React.createElement("li", {"data-hover": "A Chapada"}, "Alto Paraíso")), 
-							React.createElement("a", {href: "#"}, React.createElement("li", {"data-hover": "Roteiros e Atrativos"}, "Roteiros")), 
+	    					React.createElement(Link, {to: "/"}, React.createElement("li", null, "Guias da Chapada")), 
+							React.createElement("a", {onClick: this.handleClick}, React.createElement("li", null, this.state.menua)), 
+							React.createElement("a", null, React.createElement("li", null, this.state.menub)), 
+							React.createElement("a", null, React.createElement("li", null, this.state.menuc)), 
 							React.createElement("li", {id: "menu-item-32"}, 
 								React.createElement("ul", null, 
 									React.createElement("li", null, React.createElement("a", {target: "_blank", href: "mailto:contato@guiasdachapada.com"}, React.createElement("span", {className: "icono-mail"}))), 
@@ -952,14 +975,134 @@ var React = require('react'),
 });
 
 module.exports = MapaHeader;
-},{"react":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/react.js","react-router":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-router/modules/index.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/mapa/mapaMap.jsx":[function(require,module,exports){
+},{"react":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/react.js","react-router":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-router/modules/index.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/mapa/mapaInfoBox.jsx":[function(require,module,exports){
 'use strict';
 var React = require('react'),
+	InfoBox = React.createClass({displayName: "InfoBox",
+	componentDidMount: function() {
+		
+	},
+	render: function() {
+		return (
+
+		React.createElement("div", null, 
+			React.createElement("div", {id: "infobox1"}, 
+	        	React.createElement("div", {className: "box-title"}, 
+	        		React.createElement("h3", null, "Cachoeira do Macaco")
+	        	), 
+			    React.createElement("img", {src: "dist/img/slide.jpg", alt: ""}), 
+	        	React.createElement("div", {className: "grid_100"}, 
+	        		React.createElement("div", {className: "grid_20 "}, 
+		        		"4x4"
+		        	), 
+		        	React.createElement("div", {className: "grid_20 "}, 
+		        		"1 DIA"
+		        	), 
+		        	React.createElement("div", {className: "grid_20 "}, 
+		        		"omg"
+		        	), 
+		        	React.createElement("div", {className: "grid_20 "}, 
+		        		"omg"
+		        	), 
+		        	React.createElement("div", {className: "grid_20 "}, 
+		        		"omg"
+		        	)
+	        	), 
+	        	React.createElement("div", {className: "grid_100"}, 
+	        		React.createElement("div", {className: "grid_20 "}, 
+		        		"omg"
+		        	), 
+		        	React.createElement("div", {className: "grid_20 "}, 
+		        		"omg"
+		        	), 
+		        	React.createElement("div", {className: "grid_20 "}, 
+		        		"omg"
+		        	), 
+		        	React.createElement("div", {className: "grid_20 "}, 
+		        		"omg"
+		        	), 
+		        	React.createElement("div", {className: "grid_20 "}, 
+		        		"omg"
+		        	)
+	        	)
+			), 
+			React.createElement("div", {id: "infobox2"}, 
+	        	React.createElement("div", {className: "box-title"}, 
+	        		React.createElement("h3", null, "Cachoeira dos Arcanjos")
+	        	), 
+			    React.createElement("img", {src: "dist/img/slide.jpg", alt: ""}), 
+	        	React.createElement("div", {className: "grid_100"}, 
+	        		React.createElement("div", {className: "grid_20 "}, 
+		        		"4x4"
+		        	), 
+		        	React.createElement("div", {className: "grid_20 "}, 
+		        		"1 DIA"
+		        	), 
+		        	React.createElement("div", {className: "grid_20 "}, 
+		        		"omg"
+		        	), 
+		        	React.createElement("div", {className: "grid_20 "}, 
+		        		"omg"
+		        	), 
+		        	React.createElement("div", {className: "grid_20 "}, 
+		        		"omg"
+		        	)
+	        	), 
+	        	React.createElement("div", {className: "grid_100"}, 
+	        		React.createElement("div", {className: "grid_20 "}, 
+		        		"omg"
+		        	), 
+		        	React.createElement("div", {className: "grid_20 "}, 
+		        		"omg"
+		        	), 
+		        	React.createElement("div", {className: "grid_20 "}, 
+		        		"omg"
+		        	), 
+		        	React.createElement("div", {className: "grid_20 "}, 
+		        		"omg"
+		        	), 
+		        	React.createElement("div", {className: "grid_20 "}, 
+		        		"omg"
+		        	)
+	        	)
+			)
+		)
+		);
+	}
+
+});
+
+module.exports = InfoBox;
+},{"react":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/react.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/mapa/mapaInfoBoxes.jsx":[function(require,module,exports){
+'use strict';
+var React = require('react'),
+	InfoBox = require('./mapaInfoBox.jsx'),
+	InfoBoxes = React.createClass({displayName: "InfoBoxes",
+	componentDidMount: function() {
+		
+	},
+	render: function() {
+		return (
+
+		React.createElement("div", {className: "infobox-wrapper"}, 
+			React.createElement(InfoBox, null)
+		)
+		);
+	}
+
+});
+
+module.exports = InfoBoxes;
+},{"./mapaInfoBox.jsx":"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/mapa/mapaInfoBox.jsx","react":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/react.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/mapa/mapaMap.jsx":[function(require,module,exports){
+'use strict';
+
+var React = require('react'),
 	InfoBox = require('google-maps-infobox'),
+	ZoomControl = require('./ZoomControl.js'),
 	MapaMap = React.createClass({displayName: "MapaMap",
 	getDefaultProps: function () {
         return {
-            initialZoom: 12,
+            initialZoom: 11,
             mapCenterLat: -14.137153,
             mapCenterLng: -47.519503,
         };
@@ -967,13 +1110,39 @@ var React = require('react'),
     componentDidMount: function (rootNode) {
         var mapOptions = {
             center: this.mapCenterLatLng(),
-            zoom: this.props.initialZoom
+            zoom: this.props.initialZoom,
+            disableDefaultUI: true
         },
         map = new google.maps.Map(this.getDOMNode(), mapOptions);
-        var marker = new google.maps.Marker({position: this.mapCenterLatLng(), title: 'Hi', map: map});
+        	// Create the DIV to hold the control and call the ZoomControl() constructor
+		  // passing in this DIV.
+		  var zoomControlDiv = document.createElement('div');
+		  var zoomControl = new ZoomControl(zoomControlDiv, map);
+ 	 		zoomControlDiv.index = 1;
+  			map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(zoomControlDiv);
+  		//Markers	
+        var marker = new google.maps.Marker({position: new google.maps.LatLng(-14.210744, -47.473297), title: 'Hi', icon:'./dist/img/marker.png', map: map});
+        var marker2 = new google.maps.Marker({position: new google.maps.LatLng(-14.061744, -47.466086), title: 'Hi', icon:'./dist/img/marker.png',	 map: map});
+        var markerAP = new google.maps.Marker({position: this.mapCenterLatLng(), title: 'Hi', icon:'./dist/img/marker-AP.png',	 map: map});
+        var markerSJ = new google.maps.Marker({position: new google.maps.LatLng(-14.177038, -47.813581), title: 'Hi', icon:'./dist/img/marker-SJ.png',	 map: map});
         this.setState({map: map});
-        infobox = new InfoBox({
+        var infobox = new InfoBox({
 		    content: document.getElementById("infobox1"),
+		    disableAutoPan: false,
+		    maxWidth: 150,
+		    pixelOffset: new google.maps.Size(-140, -450),
+		    zIndex: null,
+		    boxStyle: {
+		                background: "#417505",
+		                width: "330px",
+		                height: "420px"
+		        },    
+		    closeBoxMargin: "12px 4px 2px 2px",
+		    closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif",
+		    infoBoxClearance: new google.maps.Size(1, 1)
+		});
+		var infobox2 = new InfoBox({
+		    content: document.getElementById("infobox2"),
 		    disableAutoPan: false,
 		    maxWidth: 150,
 		    pixelOffset: new google.maps.Size(-140, -450),
@@ -989,7 +1158,14 @@ var React = require('react'),
 		});
 
 		google.maps.event.addListener(marker, 'mouseover', function() {
+		    infobox2.close(map, this);
 		    infobox.open(map, this);
+		    map.panTo(marker.getPosition());
+		    map.panBy(0, -200);
+		});
+		google.maps.event.addListener(marker2, 'mouseover', function() {
+		    infobox.close(map, this);
+		    infobox2.open(map, this);
 		    map.panTo(marker.getPosition());
 		    map.panBy(0, -200);
 		});
@@ -1007,7 +1183,7 @@ var React = require('react'),
 	});
 
 module.exports = MapaMap;
-},{"google-maps-infobox":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/google-maps-infobox/infobox-module.js","react":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/react.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/onde.jsx":[function(require,module,exports){
+},{"./ZoomControl.js":"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/mapa/ZoomControl.js","google-maps-infobox":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/google-maps-infobox/infobox-module.js","react":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/react.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/onde.jsx":[function(require,module,exports){
 'use strict';
 var React = require('react'),
 	OndeItem = require('./onde/ondeItem.jsx'),

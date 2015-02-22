@@ -3,16 +3,26 @@ var React = require('react'),
 	Link = require('react-router').Link,
 	MapaHeader = React.createClass({
 
+	getInitialState: function() {
+		return {
+			menua:'São Jorge',
+			menub:'Alto Paraíso',
+			menuc: 'Roteiros'
+		};
+	},
+	handleClick: function(event) {
+    this.setState({menua:'Alto Paraíso'});
+  	},
 	render: function() {
 		return (
 			<nav>
 	  			<div id="navigation" className="grid_100">
 	    			<div>
 	    				<ul className="word-rotate">
-	    					<Link to="/"><li data-hover="Mapa Interativo">Guias da Chapada</li></Link>
-							<a href="#"><li data-hover="Quem Somos">São Jorge</li></a>
-							<a href="#"><li data-hover="A Chapada">Alto Paraíso</li></a>
-							<a href="#"><li data-hover="Roteiros e Atrativos">Roteiros</li></a>
+	    					<Link to="/"><li>Guias da Chapada</li></Link>
+							<a onClick={this.handleClick}><li>{this.state.menua}</li></a>
+							<a><li>{this.state.menub}</li></a>
+							<a><li>{this.state.menuc}</li></a>
 							<li id="menu-item-32">
 								<ul>
 									<li><a target="_blank" href="mailto:contato@guiasdachapada.com"><span className="icono-mail"></span></a></li>
