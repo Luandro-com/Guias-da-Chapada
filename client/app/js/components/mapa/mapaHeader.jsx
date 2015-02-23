@@ -3,9 +3,6 @@ var React = require('react'),
 	Link = require('react-router').Link,
 	MapaHeader = React.createClass({
 
-	handleClick: function(event) {
-    this.setState({menua:'Alto Paraíso'});
-  	},
 	render: function() {
 		return (
 			<nav>
@@ -13,9 +10,9 @@ var React = require('react'),
 	    			<div>
 	    				<ul className="word-rotate">
 	    					<Link to="/"><li>Guias da Chapada</li></Link>
-							<a onClick={this.handleClick}><li>{this.state.menua}</li></a>
-							<a><li>{this.state.menub}</li></a>
-							<a><li>{this.state.menuc}</li></a>
+							<a onClick={this.props.onMenuAClick}><li>{this.props.menu.menua}</li></a>
+							<a onClick={this.props.onMenuAClick}><li>{this.props.menu.menub}</li></a>
+							<a onClick={this.props.onMenuAClick}><li>{this.props.menu.menuc}</li></a>
 							<li id="menu-item-32">
 								<ul>
 									<li><a target="_blank" href="mailto:contato@guiasdachapada.com"><span className="icono-mail"></span></a></li>

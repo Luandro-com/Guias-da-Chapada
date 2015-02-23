@@ -7,9 +7,10 @@ var React = require('react'),
 	},
 	render: function() {
 		return (
-
 		<div className="infobox-wrapper">
-			<InfoBox />
+			{this.props.boxes.map(function (box) {
+				return <InfoBox box={box} key={box} />		
+			})}
 		</div>
 		);
 	}

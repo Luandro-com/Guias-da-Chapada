@@ -69,12 +69,7 @@ var routes = (
     <Route handler={Main}>
       <Route name="Home" handler={Home} path="/" />
       <Route name="quem" handler={Quem} path="/quem" />
-      <Route name="chapada" handler={Chapada} path="/chapada" >
-        <Route name="cerrado" handler={Cerrado} path="/cerrado" />
-        <Route name="historia" handler={Historia} path="/historia" />
-        <Route name="cultura" handler={Cultura} path="/cultura" />
-        <DefaultRoute handler={Chapada} />
-      </Route>
+      <Route name="chapada" handler={Chapada} path="/chapada" />
       <Route name="roteiros" handler={Roteiros} path="/roteiros" />
       <Route name="onde" handler={Onde} path="/onde" />
       <Route name="galeria" handler={Galeria} path="/galeria" />
@@ -89,7 +84,7 @@ var routes = (
   </Route>
 );
 
-Router.run(routes, function (Handler) {
+Router.run(routes, Router.HistoryLocation, function (Handler) {
   React.render(<Handler/>, document.getElementById('app'));
 });
 

@@ -1,70 +1,29 @@
 'use strict';
 var React = require('react'),
 	InfoBox = React.createClass({
-	componentDidMount: function() {
-		
-	},
-	render: function() {
-		return (
 
+	render: function() {
+		var boxId = "infobox"+ this.props.box[5];
+
+	return (
 		<div>
-			<div id="infobox1">
+			<div id={boxId}>
 	        	<div className="box-title">
-	        		<h3>Cachoeira do Macaco</h3>
+	        		<h3>{this.props.box[2]}</h3>
 	        	</div>
 			    <img src="dist/img/slide.jpg" alt="" />
 	        	<div className="grid_100">
 	        		<div className="grid_20 ">
-		        		4x4
+		        		{this.props.box[4]}
 		        	</div>
 		        	<div className="grid_20 ">
 		        		1 DIA
 		        	</div>
 		        	<div className="grid_20 ">
-		        		omg
+		        		{this.props.box[4]}
 		        	</div>
 		        	<div className="grid_20 ">
-		        		omg
-		        	</div>
-		        	<div className="grid_20 ">
-		        		omg
-		        	</div>
-	        	</div>
-	        	<div className="grid_100">
-	        		<div className="grid_20 ">
-		        		omg
-		        	</div>
-		        	<div className="grid_20 ">
-		        		omg
-		        	</div>
-		        	<div className="grid_20 ">
-		        		omg
-		        	</div>
-		        	<div className="grid_20 ">
-		        		omg
-		        	</div>
-		        	<div className="grid_20 ">
-		        		omg
-		        	</div>
-	        	</div>
-			</div>
-			<div id="infobox2">
-	        	<div className="box-title">
-	        		<h3>Cachoeira dos Arcanjos</h3>
-	        	</div>
-			    <img src="dist/img/slide.jpg" alt="" />
-	        	<div className="grid_100">
-	        		<div className="grid_20 ">
-		        		4x4
-		        	</div>
-		        	<div className="grid_20 ">
-		        		1 DIA
-		        	</div>
-		        	<div className="grid_20 ">
-		        		omg
-		        	</div>
-		        	<div className="grid_20 ">
-		        		omg
+		        		{this.props.box[4]}
 		        	</div>
 		        	<div className="grid_20 ">
 		        		omg
@@ -72,10 +31,10 @@ var React = require('react'),
 	        	</div>
 	        	<div className="grid_100">
 	        		<div className="grid_20 ">
-		        		omg
+		        		{this.props.box[4]}
 		        	</div>
 		        	<div className="grid_20 ">
-		        		omg
+		        		{this.props.box[4]}
 		        	</div>
 		        	<div className="grid_20 ">
 		        		omg

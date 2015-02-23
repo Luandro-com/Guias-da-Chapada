@@ -70,12 +70,7 @@ var routes = (
     React.createElement(Route, {handler: Main}, 
       React.createElement(Route, {name: "Home", handler: Home, path: "/"}), 
       React.createElement(Route, {name: "quem", handler: Quem, path: "/quem"}), 
-      React.createElement(Route, {name: "chapada", handler: Chapada, path: "/chapada"}, 
-        React.createElement(Route, {name: "cerrado", handler: Cerrado, path: "/cerrado"}), 
-        React.createElement(Route, {name: "historia", handler: Historia, path: "/historia"}), 
-        React.createElement(Route, {name: "cultura", handler: Cultura, path: "/cultura"}), 
-        React.createElement(DefaultRoute, {handler: Chapada})
-      ), 
+      React.createElement(Route, {name: "chapada", handler: Chapada, path: "/chapada"}), 
       React.createElement(Route, {name: "roteiros", handler: Roteiros, path: "/roteiros"}), 
       React.createElement(Route, {name: "onde", handler: Onde, path: "/onde"}), 
       React.createElement(Route, {name: "galeria", handler: Galeria, path: "/galeria"}), 
@@ -90,7 +85,7 @@ var routes = (
   )
 );
 
-Router.run(routes, function (Handler) {
+Router.run(routes, Router.HistoryLocation, function (Handler) {
   React.render(React.createElement(Handler, null), document.getElementById('app'));
 });
 
@@ -840,23 +835,41 @@ var React = require('react/addons'),
 	InfoBoxes = require('./mapa/mapaInfoBoxes.jsx'),
 	Mapa = React.createClass({displayName: "Mapa",
 		getInitialState: function() {
-			return {
-				menua:'São Jorge',
-				menub:'Alto Paraíso',
+			var MENU_ITEMS = {
+				menua: 'Alto Paraíso', 
+				menub: 'São Jorge', 
 				menuc: 'Roteiros'
 			};
+			var MAP_SETTINGS = {
+				initialZoom: 11,
+	            mapCenterLat: -14.137153,
+	            mapCenterLng: -47.519503
+			};
+			var MARKER_ITEMS = [
+				[-14.210744, -47.473297, 'Cachoeira dos Macacos', 'slide', '4x4', 0 ],
+				[-14.177038, -47.813581, 'Cachoeira dos Anjos', 'slide', 'bike', 1 ]
+			];
+			return {
+				menu: MENU_ITEMS,
+				settings: MAP_SETTINGS,
+				markers: MARKER_ITEMS
+			};
 		},
+		onMenuAClick: function () {
+			console.log('HELLO');
+		},
+
 		render: function() {
 			return (
 				React.createElement("div", null, 
 					React.createElement("div", {classNameName: "outer_wrap"}, 
 						React.createElement("div", {classNameName: "inner_wrap"}, 
-							React.createElement(MapaHeader, {items: ['Porco', 'Marmelo']}), 
+							React.createElement(MapaHeader, {menu: this.state.menu}), 
 			    			React.createElement("div", {classNameName: "clear"}), 
-			    			React.createElement(MapaMap, null)
+			    			React.createElement(MapaMap, {markers: this.state.markers, settings: this.state.settings})
 						)
 					), 
-				    React.createElement(InfoBoxes, null)
+				    React.createElement(InfoBoxes, {boxes: this.state.markers})
 				)
 			);
 		}
@@ -925,9 +938,6 @@ var React = require('react'),
 	Link = require('react-router').Link,
 	MapaHeader = React.createClass({displayName: "MapaHeader",
 
-	handleClick: function(event) {
-    this.setState({menua:'Alto Paraíso'});
-  	},
 	render: function() {
 		return (
 			React.createElement("nav", null, 
@@ -935,9 +945,9 @@ var React = require('react'),
 	    			React.createElement("div", null, 
 	    				React.createElement("ul", {className: "word-rotate"}, 
 	    					React.createElement(Link, {to: "/"}, React.createElement("li", null, "Guias da Chapada")), 
-							React.createElement("a", {onClick: this.handleClick}, React.createElement("li", null, this.state.menua)), 
-							React.createElement("a", null, React.createElement("li", null, this.state.menub)), 
-							React.createElement("a", null, React.createElement("li", null, this.state.menuc)), 
+							React.createElement("a", {onClick: this.props.onMenuAClick}, React.createElement("li", null, this.props.menu.menua)), 
+							React.createElement("a", {onClick: this.props.onMenuAClick}, React.createElement("li", null, this.props.menu.menub)), 
+							React.createElement("a", {onClick: this.props.onMenuAClick}, React.createElement("li", null, this.props.menu.menuc)), 
 							React.createElement("li", {id: "menu-item-32"}, 
 								React.createElement("ul", null, 
 									React.createElement("li", null, React.createElement("a", {target: "_blank", href: "mailto:contato@guiasdachapada.com"}, React.createElement("span", {className: "icono-mail"}))), 
@@ -960,70 +970,29 @@ module.exports = MapaHeader;
 'use strict';
 var React = require('react'),
 	InfoBox = React.createClass({displayName: "InfoBox",
-	componentDidMount: function() {
-		
-	},
-	render: function() {
-		return (
 
+	render: function() {
+		var boxId = "infobox"+ this.props.box[5];
+
+	return (
 		React.createElement("div", null, 
-			React.createElement("div", {id: "infobox1"}, 
+			React.createElement("div", {id: boxId}, 
 	        	React.createElement("div", {className: "box-title"}, 
-	        		React.createElement("h3", null, "Cachoeira do Macaco")
+	        		React.createElement("h3", null, this.props.box[2])
 	        	), 
 			    React.createElement("img", {src: "dist/img/slide.jpg", alt: ""}), 
 	        	React.createElement("div", {className: "grid_100"}, 
 	        		React.createElement("div", {className: "grid_20 "}, 
-		        		"4x4"
+		        		this.props.box[4]
 		        	), 
 		        	React.createElement("div", {className: "grid_20 "}, 
 		        		"1 DIA"
 		        	), 
 		        	React.createElement("div", {className: "grid_20 "}, 
-		        		"omg"
+		        		this.props.box[4]
 		        	), 
 		        	React.createElement("div", {className: "grid_20 "}, 
-		        		"omg"
-		        	), 
-		        	React.createElement("div", {className: "grid_20 "}, 
-		        		"omg"
-		        	)
-	        	), 
-	        	React.createElement("div", {className: "grid_100"}, 
-	        		React.createElement("div", {className: "grid_20 "}, 
-		        		"omg"
-		        	), 
-		        	React.createElement("div", {className: "grid_20 "}, 
-		        		"omg"
-		        	), 
-		        	React.createElement("div", {className: "grid_20 "}, 
-		        		"omg"
-		        	), 
-		        	React.createElement("div", {className: "grid_20 "}, 
-		        		"omg"
-		        	), 
-		        	React.createElement("div", {className: "grid_20 "}, 
-		        		"omg"
-		        	)
-	        	)
-			), 
-			React.createElement("div", {id: "infobox2"}, 
-	        	React.createElement("div", {className: "box-title"}, 
-	        		React.createElement("h3", null, "Cachoeira dos Arcanjos")
-	        	), 
-			    React.createElement("img", {src: "dist/img/slide.jpg", alt: ""}), 
-	        	React.createElement("div", {className: "grid_100"}, 
-	        		React.createElement("div", {className: "grid_20 "}, 
-		        		"4x4"
-		        	), 
-		        	React.createElement("div", {className: "grid_20 "}, 
-		        		"1 DIA"
-		        	), 
-		        	React.createElement("div", {className: "grid_20 "}, 
-		        		"omg"
-		        	), 
-		        	React.createElement("div", {className: "grid_20 "}, 
-		        		"omg"
+		        		this.props.box[4]
 		        	), 
 		        	React.createElement("div", {className: "grid_20 "}, 
 		        		"omg"
@@ -1031,10 +1000,10 @@ var React = require('react'),
 	        	), 
 	        	React.createElement("div", {className: "grid_100"}, 
 	        		React.createElement("div", {className: "grid_20 "}, 
-		        		"omg"
+		        		this.props.box[4]
 		        	), 
 		        	React.createElement("div", {className: "grid_20 "}, 
-		        		"omg"
+		        		this.props.box[4]
 		        	), 
 		        	React.createElement("div", {className: "grid_20 "}, 
 		        		"omg"
@@ -1064,9 +1033,10 @@ var React = require('react'),
 	},
 	render: function() {
 		return (
-
 		React.createElement("div", {className: "infobox-wrapper"}, 
-			React.createElement(InfoBox, null)
+			this.props.boxes.map(function (box) {
+				return React.createElement(InfoBox, {box: box, key: box})		
+			})
 		)
 		);
 	}
@@ -1081,17 +1051,10 @@ var React = require('react'),
 	InfoBox = require('google-maps-infobox'),
 	ZoomControl = require('./ZoomControl.js'),
 	MapaMap = React.createClass({displayName: "MapaMap",
-	getDefaultProps: function () {
-        return {
-            initialZoom: 11,
-            mapCenterLat: -14.137153,
-            mapCenterLng: -47.519503,
-        };
-    },
     componentDidMount: function (rootNode) {
         var mapOptions = {
             center: this.mapCenterLatLng(),
-            zoom: this.props.initialZoom,
+            zoom: this.props.settings.initialZoom,
             disableDefaultUI: true
         },
         map = new google.maps.Map(this.getDOMNode(), mapOptions);
@@ -1101,59 +1064,59 @@ var React = require('react'),
 		  var zoomControl = new ZoomControl(zoomControlDiv, map);
  	 		zoomControlDiv.index = 1;
   			map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(zoomControlDiv);
-  		//Markers	
+  		{/*var map_markers = this.props.markers.map(function (marker) {
+  			return (
+  				var marker_{marker.id} = new google.maps.Marker({position: new google.maps.LatLng({marker.latitude}, {marker.longitude}), title: 'Hi', icon:'./dist/img/marker.png', map: map});
+  				);
+  		});
         var marker = new google.maps.Marker({position: new google.maps.LatLng(-14.210744, -47.473297), title: 'Hi', icon:'./dist/img/marker.png', map: map});
         var marker2 = new google.maps.Marker({position: new google.maps.LatLng(-14.061744, -47.466086), title: 'Hi', icon:'./dist/img/marker.png',	 map: map});
         var markerAP = new google.maps.Marker({position: this.mapCenterLatLng(), title: 'Hi', icon:'./dist/img/marker-AP.png',	 map: map});
         var markerSJ = new google.maps.Marker({position: new google.maps.LatLng(-14.177038, -47.813581), title: 'Hi', icon:'./dist/img/marker-SJ.png',	 map: map});
-        this.setState({map: map});
-        var infobox = new InfoBox({
-		    content: document.getElementById("infobox1"),
-		    disableAutoPan: false,
-		    maxWidth: 150,
-		    pixelOffset: new google.maps.Size(-140, -450),
-		    zIndex: null,
-		    boxStyle: {
-		                background: "#417505",
-		                width: "330px",
-		                height: "420px"
-		        },    
-		    closeBoxMargin: "12px 4px 2px 2px",
-		    closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif",
-		    infoBoxClearance: new google.maps.Size(1, 1)
-		});
-		var infobox2 = new InfoBox({
-		    content: document.getElementById("infobox2"),
-		    disableAutoPan: false,
-		    maxWidth: 150,
-		    pixelOffset: new google.maps.Size(-140, -450),
-		    zIndex: null,
-		    boxStyle: {
-		                background: "#417505",
-		                width: "330px",
-		                height: "420px"
-		        },    
-		    closeBoxMargin: "12px 4px 2px 2px",
-		    closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif",
-		    infoBoxClearance: new google.maps.Size(1, 1)
-		});
+        */}
+        var marker, i;
+        
+	    for (i = 0; i < this.props.markers.length; i++) {  
+	    	var newInfoBox = "infobox"+i;
+	    	var newMarker = "marker"+i;
+	    	console.log(newMarker);
+		      newMarker = new google.maps.Marker({
+		        position: new google.maps.LatLng(this.props.markers[i][0], this.props.markers[i][1]),
+		        map: map,
+		        icon:'./dist/img/marker.png'
+		      });
+		      console.log(newInfoBox);
+		      var newInfoBox = new InfoBox({
+			    content: document.getElementById(newInfoBox),
+			    disableAutoPan: false,
+			    maxWidth: 150,
+			    pixelOffset: new google.maps.Size(-140, -450),
+			    zIndex: null,
+			    boxStyle: {
+			                background: "#417505",
+			                width: "330px",
+			                height: "420px"
+			        },    
+			    closeBoxMargin: "12px 4px 2px 2px",
+			    closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif",
+			    infoBoxClearance: new google.maps.Size(1, 1)
+			});
+		      console.log(newInfoBox);
+		      google.maps.event.addListener(newMarker, 'mouseover', function() {
+			    //infobox2.close(map, this);
+			    newInfoBox.open(map, this);
+			    console.log(this);
+			    map.panTo(newMarker.getPosition());
+			    map.panBy(0, -200);
+			});
+		      console.log(newInfoBox);
+	    }
 
-		google.maps.event.addListener(marker, 'mouseover', function() {
-		    infobox2.close(map, this);
-		    infobox.open(map, this);
-		    map.panTo(marker.getPosition());
-		    map.panBy(0, -200);
-		});
-		google.maps.event.addListener(marker2, 'mouseover', function() {
-		    infobox.close(map, this);
-		    infobox2.open(map, this);
-		    map.panTo(marker.getPosition());
-		    map.panBy(0, -200);
-		});
+        this.setState({map: map});
+
     },
     mapCenterLatLng: function () {
-        var props = this.props;
-        return new google.maps.LatLng(props.mapCenterLat, props.mapCenterLng);
+        return new google.maps.LatLng(this.props.settings.mapCenterLat, this.props.settings.mapCenterLng);
     },
     render: function () {
         return (
