@@ -3,13 +3,6 @@ var React = require('react'),
 	Link = require('react-router').Link,
 	MapaHeader = React.createClass({
 
-	getInitialState: function() {
-		return {
-			menua:'São Jorge',
-			menub:'Alto Paraíso',
-			menuc: 'Roteiros'
-		};
-	},
 	handleClick: function(event) {
     this.setState({menua:'Alto Paraíso'});
   	},

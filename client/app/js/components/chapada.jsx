@@ -2,7 +2,10 @@
 var React = require('react'),
 	Router = require('react-router'),
   	RouteHandler = Router.RouteHandler,
+  	Link = Router.Link,
+  	Route = Router.Route,
 	Chapada = React.createClass({
+	Displayname:"Chapada",
 		
 	render: function() {
 		return (
@@ -19,17 +22,18 @@ var React = require('react'),
 						<div className="upcoming_txt" id="chapada-handler">
 							Aqui vai várias informações sobre a Chapada. Boa pesquisa para meus amigos guias.
 						</div>
+						<RouteHandler/>
 					</div>
 					<div className="grid_50_h">
-						<a to="cerrado"><div className="grid_100 chapada-cerrado">
+						<Link to="cerrado"><div className="grid_100 chapada-cerrado">
 							<h2 className="hp_dest">O Cerrado</h2>
-						</div></a>
-						<a to="cerrado"><div className="grid_100 chapada-historia">
+						</div></Link>
+						<Link to="historia"><div className="grid_100 chapada-historia">
 							<h2 className="hp_dest">História</h2>
-						</div></a>
-						<a to="cerrado"><div className="grid_100 chapada-cultura">
+						</div></Link>
+						<Link to="cultura"><div className="grid_100 chapada-cultura">
 							<h2 className="hp_dest">Cultura</h2>
-						</div></a>
+						</div></Link>
 					</div>
 				</div>
 			</div>
@@ -39,38 +43,5 @@ var React = require('react'),
 
 });
 
-var Cerrado = React.createClass({
-mixins: [ Router.State ],
-	render: function() {
-		return (
-			<p>
-				Essa é a porra do Cerrado mermão!
-			</p>
-		);
-	}
-});
-var Historia = React.createClass({
-mixins: [ Router.State ],
-	render: function() {
-		return (
-			<p>
-				Essa é a porra do Historia mermão!
-			</p>
-		);
-	}
-});
-var Cultura = React.createClass({
-mixins: [ Router.State ],
-	render: function() {
-		return (
-			<p>
-				Essa é a porra do Cultura mermão!
-			</p>
-		);
-	}
-});
 
-module.exports = Cerrado;
-module.exports = Historia;
-module.exports = Cultura;
 module.exports = Chapada;

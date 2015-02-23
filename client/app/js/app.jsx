@@ -19,7 +19,11 @@ var ReactBootstrap = require('react-bootstrap')
 var Header = require('./components/header.jsx');
 var Home = require('./components/home.jsx');
 var Quem = require('./components/quem.jsx');
-var Chapada = require('./components/chapada.jsx');
+var Chapada = require('./components/chapada.jsx'),
+    Cerrado = Chapada.Cerrado,
+    Historia = Chapada.Historia,
+    Cultura = Chapada.Cultura;
+
 var Roteiros = require('./components/roteiros.jsx');
 var Onde = require('./components/onde.jsx');
 var Galeria = require('./components/galeria.jsx');
@@ -32,13 +36,13 @@ var Auth = require('./components/auth.jsx'),
 
 var App = React.createClass({
 	mixins: [ Router.State ],
+  Displayname: "Guias da Chapada App",
 
     render: function () {
     	var name = this.getRoutes().reverse()[0].name;
 
         return (
             <div>
-    
 		          <RouteHandler />
             </div>
         );
@@ -65,7 +69,12 @@ var routes = (
     <Route handler={Main}>
       <Route name="Home" handler={Home} path="/" />
       <Route name="quem" handler={Quem} path="/quem" />
-      <Route name="chapada" handler={Chapada} path="/chapada" />
+      <Route name="chapada" handler={Chapada} path="/chapada" >
+        <Route name="cerrado" handler={Cerrado} path="/cerrado" />
+        <Route name="historia" handler={Historia} path="/historia" />
+        <Route name="cultura" handler={Cultura} path="/cultura" />
+        <DefaultRoute handler={Chapada} />
+      </Route>
       <Route name="roteiros" handler={Roteiros} path="/roteiros" />
       <Route name="onde" handler={Onde} path="/onde" />
       <Route name="galeria" handler={Galeria} path="/galeria" />
@@ -84,6 +93,7 @@ Router.run(routes, function (Handler) {
   React.render(<Handler/>, document.getElementById('app'));
 });
 
+/**
 /*
 - NavBar
 -- Agenda {TODO}

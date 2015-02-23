@@ -20,7 +20,11 @@ var ReactBootstrap = require('react-bootstrap')
 var Header = require('./components/header.jsx');
 var Home = require('./components/home.jsx');
 var Quem = require('./components/quem.jsx');
-var Chapada = require('./components/chapada.jsx');
+var Chapada = require('./components/chapada.jsx'),
+    Cerrado = Chapada.Cerrado,
+    Historia = Chapada.Historia,
+    Cultura = Chapada.Cultura;
+
 var Roteiros = require('./components/roteiros.jsx');
 var Onde = require('./components/onde.jsx');
 var Galeria = require('./components/galeria.jsx');
@@ -33,13 +37,13 @@ var Auth = require('./components/auth.jsx'),
 
 var App = React.createClass({displayName: "App",
 	mixins: [ Router.State ],
+  Displayname: "Guias da Chapada App",
 
     render: function () {
     	var name = this.getRoutes().reverse()[0].name;
 
         return (
             React.createElement("div", null, 
-    
 		          React.createElement(RouteHandler, null)
             )
         );
@@ -66,7 +70,12 @@ var routes = (
     React.createElement(Route, {handler: Main}, 
       React.createElement(Route, {name: "Home", handler: Home, path: "/"}), 
       React.createElement(Route, {name: "quem", handler: Quem, path: "/quem"}), 
-      React.createElement(Route, {name: "chapada", handler: Chapada, path: "/chapada"}), 
+      React.createElement(Route, {name: "chapada", handler: Chapada, path: "/chapada"}, 
+        React.createElement(Route, {name: "cerrado", handler: Cerrado, path: "/cerrado"}), 
+        React.createElement(Route, {name: "historia", handler: Historia, path: "/historia"}), 
+        React.createElement(Route, {name: "cultura", handler: Cultura, path: "/cultura"}), 
+        React.createElement(DefaultRoute, {handler: Chapada})
+      ), 
       React.createElement(Route, {name: "roteiros", handler: Roteiros, path: "/roteiros"}), 
       React.createElement(Route, {name: "onde", handler: Onde, path: "/onde"}), 
       React.createElement(Route, {name: "galeria", handler: Galeria, path: "/galeria"}), 
@@ -85,6 +94,7 @@ Router.run(routes, function (Handler) {
   React.render(React.createElement(Handler, null), document.getElementById('app'));
 });
 
+/**
 /*
 - NavBar
 -- Agenda {TODO}
@@ -314,7 +324,10 @@ module.exports = Logout;
 var React = require('react'),
 	Router = require('react-router'),
   	RouteHandler = Router.RouteHandler,
+  	Link = Router.Link,
+  	Route = Router.Route,
 	Chapada = React.createClass({displayName: "Chapada",
+	Displayname:"Chapada",
 		
 	render: function() {
 		return (
@@ -330,16 +343,17 @@ var React = require('react'),
 						), 
 						React.createElement("div", {className: "upcoming_txt", id: "chapada-handler"}, 
 							"Aqui vai várias informações sobre a Chapada. Boa pesquisa para meus amigos guias."
-						)
+						), 
+						React.createElement(RouteHandler, null)
 					), 
 					React.createElement("div", {className: "grid_50_h"}, 
-						React.createElement("a", {to: "cerrado"}, React.createElement("div", {className: "grid_100 chapada-cerrado"}, 
+						React.createElement(Link, {to: "cerrado"}, React.createElement("div", {className: "grid_100 chapada-cerrado"}, 
 							React.createElement("h2", {className: "hp_dest"}, "O Cerrado")
 						)), 
-						React.createElement("a", {to: "cerrado"}, React.createElement("div", {className: "grid_100 chapada-historia"}, 
+						React.createElement(Link, {to: "historia"}, React.createElement("div", {className: "grid_100 chapada-historia"}, 
 							React.createElement("h2", {className: "hp_dest"}, "História")
 						)), 
-						React.createElement("a", {to: "cerrado"}, React.createElement("div", {className: "grid_100 chapada-cultura"}, 
+						React.createElement(Link, {to: "cultura"}, React.createElement("div", {className: "grid_100 chapada-cultura"}, 
 							React.createElement("h2", {className: "hp_dest"}, "Cultura")
 						))
 					)
@@ -351,40 +365,7 @@ var React = require('react'),
 
 });
 
-var Cerrado = React.createClass({displayName: "Cerrado",
-mixins: [ Router.State ],
-	render: function() {
-		return (
-			React.createElement("p", null, 
-				"Essa é a porra do Cerrado mermão!"
-			)
-		);
-	}
-});
-var Historia = React.createClass({displayName: "Historia",
-mixins: [ Router.State ],
-	render: function() {
-		return (
-			React.createElement("p", null, 
-				"Essa é a porra do Historia mermão!"
-			)
-		);
-	}
-});
-var Cultura = React.createClass({displayName: "Cultura",
-mixins: [ Router.State ],
-	render: function() {
-		return (
-			React.createElement("p", null, 
-				"Essa é a porra do Cultura mermão!"
-			)
-		);
-	}
-});
 
-module.exports = Cerrado;
-module.exports = Historia;
-module.exports = Cultura;
 module.exports = Chapada;
 },{"react":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/react.js","react-router":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-router/modules/index.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/footer.jsx":[function(require,module,exports){
 'use strict';
@@ -858,12 +839,19 @@ var React = require('react/addons'),
 	MapaMap = require('./mapa/mapaMap.jsx'),
 	InfoBoxes = require('./mapa/mapaInfoBoxes.jsx'),
 	Mapa = React.createClass({displayName: "Mapa",
+		getInitialState: function() {
+			return {
+				menua:'São Jorge',
+				menub:'Alto Paraíso',
+				menuc: 'Roteiros'
+			};
+		},
 		render: function() {
 			return (
 				React.createElement("div", null, 
 					React.createElement("div", {classNameName: "outer_wrap"}, 
 						React.createElement("div", {classNameName: "inner_wrap"}, 
-							React.createElement(MapaHeader, null), 
+							React.createElement(MapaHeader, {items: ['Porco', 'Marmelo']}), 
 			    			React.createElement("div", {classNameName: "clear"}), 
 			    			React.createElement(MapaMap, null)
 						)
@@ -937,13 +925,6 @@ var React = require('react'),
 	Link = require('react-router').Link,
 	MapaHeader = React.createClass({displayName: "MapaHeader",
 
-	getInitialState: function() {
-		return {
-			menua:'São Jorge',
-			menub:'Alto Paraíso',
-			menuc: 'Roteiros'
-		};
-	},
 	handleClick: function(event) {
     this.setState({menua:'Alto Paraíso'});
   	},

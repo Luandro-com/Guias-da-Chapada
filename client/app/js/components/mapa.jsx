@@ -4,12 +4,19 @@ var React = require('react/addons'),
 	MapaMap = require('./mapa/mapaMap.jsx'),
 	InfoBoxes = require('./mapa/mapaInfoBoxes.jsx'),
 	Mapa = React.createClass({
+		getInitialState: function() {
+			return {
+				menua:'São Jorge',
+				menub:'Alto Paraíso',
+				menuc: 'Roteiros'
+			};
+		},
 		render: function() {
 			return (
 				<div>
 					<div classNameName="outer_wrap">
 						<div classNameName="inner_wrap">
-							<MapaHeader />
+							<MapaHeader items={['Porco', 'Marmelo']} />
 			    			<div classNameName="clear"></div>
 			    			<MapaMap />
 						</div>
