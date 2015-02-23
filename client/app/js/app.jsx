@@ -19,11 +19,7 @@ var ReactBootstrap = require('react-bootstrap')
 var Header = require('./components/header.jsx');
 var Home = require('./components/home.jsx');
 var Quem = require('./components/quem.jsx');
-var Chapada = require('./components/chapada.jsx'),
-    Cerrado = Chapada.Cerrado,
-    Historia = Chapada.Historia,
-    Cultura = Chapada.Cultura;
-
+var Chapada = require('./components/chapada.jsx');
 var Roteiros = require('./components/roteiros.jsx');
 var Onde = require('./components/onde.jsx');
 var Galeria = require('./components/galeria.jsx');

@@ -11,22 +11,12 @@ var React = require('react'),
             disableDefaultUI: true
         },
         map = new google.maps.Map(this.getDOMNode(), mapOptions);
-        	// Create the DIV to hold the control and call the ZoomControl() constructor
-		  // passing in this DIV.
+        
 		  var zoomControlDiv = document.createElement('div');
 		  var zoomControl = new ZoomControl(zoomControlDiv, map);
  	 		zoomControlDiv.index = 1;
   			map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(zoomControlDiv);
-  		{/*var map_markers = this.props.markers.map(function (marker) {
-  			return (
-  				var marker_{marker.id} = new google.maps.Marker({position: new google.maps.LatLng({marker.latitude}, {marker.longitude}), title: 'Hi', icon:'./dist/img/marker.png', map: map});
-  				);
-  		});
-        var marker = new google.maps.Marker({position: new google.maps.LatLng(-14.210744, -47.473297), title: 'Hi', icon:'./dist/img/marker.png', map: map});
-        var marker2 = new google.maps.Marker({position: new google.maps.LatLng(-14.061744, -47.466086), title: 'Hi', icon:'./dist/img/marker.png',	 map: map});
-        var markerAP = new google.maps.Marker({position: this.mapCenterLatLng(), title: 'Hi', icon:'./dist/img/marker-AP.png',	 map: map});
-        var markerSJ = new google.maps.Marker({position: new google.maps.LatLng(-14.177038, -47.813581), title: 'Hi', icon:'./dist/img/marker-SJ.png',	 map: map});
-        */}
+
         var marker, i;
         
 	    for (i = 0; i < this.props.markers.length; i++) {  
@@ -63,10 +53,14 @@ var React = require('react'),
 			    map.panBy(0, -200);
 			});
 		      console.log(newInfoBox);
-	    }
+	    };
 
         this.setState({map: map});
 
+    },
+    componentDidUpdate: function() {
+    	var map = this.state.map;
+        map.panTo(this.mapCenterLatLng());
     },
     mapCenterLatLng: function () {
         return new google.maps.LatLng(this.props.settings.mapCenterLat, this.props.settings.mapCenterLng);

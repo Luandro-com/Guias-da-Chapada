@@ -20,11 +20,7 @@ var ReactBootstrap = require('react-bootstrap')
 var Header = require('./components/header.jsx');
 var Home = require('./components/home.jsx');
 var Quem = require('./components/quem.jsx');
-var Chapada = require('./components/chapada.jsx'),
-    Cerrado = Chapada.Cerrado,
-    Historia = Chapada.Historia,
-    Cultura = Chapada.Cultura;
-
+var Chapada = require('./components/chapada.jsx');
 var Roteiros = require('./components/roteiros.jsx');
 var Onde = require('./components/onde.jsx');
 var Galeria = require('./components/galeria.jsx');
@@ -317,12 +313,39 @@ module.exports = Logout;
 },{}],"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/chapada.jsx":[function(require,module,exports){
 'use strict';
 var React = require('react'),
-	Router = require('react-router'),
-  	RouteHandler = Router.RouteHandler,
-  	Link = Router.Link,
-  	Route = Router.Route,
 	Chapada = React.createClass({displayName: "Chapada",
 	Displayname:"Chapada",
+	getDefaultProps: function() {
+		return {
+			textos : {
+				Intro: "Aqui vai várias informações sobre a Chapada. Boa pesquisa para meus amigos guias.",
+				Cerrado: "Infor sobre o cerrado",
+				Historia: "Info sobre a historia",
+				Cultura: "Info sobre a cultura" 
+			}
+		};
+	},
+	getInitialState: function() {
+		
+		return {
+			texto: this.props.textos.Intro
+		};
+	},
+	tabClickA: function () {
+		this.setState({
+			texto: this.props.textos.Cerrado
+		});
+	},
+	tabClickB: function () {
+		this.setState({
+			texto: this.props.textos.Historia
+		});
+	},
+	tabClickC: function () {
+		this.setState({
+			texto: this.props.textos.Cultura
+		});
+	},
 		
 	render: function() {
 		return (
@@ -337,18 +360,17 @@ var React = require('react'),
 							React.createElement("h2", {className: "hp_dest"}, "A Chapada dos Veadeiros")
 						), 
 						React.createElement("div", {className: "upcoming_txt", id: "chapada-handler"}, 
-							"Aqui vai várias informações sobre a Chapada. Boa pesquisa para meus amigos guias."
-						), 
-						React.createElement(RouteHandler, null)
+							this.state.texto
+						)
 					), 
 					React.createElement("div", {className: "grid_50_h"}, 
-						React.createElement(Link, {to: "cerrado"}, React.createElement("div", {className: "grid_100 chapada-cerrado"}, 
+						React.createElement("a", {onClick: this.tabClickA}, React.createElement("div", {className: "grid_100 chapada-cerrado"}, 
 							React.createElement("h2", {className: "hp_dest"}, "O Cerrado")
 						)), 
-						React.createElement(Link, {to: "historia"}, React.createElement("div", {className: "grid_100 chapada-historia"}, 
+						React.createElement("a", {onClick: this.tabClickB}, React.createElement("div", {className: "grid_100 chapada-historia"}, 
 							React.createElement("h2", {className: "hp_dest"}, "História")
 						)), 
-						React.createElement(Link, {to: "cultura"}, React.createElement("div", {className: "grid_100 chapada-cultura"}, 
+						React.createElement("a", {onClick: this.tabClickC}, React.createElement("div", {className: "grid_100 chapada-cultura"}, 
 							React.createElement("h2", {className: "hp_dest"}, "Cultura")
 						))
 					)
@@ -362,7 +384,7 @@ var React = require('react'),
 
 
 module.exports = Chapada;
-},{"react":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/react.js","react-router":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-router/modules/index.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/footer.jsx":[function(require,module,exports){
+},{"react":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/react.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/footer.jsx":[function(require,module,exports){
 'use strict';
 
 var React = require('react'),
@@ -838,7 +860,8 @@ var React = require('react/addons'),
 			var MENU_ITEMS = {
 				menua: 'Alto Paraíso', 
 				menub: 'São Jorge', 
-				menuc: 'Roteiros'
+				menuc: 'Roteiros',
+				cidade: 'Chapada'
 			};
 			var MAP_SETTINGS = {
 				initialZoom: 11,
@@ -856,7 +879,66 @@ var React = require('react/addons'),
 			};
 		},
 		onMenuAClick: function () {
-			console.log('HELLO');
+			if (this.state.menu.cidade === 'Chapada') {
+				this.setState({
+					menu : {
+						menua: 'Atrativos',
+						menub: 'Onde comer',
+						menuc: 'Onde ficar',
+						cidade: 'AP'
+					},
+					settings: {
+						initialZoom: 15,
+						mapCenterLat: -14.137153,
+	            		mapCenterLng: -47.519503
+					},
+					markers: [
+						[-14.210744, -47.473297, 'Restaurante de Alto Paraíso', 'slide', '4x4', 0 ],
+						[-14.177038, -47.813581, 'Pousada de Alto Paraíso', 'slide', 'bike', 1 ]
+					]
+				});
+			}
+			else {
+				this.setState({
+					menu : {
+						menua: 'Alto Paraíso',
+						menub: 'São Jorge',
+						menuc: 'Roteiros',
+						cidade: 'Chapada'
+					},
+					settings: {
+						initialZoom: 3,
+						mapCenterLat: -14.137153,
+	            		mapCenterLng: -47.519503
+					},
+					markers: [
+						[-14.210744, -47.473297, 'Cachoeira dos Macacos', 'slide', '4x4', 0 ],
+						[-14.177038, -47.813581, 'Cachoeira dos Anjos', 'slide', 'bike', 1 ]
+					]
+				});
+			}
+			
+		},
+		onMenuBClick: function () {
+			if (this.state.menu.menub === 'São Jorge') {
+				this.setState({
+					menu : {
+						menua: 'Atrativos',
+						menub: 'Onde comer',
+						menuc: 'Onde ficar',
+						cidade: 'SJ'
+					}
+				});
+			}
+			else if (this.state.menu.cidade === 'SJ') {
+				console.log('Estamos em SJ');
+				this.setState({
+					
+				});
+			}
+		},
+		onMenuCClick: function () {
+			
 		},
 
 		render: function() {
@@ -864,7 +946,11 @@ var React = require('react/addons'),
 				React.createElement("div", null, 
 					React.createElement("div", {classNameName: "outer_wrap"}, 
 						React.createElement("div", {classNameName: "inner_wrap"}, 
-							React.createElement(MapaHeader, {menu: this.state.menu}), 
+							React.createElement(MapaHeader, {
+								menu: this.state.menu, 
+								onMenuAClick: this.onMenuAClick, 
+								onMenuBClick: this.onMenuBClick, 
+								onMenuCClick: this.onMenuCClick}), 
 			    			React.createElement("div", {classNameName: "clear"}), 
 			    			React.createElement(MapaMap, {markers: this.state.markers, settings: this.state.settings})
 						)
@@ -939,6 +1025,7 @@ var React = require('react'),
 	MapaHeader = React.createClass({displayName: "MapaHeader",
 
 	render: function() {
+
 		return (
 			React.createElement("nav", null, 
 	  			React.createElement("div", {id: "navigation", className: "grid_100"}, 
@@ -946,8 +1033,8 @@ var React = require('react'),
 	    				React.createElement("ul", {className: "word-rotate"}, 
 	    					React.createElement(Link, {to: "/"}, React.createElement("li", null, "Guias da Chapada")), 
 							React.createElement("a", {onClick: this.props.onMenuAClick}, React.createElement("li", null, this.props.menu.menua)), 
-							React.createElement("a", {onClick: this.props.onMenuAClick}, React.createElement("li", null, this.props.menu.menub)), 
-							React.createElement("a", {onClick: this.props.onMenuAClick}, React.createElement("li", null, this.props.menu.menuc)), 
+							React.createElement("a", {onClick: this.props.onMenuBClick}, React.createElement("li", null, this.props.menu.menub)), 
+							React.createElement("a", {onClick: this.props.onMenuCClick}, React.createElement("li", null, this.props.menu.menuc)), 
 							React.createElement("li", {id: "menu-item-32"}, 
 								React.createElement("ul", null, 
 									React.createElement("li", null, React.createElement("a", {target: "_blank", href: "mailto:contato@guiasdachapada.com"}, React.createElement("span", {className: "icono-mail"}))), 
@@ -1058,22 +1145,12 @@ var React = require('react'),
             disableDefaultUI: true
         },
         map = new google.maps.Map(this.getDOMNode(), mapOptions);
-        	// Create the DIV to hold the control and call the ZoomControl() constructor
-		  // passing in this DIV.
+        
 		  var zoomControlDiv = document.createElement('div');
 		  var zoomControl = new ZoomControl(zoomControlDiv, map);
  	 		zoomControlDiv.index = 1;
   			map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(zoomControlDiv);
-  		{/*var map_markers = this.props.markers.map(function (marker) {
-  			return (
-  				var marker_{marker.id} = new google.maps.Marker({position: new google.maps.LatLng({marker.latitude}, {marker.longitude}), title: 'Hi', icon:'./dist/img/marker.png', map: map});
-  				);
-  		});
-        var marker = new google.maps.Marker({position: new google.maps.LatLng(-14.210744, -47.473297), title: 'Hi', icon:'./dist/img/marker.png', map: map});
-        var marker2 = new google.maps.Marker({position: new google.maps.LatLng(-14.061744, -47.466086), title: 'Hi', icon:'./dist/img/marker.png',	 map: map});
-        var markerAP = new google.maps.Marker({position: this.mapCenterLatLng(), title: 'Hi', icon:'./dist/img/marker-AP.png',	 map: map});
-        var markerSJ = new google.maps.Marker({position: new google.maps.LatLng(-14.177038, -47.813581), title: 'Hi', icon:'./dist/img/marker-SJ.png',	 map: map});
-        */}
+
         var marker, i;
         
 	    for (i = 0; i < this.props.markers.length; i++) {  
@@ -1110,10 +1187,14 @@ var React = require('react'),
 			    map.panBy(0, -200);
 			});
 		      console.log(newInfoBox);
-	    }
+	    };
 
         this.setState({map: map});
 
+    },
+    componentDidUpdate: function() {
+    	var map = this.state.map;
+        map.panTo(this.mapCenterLatLng());
     },
     mapCenterLatLng: function () {
         return new google.maps.LatLng(this.props.settings.mapCenterLat, this.props.settings.mapCenterLng);

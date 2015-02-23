@@ -1,0 +1,179 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   'react-googlemaps',
+1 verbose cli   '--save' ]
+2 info using npm@2.6.0
+3 info using node@v0.10.35
+4 verbose node symlink /usr/local/bin/node
+5 silly cache add args [ 'react-googlemaps', null ]
+6 verbose cache add spec react-googlemaps
+7 silly cache add parsed spec { raw: 'react-googlemaps',
+7 silly cache add   scope: null,
+7 silly cache add   name: 'react-googlemaps',
+7 silly cache add   rawSpec: '',
+7 silly cache add   spec: '*',
+7 silly cache add   type: 'range' }
+8 verbose addNamed react-googlemaps@*
+9 silly addNamed semver.valid null
+10 silly addNamed semver.validRange *
+11 silly addNameRange { name: 'react-googlemaps', range: '*', hasData: false }
+12 silly mapToRegistry name react-googlemaps
+13 silly mapToRegistry using default registry
+14 silly mapToRegistry registry http://registry.npmjs.org/
+15 silly mapToRegistry uri http://registry.npmjs.org/react-googlemaps
+16 verbose addNameRange registry:http://registry.npmjs.org/react-googlemaps not in flight; fetching
+17 verbose request uri http://registry.npmjs.org/react-googlemaps
+18 verbose request no auth needed
+19 info attempt registry request try #1 at 15:35:09
+20 verbose request id 4743a53c693f6c3e
+21 verbose etag "1ISD03F7ADUCNRXUYI9V5EC91"
+22 http request GET http://registry.npmjs.org/react-googlemaps
+23 http 304 http://registry.npmjs.org/react-googlemaps
+24 silly get cb [ 304,
+24 silly get   { date: 'Mon, 23 Feb 2015 18:35:11 GMT',
+24 silly get     via: '1.1 varnish',
+24 silly get     'last-modified': 'Mon, 23 Feb 2015 18:35:11 GMT',
+24 silly get     'cache-control': 'max-age=60',
+24 silly get     etag: '"1ISD03F7ADUCNRXUYI9V5EC91"',
+24 silly get     age: '0',
+24 silly get     connection: 'keep-alive',
+24 silly get     'x-served-by': 'cache-atl6228-ATL',
+24 silly get     'x-cache': 'MISS',
+24 silly get     'x-cache-hits': '0',
+24 silly get     'x-timer': 'S1424716511.068579,VS0,VE107',
+24 silly get     vary: 'Accept' } ]
+25 verbose etag http://registry.npmjs.org/react-googlemaps from cache
+26 verbose get saving react-googlemaps to /Users/luandrito/.npm/registry.npmjs.org/react-googlemaps/.cache.json
+27 silly addNameRange number 2 { name: 'react-googlemaps', range: '*', hasData: true }
+28 silly addNameRange versions [ 'react-googlemaps',
+28 silly addNameRange   [ '0.1.0', '0.1.1', '0.1.2', '0.2.0', '0.2.1', '0.3.0', '0.4.0' ] ]
+29 verbose addNamed react-googlemaps@0.4.0
+30 silly addNamed semver.valid 0.4.0
+31 silly addNamed semver.validRange 0.4.0
+32 silly cache afterAdd react-googlemaps@0.4.0
+33 verbose afterAdd /Users/luandrito/.npm/react-googlemaps/0.4.0/package/package.json not in flight; writing
+34 verbose afterAdd /Users/luandrito/.npm/react-googlemaps/0.4.0/package/package.json written
+35 silly install resolved [ { name: 'react-googlemaps',
+35 silly install resolved     version: '0.4.0',
+35 silly install resolved     description: 'A declarative React interface to Google Maps',
+35 silly install resolved     keywords: [ 'react', 'react-component', 'google maps', 'googlemaps', 'maps' ],
+35 silly install resolved     main: 'index.js',
+35 silly install resolved     scripts:
+35 silly install resolved      { test: 'jest',
+35 silly install resolved        'build-examples': 'webpack --devtool inline-source-map',
+35 silly install resolved        'watch-examples': 'webpack --devtool inline-source-map --watch' },
+35 silly install resolved     repository:
+35 silly install resolved      { type: 'git',
+35 silly install resolved        url: 'https://github.com/pieterv/react-googlemaps.git' },
+35 silly install resolved     homepage: 'https://github.com/pieterv/react-googlemaps',
+35 silly install resolved     bugs: { url: 'https://github.com/pieterv/react-googlemaps/issues' },
+35 silly install resolved     author: { name: 'Pieter Vanderwerff' },
+35 silly install resolved     license: 'MIT',
+35 silly install resolved     devDependencies:
+35 silly install resolved      { 'jest-cli': '^0.1.18',
+35 silly install resolved        'jsx-loader': '^0.12.2',
+35 silly install resolved        'react-tools': '^0.12.2',
+35 silly install resolved        webpack: '^1.3.7',
+35 silly install resolved        react: '>=0.12.1' },
+35 silly install resolved     peerDependencies: { react: '>=0.12.1', reactify: '>=0.17.1' },
+35 silly install resolved     jest:
+35 silly install resolved      { scriptPreprocessor: '<rootDir>/preprocessor.js',
+35 silly install resolved        unmockedModulePathPatterns: [Object] },
+35 silly install resolved     browserify: { transform: [Object] },
+35 silly install resolved     gitHead: 'cf12264ed26b27756926ebd35ae5eb18102c9fc8',
+35 silly install resolved     _id: 'react-googlemaps@0.4.0',
+35 silly install resolved     _shasum: '038b5b8365bc67feb7be9f213f9ff685ea198280',
+35 silly install resolved     _from: 'react-googlemaps@*',
+35 silly install resolved     _npmVersion: '2.1.14',
+35 silly install resolved     _nodeVersion: '0.10.35',
+35 silly install resolved     _npmUser: { name: 'pieterv', email: 'me@pieter.io' },
+35 silly install resolved     maintainers: [ [Object], [Object] ],
+35 silly install resolved     dist:
+35 silly install resolved      { shasum: '038b5b8365bc67feb7be9f213f9ff685ea198280',
+35 silly install resolved        tarball: 'http://registry.npmjs.org/react-googlemaps/-/react-googlemaps-0.4.0.tgz' },
+35 silly install resolved     directories: {},
+35 silly install resolved     _resolved: 'http://registry.npmjs.org/react-googlemaps/-/react-googlemaps-0.4.0.tgz',
+35 silly install resolved     readme: 'ERROR: No README data found!' } ]
+36 info install react-googlemaps@0.4.0 into /Users/luandrito/Sites/Guias-da-Chapada
+37 info installOne react-googlemaps@0.4.0
+38 verbose installOne of react-googlemaps to /Users/luandrito/Sites/Guias-da-Chapada not in flight; installing
+39 verbose lock using /Users/luandrito/.npm/_locks/react-googlemaps-15c8271ad979d3e6.lock for /Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-googlemaps
+40 silly install write writing react-googlemaps 0.4.0 to /Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-googlemaps
+41 silly cache addNamed cb react-googlemaps@0.4.0
+42 verbose unbuild node_modules/react-googlemaps
+43 info preuninstall react-googlemaps@0.4.0
+44 info uninstall react-googlemaps@0.4.0
+45 verbose unbuild rmStuff react-googlemaps@0.4.0 from /Users/luandrito/Sites/Guias-da-Chapada/node_modules
+46 info postuninstall react-googlemaps@0.4.0
+47 verbose gentlyRm vacuuming /Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-googlemaps
+48 silly gentlyRm purging /Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-googlemaps
+49 silly gentlyRm quitting because other entries in /Users/luandrito/Sites/Guias-da-Chapada/node_modules
+50 verbose tar unpack /Users/luandrito/.npm/react-googlemaps/0.4.0/package.tgz
+51 verbose tar unpacking to /Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-googlemaps
+52 verbose gentlyRm vacuuming /Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-googlemaps
+53 silly gunzTarPerm modes [ '755', '644' ]
+54 silly gunzTarPerm extractEntry package.json
+55 silly gunzTarPerm extractEntry .npmignore
+56 silly gunzTarPerm extractEntry README.md
+57 silly gunzTarPerm extractEntry LICENSE
+58 silly gunzTarPerm extractEntry index.js
+59 silly gunzTarPerm extractEntry .travis.yml
+60 silly gunzTarPerm extractEntry CHANGELOG.md
+61 silly gunzTarPerm extractEntry docs/api.md
+62 silly gunzTarPerm extractEntry src/GoogleMapsAPI.js
+63 silly gunzTarPerm extractEntry src/ReactMapComponents.js
+64 silly gunzTarPerm extractEntry src/__mocks__/GoogleMapsAPI.js
+65 silly gunzTarPerm extractEntry src/eventPlugins/MouseEventPlugin.js
+66 silly gunzTarPerm extractEntry src/eventPlugins/SideEffectEventPlugin.js
+67 silly gunzTarPerm extractEntry src/eventPlugins/SimpleEventPlugin.js
+68 silly gunzTarPerm extractEntry src/ui/MapEvent.js
+69 silly gunzTarPerm extractEntry src/ui/MapOption.js
+70 silly gunzTarPerm extractEntry src/ui/MapOptionConfig.js
+71 silly gunzTarPerm extractEntry src/ui/MapPropTypes.js
+72 silly gunzTarPerm extractEntry src/ui/ReactDefaultInjection.js
+73 silly gunzTarPerm extractEntry src/ui/ReactMapComponent.js
+74 silly gunzTarPerm extractEntry src/ui/ReactMapComponentMixin.js
+75 silly gunzTarPerm extractEntry src/ui/components/ReactFrag.js
+76 silly gunzTarPerm extractEntry src/ui/components/ReactMap.js
+77 silly gunzTarPerm extractEntry src/ui/components/ReactOverlayView.js
+78 silly gunzTarPerm extractEntry src/utils/PropTypeUtils.js
+79 info preinstall react-googlemaps@0.4.0
+80 silly prepareForInstallMany adding reactify@>=0.17.1 from react-googlemaps peerDependencies
+81 silly install resolved []
+82 verbose about to build /Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-googlemaps
+83 info build /Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-googlemaps
+84 verbose linkStuff [ false,
+84 verbose linkStuff   false,
+84 verbose linkStuff   false,
+84 verbose linkStuff   '/Users/luandrito/Sites/Guias-da-Chapada/node_modules' ]
+85 info linkStuff react-googlemaps@0.4.0
+86 verbose linkBins react-googlemaps@0.4.0
+87 verbose linkMans react-googlemaps@0.4.0
+88 verbose rebuildBundles react-googlemaps@0.4.0
+89 info install react-googlemaps@0.4.0
+90 info postinstall react-googlemaps@0.4.0
+91 verbose already installed skipping reactify@>=0.17.1 /Users/luandrito/Sites/Guias-da-Chapada
+92 silly install resolved []
+93 verbose unlock done using /Users/luandrito/.npm/_locks/react-googlemaps-15c8271ad979d3e6.lock for /Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-googlemaps
+94 verbose stack Error: The package reactify does not satisfy its siblings' peerDependencies requirements!
+94 verbose stack     at /usr/local/lib/node_modules/npm/lib/install.js:103:32
+94 verbose stack     at /usr/local/lib/node_modules/npm/lib/install.js:231:5
+94 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:138:5
+94 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:251:14
+94 verbose stack     at cb (/usr/local/lib/node_modules/npm/node_modules/slide/lib/async-map.js:47:24)
+94 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:251:14
+94 verbose stack     at cb (/usr/local/lib/node_modules/npm/node_modules/slide/lib/async-map.js:47:24)
+94 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:251:14
+94 verbose stack     at cb (/usr/local/lib/node_modules/npm/node_modules/slide/lib/async-map.js:47:24)
+94 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:251:14
+95 verbose cwd /Users/luandrito/Sites/Guias-da-Chapada
+96 error Darwin 14.1.0
+97 error argv "node" "/usr/local/bin/npm" "install" "react-googlemaps" "--save"
+98 error node v0.10.35
+99 error npm  v2.6.0
+100 error code EPEERINVALID
+101 error peerinvalid The package reactify does not satisfy its siblings' peerDependencies requirements!
+101 error peerinvalid Peer react-googlemaps@0.4.0 wants reactify@>=0.17.1
+102 verbose exit [ 1, true ]

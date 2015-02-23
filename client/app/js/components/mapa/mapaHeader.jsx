@@ -4,6 +4,7 @@ var React = require('react'),
 	MapaHeader = React.createClass({
 
 	render: function() {
+
 		return (
 			<nav>
 	  			<div id="navigation" className="grid_100">
@@ -11,8 +12,8 @@ var React = require('react'),
 	    				<ul className="word-rotate">
 	    					<Link to="/"><li>Guias da Chapada</li></Link>
 							<a onClick={this.props.onMenuAClick}><li>{this.props.menu.menua}</li></a>
-							<a onClick={this.props.onMenuAClick}><li>{this.props.menu.menub}</li></a>
-							<a onClick={this.props.onMenuAClick}><li>{this.props.menu.menuc}</li></a>
+							<a onClick={this.props.onMenuBClick}><li>{this.props.menu.menub}</li></a>
+							<a onClick={this.props.onMenuCClick}><li>{this.props.menu.menuc}</li></a>
 							<li id="menu-item-32">
 								<ul>
 									<li><a target="_blank" href="mailto:contato@guiasdachapada.com"><span className="icono-mail"></span></a></li>

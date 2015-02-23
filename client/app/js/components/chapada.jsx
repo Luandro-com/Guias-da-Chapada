@@ -1,11 +1,38 @@
 'use strict';
 var React = require('react'),
-	Router = require('react-router'),
-  	RouteHandler = Router.RouteHandler,
-  	Link = Router.Link,
-  	Route = Router.Route,
 	Chapada = React.createClass({
 	Displayname:"Chapada",
+	getDefaultProps: function() {
+		return {
+			textos : {
+				Intro: "Aqui vai várias informações sobre a Chapada. Boa pesquisa para meus amigos guias.",
+				Cerrado: "Infor sobre o cerrado",
+				Historia: "Info sobre a historia",
+				Cultura: "Info sobre a cultura" 
+			}
+		};
+	},
+	getInitialState: function() {
+		
+		return {
+			texto: this.props.textos.Intro
+		};
+	},
+	tabClickA: function () {
+		this.setState({
+			texto: this.props.textos.Cerrado
+		});
+	},
+	tabClickB: function () {
+		this.setState({
+			texto: this.props.textos.Historia
+		});
+	},
+	tabClickC: function () {
+		this.setState({
+			texto: this.props.textos.Cultura
+		});
+	},
 		
 	render: function() {
 		return (
@@ -20,20 +47,19 @@ var React = require('react'),
 							<h2 className="hp_dest">A Chapada dos Veadeiros</h2>
 						</a>
 						<div className="upcoming_txt" id="chapada-handler">
-							Aqui vai várias informações sobre a Chapada. Boa pesquisa para meus amigos guias.
+							{this.state.texto}
 						</div>
-						<RouteHandler/>
 					</div>
 					<div className="grid_50_h">
-						<Link to="cerrado"><div className="grid_100 chapada-cerrado">
+						<a onClick={this.tabClickA}><div className="grid_100 chapada-cerrado">
 							<h2 className="hp_dest">O Cerrado</h2>
-						</div></Link>
-						<Link to="historia"><div className="grid_100 chapada-historia">
+						</div></a>
+						<a onClick={this.tabClickB}><div className="grid_100 chapada-historia">
 							<h2 className="hp_dest">História</h2>
-						</div></Link>
-						<Link to="cultura"><div className="grid_100 chapada-cultura">
+						</div></a>
+						<a onClick={this.tabClickC}><div className="grid_100 chapada-cultura">
 							<h2 className="hp_dest">Cultura</h2>
-						</div></Link>
+						</div></a>
 					</div>
 				</div>
 			</div>
