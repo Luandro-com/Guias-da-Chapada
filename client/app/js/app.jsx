@@ -46,6 +46,31 @@ var App = React.createClass({
 });
 var Main = React.createClass({
   mixins: [ Router.State ],
+    loadData: function () {
+      var myFirebaseRef = new Firebase("https://guias.firebaseio.com/");
+       myFirebaseRef.child("conteudo").on("value", function(snapshot) {
+        var quemsomos = snapshot.val().quemsomos,
+            achapadaIntro = snapshot.val().achapada.intro,
+            achapadaCerrado = snapshot.val().achapada.cerrado,
+            achapadaHistoria = snapshot.val().achapada.historia,
+            achapadaCultura = snapshot.val().achapada.cultura;
+
+        this.setState({
+        quemsomos : quemsomos,
+        achapadaIntro : achapadaIntro,
+        achapadaCerrado : achapadaCerrado,
+        achapadaHistoria : achapadaHistoria,
+        achapadaCultura : achapadaCultura
+      });
+      }.bind(this));
+    },
+    getInitialState: function() {
+      this.loadData();
+      return {
+        quemsomos : "...",
+        achapadaIntro : "..."
+      };
+    },
 
     render: function () {
       var name = this.getRoutes().reverse()[0].name;
@@ -54,7 +79,12 @@ var Main = React.createClass({
             <div>
               <Header />
               <div className="clear"></div>
-              <RouteHandler />
+              <RouteHandler 
+                achapadaIntro={this.state.achapadaIntro} 
+                achapadaCerrado={this.state.achapadaCerrado}
+                achapadaHistoria={this.state.achapadaHistoria}
+                achapadaCultura={this.state.achapadaCultura}
+                quemsomos={this.state.quemsomos} />
               <Footer />
             </div>
         );
@@ -81,7 +111,7 @@ var routes = (
 );
 
 Router.run(routes, Router.HistoryLocation, function (Handler) {
-  React.render(<Handler/>, document.getElementById('app'));
+  React.render(<Handler />, document.getElementById('app'));
 });
 
 /**

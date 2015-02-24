@@ -13,7 +13,9 @@ var React = require('react'),
 				<HomeSlider />
 			</div>
 			<div className="content">
-				<HomeContent />
+				<HomeContent 
+					achapadaIntro={this.props.achapadaIntro} 
+					quemsomos={this.props.quemsomos}/>
 				<HomeOfertas />
 				<div className="clear"></div>
 			</div>

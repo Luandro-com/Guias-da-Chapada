@@ -47,6 +47,31 @@ var App = React.createClass({displayName: "App",
 });
 var Main = React.createClass({displayName: "Main",
   mixins: [ Router.State ],
+    loadData: function () {
+      var myFirebaseRef = new Firebase("https://guias.firebaseio.com/");
+       myFirebaseRef.child("conteudo").on("value", function(snapshot) {
+        var quemsomos = snapshot.val().quemsomos,
+            achapadaIntro = snapshot.val().achapada.intro,
+            achapadaCerrado = snapshot.val().achapada.cerrado,
+            achapadaHistoria = snapshot.val().achapada.historia,
+            achapadaCultura = snapshot.val().achapada.cultura;
+
+        this.setState({
+        quemsomos : quemsomos,
+        achapadaIntro : achapadaIntro,
+        achapadaCerrado : achapadaCerrado,
+        achapadaHistoria : achapadaHistoria,
+        achapadaCultura : achapadaCultura
+      });
+      }.bind(this));
+    },
+    getInitialState: function() {
+      this.loadData();
+      return {
+        quemsomos : "...",
+        achapadaIntro : "..."
+      };
+    },
 
     render: function () {
       var name = this.getRoutes().reverse()[0].name;
@@ -55,7 +80,12 @@ var Main = React.createClass({displayName: "Main",
             React.createElement("div", null, 
               React.createElement(Header, null), 
               React.createElement("div", {className: "clear"}), 
-              React.createElement(RouteHandler, null), 
+              React.createElement(RouteHandler, {
+                achapadaIntro: this.state.achapadaIntro, 
+                achapadaCerrado: this.state.achapadaCerrado, 
+                achapadaHistoria: this.state.achapadaHistoria, 
+                achapadaCultura: this.state.achapadaCultura, 
+                quemsomos: this.state.quemsomos}), 
               React.createElement(Footer, null)
             )
         );
@@ -315,35 +345,28 @@ module.exports = Logout;
 var React = require('react'),
 	Chapada = React.createClass({displayName: "Chapada",
 	Displayname:"Chapada",
-	getDefaultProps: function() {
-		return {
-			textos : {
-				Intro: "Aqui vai várias informações sobre a Chapada. Boa pesquisa para meus amigos guias.",
-				Cerrado: "Infor sobre o cerrado",
-				Historia: "Info sobre a historia",
-				Cultura: "Info sobre a cultura" 
-			}
-		};
-	},
 	getInitialState: function() {
-		
 		return {
-			texto: this.props.textos.Intro
+			texto: this.props.achapadaIntro,
+			title: 'A Chapada dos Veadeiros'
 		};
 	},
 	tabClickA: function () {
 		this.setState({
-			texto: this.props.textos.Cerrado
+			texto: this.props.achapadaCerrado,
+			title: 'O Cerrado'
 		});
 	},
 	tabClickB: function () {
 		this.setState({
-			texto: this.props.textos.Historia
+			texto: this.props.achapadaHistoria,
+			title: 'A História da Chapada'
 		});
 	},
 	tabClickC: function () {
 		this.setState({
-			texto: this.props.textos.Cultura
+			texto: this.props.achapadaCultura,
+			title: 'Nossa Cultura'
 		});
 	},
 		
@@ -356,9 +379,7 @@ var React = require('react'),
 			React.createElement("div", {className: "grid_100"}, 
 				React.createElement("div", {className: "hp_first_row"}, 
 					React.createElement("div", {className: "grid_50_h br"}, 
-						React.createElement("a", {href: ""}, 
-							React.createElement("h2", {className: "hp_dest"}, "A Chapada dos Veadeiros")
-						), 
+						React.createElement("h2", {className: "hp_dest"}, this.state.title), 
 						React.createElement("div", {className: "upcoming_txt", id: "chapada-handler"}, 
 							this.state.texto
 						)
@@ -672,7 +693,9 @@ var React = require('react'),
 				React.createElement(HomeSlider, null)
 			), 
 			React.createElement("div", {className: "content"}, 
-				React.createElement(HomeContent, null), 
+				React.createElement(HomeContent, {
+					achapadaIntro: this.props.achapadaIntro, 
+					quemsomos: this.props.quemsomos}), 
 				React.createElement(HomeOfertas, null), 
 				React.createElement("div", {className: "clear"})
 			)
@@ -689,32 +712,8 @@ module.exports = Home;
 
 var React = require('react'),
 	Firebase = require("firebase"),
+	Link = require('react-router').Link,
 	HomeContent = React.createClass({displayName: "HomeContent",
-		loadData: function () {
-			var myFirebaseRef = new Firebase("https://guias.firebaseio.com/");
-			 myFirebaseRef.child("conteudo/quemsomos").on("value", function(snapshot) {
-			  var quemsomos = snapshot.val();
-
-			  this.setState({
-				quemsomos : quemsomos
-			});
-			}.bind(this));
-			myFirebaseRef.child("conteudo/achapada").on("value", function(snapshot) {
-			  var achapada = snapshot.val();
-
-			  this.setState({
-				achapada : achapada
-			});
-			}.bind(this));
-
-		},
-		getInitialState: function() {
-			this.loadData();
-			return {
-				quemsomos : "...",
-				achapada : "..."
-			};
-		},
 
 		render: function () {
 			return (
@@ -722,52 +721,48 @@ var React = require('react'),
 				React.createElement("div", {className: "grid_100"}, 
 					React.createElement("div", {className: "hp_first_row"}, 
 						React.createElement("div", {className: "grid_50_h br"}, 
-							React.createElement("a", {href: ""}, 
+							React.createElement(Link, {to: "/quem"}, 
 								React.createElement("h2", {className: "hp_dest"}, "Quem somos")
 							), 
 							React.createElement("div", {className: "upcoming_txt"}, 
-								React.createElement("p", null, this.state.quemsomos), 
-								React.createElement("a", {className: "more", href: ""}, "Veja mais >")
+								React.createElement("p", null, this.props.quemsomos), 
+								React.createElement(Link, {className: "more", to: "/quem"}, "Veja mais >")
 							)
 						), 
 						React.createElement("div", {className: "grid_50_h"}, 
-							React.createElement("h2", {className: "hp_dest"}, "Chapada dos Veadeiros"), 
+							React.createElement(Link, {to: "/chapada"}, 
+								React.createElement("h2", {className: "hp_dest"}, "Chapada dos Veadeiros")
+							), 	
 							React.createElement("div", {className: "upcoming_txt"}, 
-								React.createElement("p", null, this.state.achapada), 
-								React.createElement("a", {className: "more", href: ""}, "Veja mais >")
+								React.createElement("p", null, this.props.achapadaIntro), 
+								React.createElement(Link, {className: "more", to: "/chapada"}, "Veja mais >")
 							)
 						)
 					)
 				), 
 
-				React.createElement("div", {className: "grid_100 travel"}, 
-					React.createElement("div", {className: "grid_49 br"}, 
-						React.createElement("h2", {className: "home-mapa-h2"}, "Mapa Interativo"), 
-						React.createElement("img", {className: "hp_travel", src: "https://unsplash.imgix.net/45/eDLHCtzRR0yfFtU0BQar_sylwiabartyzel_themap.jpg?fit=cropundefined00undefined0", title: "", alt: ""})
-					), 
-					React.createElement("div", {className: "grid_49"}, 
-						React.createElement("ul", {className: "travel_guide_hp"}, 
-							React.createElement("a", {href: ""}, 
-								React.createElement("li", {className: "bb"}, React.createElement("img", {className: "", src: "", title: "", alt: ""}), "Encontre onde comer e dormir")
-							), 
-							React.createElement("a", {href: ""}, 
-								React.createElement("li", {className: "bb"}, React.createElement("img", {className: "", src: "", title: "", alt: ""}), "Vote nos melhores")
-							), 
-							React.createElement("a", {href: ""}, 
-								React.createElement("li", {className: "bb"}, React.createElement("img", {className: "", src: "", title: "", alt: ""}), "Descubra as maravilhas da Chapada")
-							), 
-							React.createElement("a", {href: ""}, 
+				React.createElement(Link, {to: "/mapa"}, 
+					React.createElement("div", {className: "grid_100 travel"}, 
+						React.createElement("div", {className: "grid_49 br"}, 
+							React.createElement("h2", {className: "home-mapa-h2"}, "Mapa Interativo"), 
+							React.createElement("img", {className: "hp_travel", src: "https://unsplash.imgix.net/45/eDLHCtzRR0yfFtU0BQar_sylwiabartyzel_themap.jpg?fit=cropundefined00undefined0", title: "", alt: ""})
+						), 
+						React.createElement("div", {className: "grid_49"}, 
+							React.createElement("ul", {className: "travel_guide_hp"}, 
+								React.createElement("li", {className: "bb"}, React.createElement("img", {className: "", src: "", title: "", alt: ""}), "Encontre onde comer e dormir"), 
+								React.createElement("li", {className: "bb"}, React.createElement("img", {className: "", src: "", title: "", alt: ""}), "Vote nos melhores"), 
+								React.createElement("li", {className: "bb"}, React.createElement("img", {className: "", src: "", title: "", alt: ""}), "Descubra as maravilhas da Chapada"), 
 								React.createElement("li", null, React.createElement("img", {className: "", src: "", title: "", alt: ""}), "Vejas nossas dicas de roteiros")
 							)
 						)
 					)
-				)
+				)	
 			)	
 			);
 		}
 	});
 module.exports = HomeContent;
-},{"firebase":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/firebase/lib/firebase-web.js","react":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/react.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/home/homeOfertas.jsx":[function(require,module,exports){
+},{"firebase":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/firebase/lib/firebase-web.js","react":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/react.js","react-router":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-router/modules/index.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/home/homeOfertas.jsx":[function(require,module,exports){
 'use strict';
 
 var React = require('react'),
@@ -981,14 +976,14 @@ var React = require('react/addons'),
 					},
 					markers: [
 						{
-							id: 0,
+							id: 2,
 							lat: -14.210744, 
 							lng: -47.473297, 
 							title: 'Cachoeira dos Macacos', 
 							img: 'slide', 
 							info: '4x4' },
 						{
-							id: 1,
+							id: 3,
 							lat: -14.137153, 
 							lng: -47.519503, 
 							title: 'Cachoeira dos Anjos', 
@@ -1501,7 +1496,7 @@ var React = require('react'),
 										React.createElement("h2", {className: "hp_dest"}, "Quem somos")
 									), 
 									React.createElement("div", {className: "upcoming_txt"}, 
-										React.createElement("p", null, "Are selfies just selfish, or can you focus on yourself while also thinking of others? Launching the best selfie phone to date, we thought it was time to ask: Can a Selfie really do good?  Introducing The “Selfie Collection”, a fashion collection with a twist. All shot with the new Lumia 735. All selfies will contain a fashion item going up for auction, donating money to the fight against online bullying. Take a look around the “Selfie Collection”, go to the auction, and place your bid now.")
+										React.createElement("p", null, this.props.quemsomos)
 									)
 								), 
 								React.createElement("div", {className: "grid_50_h"}, 

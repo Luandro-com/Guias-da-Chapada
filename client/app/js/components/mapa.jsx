@@ -85,14 +85,14 @@ var React = require('react/addons'),
 					},
 					markers: [
 						{
-							id: 0,
+							id: 2,
 							lat: -14.210744, 
 							lng: -47.473297, 
 							title: 'Cachoeira dos Macacos', 
 							img: 'slide', 
 							info: '4x4' },
 						{
-							id: 1,
+							id: 3,
 							lat: -14.137153, 
 							lng: -47.519503, 
 							title: 'Cachoeira dos Anjos', 

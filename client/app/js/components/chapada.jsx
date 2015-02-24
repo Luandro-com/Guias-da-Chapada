@@ -2,35 +2,28 @@
 var React = require('react'),
 	Chapada = React.createClass({
 	Displayname:"Chapada",
-	getDefaultProps: function() {
-		return {
-			textos : {
-				Intro: "Aqui vai várias informações sobre a Chapada. Boa pesquisa para meus amigos guias.",
-				Cerrado: "Infor sobre o cerrado",
-				Historia: "Info sobre a historia",
-				Cultura: "Info sobre a cultura" 
-			}
-		};
-	},
 	getInitialState: function() {
-		
 		return {
-			texto: this.props.textos.Intro
+			texto: this.props.achapadaIntro,
+			title: 'A Chapada dos Veadeiros'
 		};
 	},
 	tabClickA: function () {
 		this.setState({
-			texto: this.props.textos.Cerrado
+			texto: this.props.achapadaCerrado,
+			title: 'O Cerrado'
 		});
 	},
 	tabClickB: function () {
 		this.setState({
-			texto: this.props.textos.Historia
+			texto: this.props.achapadaHistoria,
+			title: 'A História da Chapada'
 		});
 	},
 	tabClickC: function () {
 		this.setState({
-			texto: this.props.textos.Cultura
+			texto: this.props.achapadaCultura,
+			title: 'Nossa Cultura'
 		});
 	},
 		
@@ -43,9 +36,7 @@ var React = require('react'),
 			<div className="grid_100">
 				<div className="hp_first_row">
 					<div className="grid_50_h br">
-						<a href="">
-							<h2 className="hp_dest">A Chapada dos Veadeiros</h2>
-						</a>
+						<h2 className="hp_dest">{this.state.title}</h2>
 						<div className="upcoming_txt" id="chapada-handler">
 							{this.state.texto}
 						</div>
