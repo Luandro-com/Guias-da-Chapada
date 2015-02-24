@@ -503,7 +503,7 @@ var React = require('react'),
     render: function() {
 
         var pictures = this.state.pictures.map(function(p){
-            return React.createElement(Picture, {ref: p.id, src: p.src, title: p.title})
+            return React.createElement(Picture, {ref: p.id, src: p.src, title: p.title, key: p.id})
         });
 
         if(!pictures.length){
@@ -525,11 +525,55 @@ module.exports = PictureList;
 },{"./picture.jsx":"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/footer/picture.jsx","instafeed.js":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/instafeed.js/instafeed.js","react":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/react.js","react-bootstrap":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react-bootstrap/main.js","reqwest":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/reqwest/reqwest.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/galeria.jsx":[function(require,module,exports){
 'use strict';
 var React = require('react'),
+	Instagram = require('instafeed.js'),
+    reqwest = require('reqwest'),
+    Picture = require('./footer/picture.jsx'),
 	Galeria = React.createClass({displayName: "Galeria",
 
+	getInitialState: function(){
+        return { pictures: [] };
+    },
+    componentDidMount: function(){
+        var self = this;
+        var url = 'https://api.instagram.com/v1/media/popular?client_id=' + this.props.apiKey + '&callback=?&count=4';
+
+        reqwest({
+            url: url,
+            type: 'jsonp',
+            success: function(result){
+
+            if(!result || !result.data || !result.data.length){
+                return;
+            }
+
+            var pictures = result.data.map(function(p){
+
+                return { 
+                    id: p.id, 
+                    url: p.link, 
+                    src: p.images.low_resolution.url, 
+                    title: p.caption ? p.caption.text : '', 
+                    favorite: false 
+                };
+
+            });
+
+            self.setState({ pictures: pictures });
+
+        }});
+    },
+
 	render: function() {
+		var pictures = this.state.pictures.map(function(p){
+            return React.createElement(Picture, {ref: p.id, src: p.src, title: p.title, key: p.id})
+        });
+
+        if(!pictures.length){
+            pictures = React.createElement("p", null, "Loading images..");
+        }
 		return (
-			React.createElement("div", {className: "galeria"}
+			React.createElement("div", {className: "galeria"}, 
+				pictures
 			)	
 		);
 	}
@@ -537,7 +581,7 @@ var React = require('react'),
 });
 
 module.exports = Galeria;
-},{"react":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/react.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/header.jsx":[function(require,module,exports){
+},{"./footer/picture.jsx":"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/footer/picture.jsx","instafeed.js":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/instafeed.js/instafeed.js","react":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/react.js","reqwest":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/reqwest/reqwest.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/header.jsx":[function(require,module,exports){
 'use strict';
 
 var React = require('react'),
@@ -869,8 +913,20 @@ var React = require('react/addons'),
 	            mapCenterLng: -47.519503
 			};
 			var MARKER_ITEMS = [
-				[-14.210744, -47.473297, 'Cachoeira dos Macacos', 'slide', '4x4', 0 ],
-				[-14.177038, -47.813581, 'Cachoeira dos Anjos', 'slide', 'bike', 1 ]
+				{
+					id: 0,
+					lat: -14.210744, 
+					lng: -47.473297, 
+					title: 'Cachoeira dos Macacos', 
+					img: 'slide', 
+					info: '4x4' },
+				{
+					id: 1,
+					lat: -14.137153, 
+					lng: -47.519503, 
+					title: 'Cachoeira dos Anjos', 
+					img: 'slide', 
+					info: 'bike' }	
 			];
 			return {
 				menu: MENU_ITEMS,
@@ -893,8 +949,20 @@ var React = require('react/addons'),
 	            		mapCenterLng: -47.519503
 					},
 					markers: [
-						[-14.210744, -47.473297, 'Restaurante de Alto Paraíso', 'slide', '4x4', 0 ],
-						[-14.177038, -47.813581, 'Pousada de Alto Paraíso', 'slide', 'bike', 1 ]
+						{
+							id: 0,
+							lat: -14.210744, 
+							lng: -47.473297, 
+							title: 'Restaurante em Alto', 
+							img: 'slide', 
+							info: '4x4' },
+						{
+							id: 1,
+							lat: -14.137153, 
+							lng: -47.519503, 
+							title: 'Restaurante em Alto 2', 
+							img: 'slide', 
+							info: 'bike' }	
 					]
 				});
 			}
@@ -907,13 +975,25 @@ var React = require('react/addons'),
 						cidade: 'Chapada'
 					},
 					settings: {
-						initialZoom: 3,
+						initialZoom: 11,
 						mapCenterLat: -14.137153,
 	            		mapCenterLng: -47.519503
 					},
 					markers: [
-						[-14.210744, -47.473297, 'Cachoeira dos Macacos', 'slide', '4x4', 0 ],
-						[-14.177038, -47.813581, 'Cachoeira dos Anjos', 'slide', 'bike', 1 ]
+						{
+							id: 0,
+							lat: -14.210744, 
+							lng: -47.473297, 
+							title: 'Cachoeira dos Macacos', 
+							img: 'slide', 
+							info: '4x4' },
+						{
+							id: 1,
+							lat: -14.137153, 
+							lng: -47.519503, 
+							title: 'Cachoeira dos Anjos', 
+							img: 'slide', 
+							info: 'bike' }	
 					]
 				});
 			}
@@ -927,13 +1007,38 @@ var React = require('react/addons'),
 						menub: 'Onde comer',
 						menuc: 'Onde ficar',
 						cidade: 'SJ'
-					}
+					},
+					settings: {
+						initialZoom: 15,
+						mapCenterLat: -14.177038,
+	            		mapCenterLng: -47.813581
+					},
+					markers: [
+						{
+							id: 0,
+							lat: -14.176374, 
+							lng: -47.816556, 
+							title: 'Restaurante em São Jorge', 
+							img: 'slide', 
+							info: '4x4' },
+						{
+							id: 1,
+							lat: -14.177038, 
+							lng: -47.813581, 
+							title: 'Restaurante em São Jorge 2', 
+							img: 'slide', 
+							info: 'bike' }	
+					]
 				});
 			}
 			else if (this.state.menu.cidade === 'SJ') {
 				console.log('Estamos em SJ');
 				this.setState({
-					
+					settings: {
+						initialZoom: 10,
+						mapCenterLat: -14.137153,
+	            		mapCenterLng: -47.519503
+					}
 				});
 			}
 		},
@@ -952,7 +1057,9 @@ var React = require('react/addons'),
 								onMenuBClick: this.onMenuBClick, 
 								onMenuCClick: this.onMenuCClick}), 
 			    			React.createElement("div", {classNameName: "clear"}), 
-			    			React.createElement(MapaMap, {markers: this.state.markers, settings: this.state.settings})
+			    			React.createElement(MapaMap, {
+			    				markers: this.state.markers, 
+			    				settings: this.state.settings})
 						)
 					), 
 				    React.createElement(InfoBoxes, {boxes: this.state.markers})
@@ -1136,29 +1243,22 @@ module.exports = InfoBoxes;
 
 var React = require('react'),
 	InfoBox = require('google-maps-infobox'),
-	ZoomControl = require('./ZoomControl.js'),
+	MapaZoom = require('./mapaZoom.jsx'),
 	MapaMap = React.createClass({displayName: "MapaMap",
-    componentDidMount: function (rootNode) {
-        var mapOptions = {
-            center: this.mapCenterLatLng(),
-            zoom: this.props.settings.initialZoom,
-            disableDefaultUI: true
-        },
-        map = new google.maps.Map(this.getDOMNode(), mapOptions);
-        
-		  var zoomControlDiv = document.createElement('div');
-		  var zoomControl = new ZoomControl(zoomControlDiv, map);
- 	 		zoomControlDiv.index = 1;
-  			map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(zoomControlDiv);
 
+    componentDidMount: function () {
+    	//Passar mapOptions para mapa.jsx
+            var mapOptions = {
+                    center: this.mapCenterLatLng(),
+                    zoom: this.props.settings.initialZoom
+            },
+            map = new google.maps.Map(this.getDOMNode(), mapOptions);
         var marker, i;
-        
 	    for (i = 0; i < this.props.markers.length; i++) {  
 	    	var newInfoBox = "infobox"+i;
 	    	var newMarker = "marker"+i;
-	    	console.log(newMarker);
 		      newMarker = new google.maps.Marker({
-		        position: new google.maps.LatLng(this.props.markers[i][0], this.props.markers[i][1]),
+		        position: new google.maps.LatLng(this.props.markers[i].lat, this.props.markers[i].lng),
 		        map: map,
 		        icon:'./dist/img/marker.png'
 		      });
@@ -1188,27 +1288,89 @@ var React = require('react'),
 			});
 		      console.log(newInfoBox);
 	    };
-
-        this.setState({map: map});
-
+            this.setState({map: map});
     },
-    componentDidUpdate: function() {
-    	var map = this.state.map;
-        map.panTo(this.mapCenterLatLng());
-    },
+
     mapCenterLatLng: function () {
-        return new google.maps.LatLng(this.props.settings.mapCenterLat, this.props.settings.mapCenterLng);
-    },
-    render: function () {
-        return (
-        	React.createElement("div", {id: "map"})
-        );
-    }
 
-	});
+            return new google.maps.LatLng(this.props.settings.mapCenterLat, this.props.settings.mapCenterLng);
+    },
+
+    componentDidUpdate: function () {
+    		var mapOptions = {
+                    center: this.mapCenterLatLng(),
+                    zoom: this.props.settings.initialZoom
+            },
+            map = new google.maps.Map(this.getDOMNode(), mapOptions);
+            var marker, i;
+	    for (i = 0; i < this.props.markers.length; i++) {  
+	    	var newInfoBox = "infobox"+i;
+	    	var newMarker = "marker"+i;
+		      newMarker = new google.maps.Marker({
+		        position: new google.maps.LatLng(this.props.markers[i].lat, this.props.markers[i].lng),
+		        map: map,
+		        icon:'./dist/img/marker.png'
+		      });
+		      console.log(newInfoBox);
+		      var newInfoBox = new InfoBox({
+			    content: document.getElementById(newInfoBox),
+			    disableAutoPan: false,
+			    maxWidth: 150,
+			    pixelOffset: new google.maps.Size(-140, -450),
+			    zIndex: null,
+			    boxStyle: {
+			                background: "#417505",
+			                width: "330px",
+			                height: "420px"
+			        },    
+			    closeBoxMargin: "12px 4px 2px 2px",
+			    closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif",
+			    infoBoxClearance: new google.maps.Size(1, 1)
+			});
+		      console.log(newInfoBox);
+		      google.maps.event.addListener(newMarker, 'mouseover', function() {
+			    //infobox2.close(map, this);
+			    newInfoBox.open(map, this);
+			    console.log(this);
+			    map.panTo(newMarker.getPosition());
+			    map.panBy(0, -200);
+			});
+		      console.log(newInfoBox);
+	    };
+    },
+		
+	    render: function () {
+	        return (
+	        	React.createElement("div", {id: "map"}
+	        	)
+	        	
+	        );
+	    }
+
+		});
 
 module.exports = MapaMap;
-},{"./ZoomControl.js":"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/mapa/ZoomControl.js","google-maps-infobox":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/google-maps-infobox/infobox-module.js","react":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/react.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/onde.jsx":[function(require,module,exports){
+},{"./mapaZoom.jsx":"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/mapa/mapaZoom.jsx","google-maps-infobox":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/google-maps-infobox/infobox-module.js","react":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/react.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/mapa/mapaZoom.jsx":[function(require,module,exports){
+'use strict'
+var React = require('react'),
+	ZoomControl = require('./ZoomControl.js');
+
+var MapaZoom = React.createClass({displayName: "MapaZoom",
+	componentDidMount: function() {
+		var zoomControlDiv = document.createElement('div');
+		var zoomControl = new ZoomControl(zoomControlDiv, map);
+ 	 		zoomControlDiv.index = 1;
+  			map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(zoomControlDiv);
+	},
+	render: function() {
+		return (
+			React.createElement("div", null)
+		);
+	}
+});
+
+module.exports = MapaZoom;
+},{"./ZoomControl.js":"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/mapa/ZoomControl.js","react":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/react.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/onde.jsx":[function(require,module,exports){
 'use strict';
 var React = require('react'),
 	OndeItem = require('./onde/ondeItem.jsx'),

@@ -17,8 +17,20 @@ var React = require('react/addons'),
 	            mapCenterLng: -47.519503
 			};
 			var MARKER_ITEMS = [
-				[-14.210744, -47.473297, 'Cachoeira dos Macacos', 'slide', '4x4', 0 ],
-				[-14.177038, -47.813581, 'Cachoeira dos Anjos', 'slide', 'bike', 1 ]
+				{
+					id: 0,
+					lat: -14.210744, 
+					lng: -47.473297, 
+					title: 'Cachoeira dos Macacos', 
+					img: 'slide', 
+					info: '4x4' },
+				{
+					id: 1,
+					lat: -14.137153, 
+					lng: -47.519503, 
+					title: 'Cachoeira dos Anjos', 
+					img: 'slide', 
+					info: 'bike' }	
 			];
 			return {
 				menu: MENU_ITEMS,
@@ -41,8 +53,20 @@ var React = require('react/addons'),
 	            		mapCenterLng: -47.519503
 					},
 					markers: [
-						[-14.210744, -47.473297, 'Restaurante de Alto Paraíso', 'slide', '4x4', 0 ],
-						[-14.177038, -47.813581, 'Pousada de Alto Paraíso', 'slide', 'bike', 1 ]
+						{
+							id: 0,
+							lat: -14.210744, 
+							lng: -47.473297, 
+							title: 'Restaurante em Alto', 
+							img: 'slide', 
+							info: '4x4' },
+						{
+							id: 1,
+							lat: -14.137153, 
+							lng: -47.519503, 
+							title: 'Restaurante em Alto 2', 
+							img: 'slide', 
+							info: 'bike' }	
 					]
 				});
 			}
@@ -55,13 +79,25 @@ var React = require('react/addons'),
 						cidade: 'Chapada'
 					},
 					settings: {
-						initialZoom: 3,
+						initialZoom: 11,
 						mapCenterLat: -14.137153,
 	            		mapCenterLng: -47.519503
 					},
 					markers: [
-						[-14.210744, -47.473297, 'Cachoeira dos Macacos', 'slide', '4x4', 0 ],
-						[-14.177038, -47.813581, 'Cachoeira dos Anjos', 'slide', 'bike', 1 ]
+						{
+							id: 0,
+							lat: -14.210744, 
+							lng: -47.473297, 
+							title: 'Cachoeira dos Macacos', 
+							img: 'slide', 
+							info: '4x4' },
+						{
+							id: 1,
+							lat: -14.137153, 
+							lng: -47.519503, 
+							title: 'Cachoeira dos Anjos', 
+							img: 'slide', 
+							info: 'bike' }	
 					]
 				});
 			}
@@ -75,13 +111,38 @@ var React = require('react/addons'),
 						menub: 'Onde comer',
 						menuc: 'Onde ficar',
 						cidade: 'SJ'
-					}
+					},
+					settings: {
+						initialZoom: 15,
+						mapCenterLat: -14.177038,
+	            		mapCenterLng: -47.813581
+					},
+					markers: [
+						{
+							id: 0,
+							lat: -14.176374, 
+							lng: -47.816556, 
+							title: 'Restaurante em São Jorge', 
+							img: 'slide', 
+							info: '4x4' },
+						{
+							id: 1,
+							lat: -14.177038, 
+							lng: -47.813581, 
+							title: 'Restaurante em São Jorge 2', 
+							img: 'slide', 
+							info: 'bike' }	
+					]
 				});
 			}
 			else if (this.state.menu.cidade === 'SJ') {
 				console.log('Estamos em SJ');
 				this.setState({
-					
+					settings: {
+						initialZoom: 10,
+						mapCenterLat: -14.137153,
+	            		mapCenterLng: -47.519503
+					}
 				});
 			}
 		},
@@ -100,7 +161,9 @@ var React = require('react/addons'),
 								onMenuBClick={this.onMenuBClick}
 								onMenuCClick={this.onMenuCClick} />
 			    			<div classNameName="clear"></div>
-			    			<MapaMap markers={this.state.markers} settings={this.state.settings} />
+			    			<MapaMap 
+			    				markers={this.state.markers} 
+			    				settings={this.state.settings} />
 						</div>
 					</div>
 				    <InfoBoxes boxes={this.state.markers} />

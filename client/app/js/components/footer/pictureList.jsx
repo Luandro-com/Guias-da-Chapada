@@ -59,7 +59,7 @@ var React = require('react'),
     render: function() {
 
         var pictures = this.state.pictures.map(function(p){
-            return <Picture ref={p.id} src={p.src} title={p.title} />
+            return <Picture ref={p.id} src={p.src} title={p.title} key={p.id} />
         });
 
         if(!pictures.length){
