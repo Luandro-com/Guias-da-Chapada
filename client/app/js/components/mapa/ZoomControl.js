@@ -25,7 +25,12 @@ function ZoomControl(controlDiv, map) {
   zoomInButton.style.width = '64px'; 
   zoomInButton.style.height = '64px';
   zoomInButton.style.backgroundColor = '#417505';
-  zoomInButton.style.insertBefore = '+';
+  var maisIcono = document.createElement('span');
+  maisIcono.innerHTML = '+';
+  maisIcono.style.fontSize = '42px';
+  maisIcono.style.color = '#000';
+  maisIcono.style.margin = '10px 0';
+  zoomInButton.appendChild(maisIcono);
   /* Change this to be the .png image you want to use */
   // zoomInButton.style.backgroundImage = 'url("http://placehold.it/32/00ff00")';
   controlWrapper.appendChild(zoomInButton);
@@ -35,6 +40,12 @@ function ZoomControl(controlDiv, map) {
   zoomOutButton.style.width = '64px'; 
   zoomOutButton.style.height = '64px';
   zoomOutButton.style.backgroundColor = 'white';
+  var menosIcono = document.createElement('span');
+  menosIcono.innerHTML = '-';
+  menosIcono.style.fontSize = '52px';
+  menosIcono.style.color = '#000';
+  menosIcono.style.margin = '10px 0';
+  zoomOutButton.appendChild(menosIcono);
   /* Change this to be the .png image you want to use */
   // zoomOutButton.style.backgroundImage = 'url("http://placehold.it/32/0000ff")';
   controlWrapper.appendChild(zoomOutButton);

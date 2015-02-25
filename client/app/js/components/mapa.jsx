@@ -152,20 +152,16 @@ var React = require('react/addons'),
 
 		render: function() {
 			return (
-				<div>
-					<div classNameName="outer_wrap">
-						<div classNameName="inner_wrap">
-							<MapaHeader 
-								menu={this.state.menu} 
-								onMenuAClick={this.onMenuAClick}
-								onMenuBClick={this.onMenuBClick}
-								onMenuCClick={this.onMenuCClick} />
-			    			<div classNameName="clear"></div>
-			    			<MapaMap 
-			    				markers={this.state.markers} 
-			    				settings={this.state.settings} />
-						</div>
-					</div>
+				<div className='map-container'>
+					<MapaHeader 
+						menu={this.state.menu} 
+						onMenuAClick={this.onMenuAClick}
+						onMenuBClick={this.onMenuBClick}
+						onMenuCClick={this.onMenuCClick} />
+	    			<div classNameName="clear"></div>
+	    			<MapaMap 
+	    				markers={this.state.markers} 
+	    				settings={this.state.settings} />
 				    <InfoBoxes boxes={this.state.markers} />
 				</div>
 			);

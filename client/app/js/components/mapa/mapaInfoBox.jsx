@@ -3,27 +3,26 @@ var React = require('react'),
 	InfoBox = React.createClass({
 
 	render: function() {
-		var boxId = "infobox"+ this.props.box[5];
+		var boxId = "infobox"+ this.props.box.id;
 
 	return (
-		<div>
 			<div id={boxId}>
 	        	<div className="box-title">
-	        		<h3>{this.props.box[2]}</h3>
+	        		<h3>{this.props.box.title}</h3>
 	        	</div>
 			    <img src="dist/img/slide.jpg" alt="" />
 	        	<div className="grid_100">
 	        		<div className="grid_20 ">
-		        		{this.props.box[4]}
+		        		{this.props.box.info}
 		        	</div>
 		        	<div className="grid_20 ">
 		        		1 DIA
 		        	</div>
 		        	<div className="grid_20 ">
-		        		{this.props.box[4]}
+		        		{this.props.info}
 		        	</div>
 		        	<div className="grid_20 ">
-		        		{this.props.box[4]}
+		        		{this.props.info}
 		        	</div>
 		        	<div className="grid_20 ">
 		        		omg
@@ -31,10 +30,10 @@ var React = require('react'),
 	        	</div>
 	        	<div className="grid_100">
 	        		<div className="grid_20 ">
-		        		{this.props.box[4]}
+		        		{this.props.info}
 		        	</div>
 		        	<div className="grid_20 ">
-		        		{this.props.box[4]}
+		        		{this.props.info}
 		        	</div>
 		        	<div className="grid_20 ">
 		        		omg
@@ -47,7 +46,6 @@ var React = require('react'),
 		        	</div>
 	        	</div>
 			</div>
-		</div>
 		);
 	}
 

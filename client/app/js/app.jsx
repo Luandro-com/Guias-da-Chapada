@@ -38,7 +38,7 @@ var App = React.createClass({
     	var name = this.getRoutes().reverse()[0].name;
 
         return (
-            <div>
+            <div className="map-container">
 		          <RouteHandler />
             </div>
         );
@@ -76,7 +76,8 @@ var Main = React.createClass({
       var name = this.getRoutes().reverse()[0].name;
 
         return (
-            <div>
+          <div>
+            <div id="wrapper">
               <Header />
               <div className="clear"></div>
               <RouteHandler 
@@ -87,6 +88,8 @@ var Main = React.createClass({
                 quemsomos={this.state.quemsomos} />
               <Footer />
             </div>
+            <div className="luandro-footer"><a href="http://luandro.com">desenvolvido por Luandro</a></div>
+          </div>  
         );
     }
 }); 

@@ -39,7 +39,7 @@ var App = React.createClass({displayName: "App",
     	var name = this.getRoutes().reverse()[0].name;
 
         return (
-            React.createElement("div", null, 
+            React.createElement("div", {className: "map-container"}, 
 		          React.createElement(RouteHandler, null)
             )
         );
@@ -77,7 +77,8 @@ var Main = React.createClass({displayName: "Main",
       var name = this.getRoutes().reverse()[0].name;
 
         return (
-            React.createElement("div", null, 
+          React.createElement("div", null, 
+            React.createElement("div", {id: "wrapper"}, 
               React.createElement(Header, null), 
               React.createElement("div", {className: "clear"}), 
               React.createElement(RouteHandler, {
@@ -87,7 +88,9 @@ var Main = React.createClass({displayName: "Main",
                 achapadaCultura: this.state.achapadaCultura, 
                 quemsomos: this.state.quemsomos}), 
               React.createElement(Footer, null)
-            )
+            ), 
+            React.createElement("div", {className: "luandro-footer"}, React.createElement("a", {href: "http://luandro.com"}, "desenvolvido por Luandro"))
+          )  
         );
     }
 }); 
@@ -1043,20 +1046,16 @@ var React = require('react/addons'),
 
 		render: function() {
 			return (
-				React.createElement("div", null, 
-					React.createElement("div", {classNameName: "outer_wrap"}, 
-						React.createElement("div", {classNameName: "inner_wrap"}, 
-							React.createElement(MapaHeader, {
-								menu: this.state.menu, 
-								onMenuAClick: this.onMenuAClick, 
-								onMenuBClick: this.onMenuBClick, 
-								onMenuCClick: this.onMenuCClick}), 
-			    			React.createElement("div", {classNameName: "clear"}), 
-			    			React.createElement(MapaMap, {
-			    				markers: this.state.markers, 
-			    				settings: this.state.settings})
-						)
-					), 
+				React.createElement("div", {className: "map-container"}, 
+					React.createElement(MapaHeader, {
+						menu: this.state.menu, 
+						onMenuAClick: this.onMenuAClick, 
+						onMenuBClick: this.onMenuBClick, 
+						onMenuCClick: this.onMenuCClick}), 
+	    			React.createElement("div", {classNameName: "clear"}), 
+	    			React.createElement(MapaMap, {
+	    				markers: this.state.markers, 
+	    				settings: this.state.settings}), 
 				    React.createElement(InfoBoxes, {boxes: this.state.markers})
 				)
 			);
@@ -1093,7 +1092,12 @@ function ZoomControl(controlDiv, map) {
   zoomInButton.style.width = '64px'; 
   zoomInButton.style.height = '64px';
   zoomInButton.style.backgroundColor = '#417505';
-  zoomInButton.style.insertBefore = '+';
+  var maisIcono = document.createElement('span');
+  maisIcono.innerHTML = '+';
+  maisIcono.style.fontSize = '42px';
+  maisIcono.style.color = '#000';
+  maisIcono.style.margin = '10px 0';
+  zoomInButton.appendChild(maisIcono);
   /* Change this to be the .png image you want to use */
   // zoomInButton.style.backgroundImage = 'url("http://placehold.it/32/00ff00")';
   controlWrapper.appendChild(zoomInButton);
@@ -1103,6 +1107,12 @@ function ZoomControl(controlDiv, map) {
   zoomOutButton.style.width = '64px'; 
   zoomOutButton.style.height = '64px';
   zoomOutButton.style.backgroundColor = 'white';
+  var menosIcono = document.createElement('span');
+  menosIcono.innerHTML = '-';
+  menosIcono.style.fontSize = '52px';
+  menosIcono.style.color = '#000';
+  menosIcono.style.margin = '10px 0';
+  zoomOutButton.appendChild(menosIcono);
   /* Change this to be the .png image you want to use */
   // zoomOutButton.style.backgroundImage = 'url("http://placehold.it/32/0000ff")';
   controlWrapper.appendChild(zoomOutButton);
@@ -1161,27 +1171,26 @@ var React = require('react'),
 	InfoBox = React.createClass({displayName: "InfoBox",
 
 	render: function() {
-		var boxId = "infobox"+ this.props.box[5];
+		var boxId = "infobox"+ this.props.box.id;
 
 	return (
-		React.createElement("div", null, 
 			React.createElement("div", {id: boxId}, 
 	        	React.createElement("div", {className: "box-title"}, 
-	        		React.createElement("h3", null, this.props.box[2])
+	        		React.createElement("h3", null, this.props.box.title)
 	        	), 
 			    React.createElement("img", {src: "dist/img/slide.jpg", alt: ""}), 
 	        	React.createElement("div", {className: "grid_100"}, 
 	        		React.createElement("div", {className: "grid_20 "}, 
-		        		this.props.box[4]
+		        		this.props.box.info
 		        	), 
 		        	React.createElement("div", {className: "grid_20 "}, 
 		        		"1 DIA"
 		        	), 
 		        	React.createElement("div", {className: "grid_20 "}, 
-		        		this.props.box[4]
+		        		this.props.info
 		        	), 
 		        	React.createElement("div", {className: "grid_20 "}, 
-		        		this.props.box[4]
+		        		this.props.info
 		        	), 
 		        	React.createElement("div", {className: "grid_20 "}, 
 		        		"omg"
@@ -1189,10 +1198,10 @@ var React = require('react'),
 	        	), 
 	        	React.createElement("div", {className: "grid_100"}, 
 	        		React.createElement("div", {className: "grid_20 "}, 
-		        		this.props.box[4]
+		        		this.props.info
 		        	), 
 		        	React.createElement("div", {className: "grid_20 "}, 
-		        		this.props.box[4]
+		        		this.props.info
 		        	), 
 		        	React.createElement("div", {className: "grid_20 "}, 
 		        		"omg"
@@ -1205,7 +1214,6 @@ var React = require('react'),
 		        	)
 	        	)
 			)
-		)
 		);
 	}
 
@@ -1224,7 +1232,7 @@ var React = require('react'),
 		return (
 		React.createElement("div", {className: "infobox-wrapper"}, 
 			this.props.boxes.map(function (box) {
-				return React.createElement(InfoBox, {box: box, key: box})		
+				return React.createElement(InfoBox, {box: box, key: box.id})		
 			})
 		)
 		);
@@ -1235,31 +1243,45 @@ var React = require('react'),
 module.exports = InfoBoxes;
 },{"./mapaInfoBox.jsx":"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/mapa/mapaInfoBox.jsx","react":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/react.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/mapa/mapaMap.jsx":[function(require,module,exports){
 'use strict';
-
 var React = require('react'),
 	InfoBox = require('google-maps-infobox'),
-	MapaZoom = require('./mapaZoom.jsx'),
+	ZoomControl = require('./ZoomControl.js'),
 	MapaMap = React.createClass({displayName: "MapaMap",
+	    componentDidMount: function () {
+	    		var mapOptions = {
+		            center: this.mapCenterLatLng(),
+		            zoom: this.props.settings.initialZoom,
+		            zoomControl: false,
+		            panControl: false,
+		            streetViewControl: false
+	        	};
+	            var map = new google.maps.Map(this.getDOMNode(), mapOptions);
+	            var zoomControlDiv = document.createElement('div');
+				var zoomControl = new ZoomControl(zoomControlDiv, map);
+		 	 		zoomControlDiv.index = 1;
+		  			map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(zoomControlDiv);
+	            google.maps.event.addListener(map, "mouseover", function() { new InfoBox().close() });
+	            this.setMarkers(this.props.markers, map);
+	            this.setState({map: map});
+	    },
 
-    componentDidMount: function () {
-    	//Passar mapOptions para mapa.jsx
-            var mapOptions = {
-                    center: this.mapCenterLatLng(),
-                    zoom: this.props.settings.initialZoom
-            },
-            map = new google.maps.Map(this.getDOMNode(), mapOptions);
-        var marker, i;
-	    for (i = 0; i < this.props.markers.length; i++) {  
-	    	var newInfoBox = "infobox"+i;
-	    	var newMarker = "marker"+i;
-		      newMarker = new google.maps.Marker({
-		        position: new google.maps.LatLng(this.props.markers[i].lat, this.props.markers[i].lng),
+	    mapCenterLatLng: function () {
+	            return new google.maps.LatLng(this.props.settings.mapCenterLat, this.props.settings.mapCenterLng);
+	    },
+	    setMarkers: function (markers, map) {
+	    	for (var i = 0; i < markers.length; i++) {
+			   this.createMarkers(markers[i], map);
+			 }
+	    },
+	    createMarkers: function (markers, map) {
+	    	var boxId = "infobox"+markers.id;
+	    	var newMarker = new google.maps.Marker({
+		        position: new google.maps.LatLng(markers.lat, markers.lng),
 		        map: map,
 		        icon:'./dist/img/marker.png'
-		      });
-		      console.log(newInfoBox);
-		      var newInfoBox = new InfoBox({
-			    content: document.getElementById(newInfoBox),
+		     });
+	    	var newInfoBox = new InfoBox({
+			    content: document.getElementById(boxId),
 			    disableAutoPan: false,
 			    maxWidth: 150,
 			    pixelOffset: new google.maps.Size(-140, -450),
@@ -1273,99 +1295,37 @@ var React = require('react'),
 			    closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif",
 			    infoBoxClearance: new google.maps.Size(1, 1)
 			});
-		      console.log(newInfoBox);
-		      google.maps.event.addListener(newMarker, 'mouseover', function() {
-			    //infobox2.close(map, this);
+			google.maps.event.addListener(newMarker, 'mouseover', function() {
 			    newInfoBox.open(map, this);
-			    console.log(this);
 			    map.panTo(newMarker.getPosition());
 			    map.panBy(0, -200);
 			});
-		      console.log(newInfoBox);
-	    };
-            this.setState({map: map});
-    },
+		    
+		    return newMarker;
+	    },
 
-    mapCenterLatLng: function () {
+	    componentDidUpdate: function () {
+	    	var mapOptions = {
+	            center: this.mapCenterLatLng(),
+	            zoom: this.props.settings.initialZoom
+	        };
+			var map = this.state.map;
+	        map.setOptions(mapOptions);
 
-            return new google.maps.LatLng(this.props.settings.mapCenterLat, this.props.settings.mapCenterLng);
-    },
-
-    componentDidUpdate: function () {
-    		var mapOptions = {
-                    center: this.mapCenterLatLng(),
-                    zoom: this.props.settings.initialZoom
-            },
-            map = new google.maps.Map(this.getDOMNode(), mapOptions);
-            var marker, i;
-	    for (i = 0; i < this.props.markers.length; i++) {  
-	    	var newInfoBox = "infobox"+i;
-	    	var newMarker = "marker"+i;
-		      newMarker = new google.maps.Marker({
-		        position: new google.maps.LatLng(this.props.markers[i].lat, this.props.markers[i].lng),
-		        map: map,
-		        icon:'./dist/img/marker.png'
-		      });
-		      console.log(newInfoBox);
-		      var newInfoBox = new InfoBox({
-			    content: document.getElementById(newInfoBox),
-			    disableAutoPan: false,
-			    maxWidth: 150,
-			    pixelOffset: new google.maps.Size(-140, -450),
-			    zIndex: null,
-			    boxStyle: {
-			                background: "#417505",
-			                width: "330px",
-			                height: "420px"
-			        },    
-			    closeBoxMargin: "12px 4px 2px 2px",
-			    closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif",
-			    infoBoxClearance: new google.maps.Size(1, 1)
-			});
-		      console.log(newInfoBox);
-		      google.maps.event.addListener(newMarker, 'mouseover', function() {
-			    //infobox2.close(map, this);
-			    newInfoBox.open(map, this);
-			    console.log(this);
-			    map.panTo(newMarker.getPosition());
-			    map.panBy(0, -200);
-			});
-		      console.log(newInfoBox);
-	    };
-    },
+	    },
 		
 	    render: function () {
 	        return (
 	        	React.createElement("div", {id: "map"}
+	        		
 	        	)
-	        	
 	        );
 	    }
 
 		});
 
 module.exports = MapaMap;
-},{"./mapaZoom.jsx":"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/mapa/mapaZoom.jsx","google-maps-infobox":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/google-maps-infobox/infobox-module.js","react":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/react.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/mapa/mapaZoom.jsx":[function(require,module,exports){
-'use strict'
-var React = require('react'),
-	ZoomControl = require('./ZoomControl.js');
-
-var MapaZoom = React.createClass({displayName: "MapaZoom",
-	componentDidMount: function() {
-		var zoomControlDiv = document.createElement('div');
-		var zoomControl = new ZoomControl(zoomControlDiv, map);
- 	 		zoomControlDiv.index = 1;
-  			map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(zoomControlDiv);
-	},
-	render: function() {
-		return (
-			React.createElement("div", null)
-		);
-	}
-});
-
-module.exports = MapaZoom;
-},{"./ZoomControl.js":"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/mapa/ZoomControl.js","react":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/react.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/onde.jsx":[function(require,module,exports){
+},{"./ZoomControl.js":"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/mapa/ZoomControl.js","google-maps-infobox":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/google-maps-infobox/infobox-module.js","react":"/Users/luandrito/Sites/Guias-da-Chapada/node_modules/react/react.js"}],"/Users/luandrito/Sites/Guias-da-Chapada/client/app/js/components/onde.jsx":[function(require,module,exports){
 'use strict';
 var React = require('react'),
 	OndeItem = require('./onde/ondeItem.jsx'),

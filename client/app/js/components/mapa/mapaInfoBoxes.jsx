@@ -9,7 +9,7 @@ var React = require('react'),
 		return (
 		<div className="infobox-wrapper">
 			{this.props.boxes.map(function (box) {
-				return <InfoBox box={box} key={box} />		
+				return <InfoBox box={box} key={box.id} />		
 			})}
 		</div>
 		);
