@@ -3,8 +3,20 @@ var React = require('react/addons'),
 	MapaHeader = require('./mapa/mapaHeader.jsx'),
 	MapaMap = require('./mapa/mapaMap.jsx'),
 	InfoBoxes = require('./mapa/mapaInfoBoxes.jsx'),
+
 	Mapa = React.createClass({
+		loadData: function () {
+			var myFirebaseRef = new Firebase("https://guias.firebaseio.com/");
+		        myFirebaseRef.child("mapa").on("value", function(snapshot) {
+		        		var fireMarkers = snapshot.val();
+				        this.setState({
+				        	markers: fireMarkers
+				        });
+
+		    		}.bind(this));
+		},
 		getInitialState: function() {
+			this.loadData();
 			var MENU_ITEMS = {
 				menua: 'Alto Paraíso', 
 				menub: 'São Jorge', 
@@ -18,17 +30,15 @@ var React = require('react/addons'),
 			};
 			var MARKER_ITEMS = [
 				{
-					id: 0,
 					lat: -14.210744, 
 					lng: -47.473297, 
-					title: 'Cachoeira dos Macacos', 
+					title: 'Cachoeira dos Anões', 
 					img: 'slide', 
 					info: '4x4' },
 				{
-					id: 1,
 					lat: -14.137153, 
 					lng: -47.519503, 
-					title: 'Cachoeira dos Anjos', 
+					title: 'Cachoeira dos Arcanjos', 
 					img: 'slide', 
 					info: 'bike' }	
 			];
@@ -57,14 +67,14 @@ var React = require('react/addons'),
 							id: 0,
 							lat: -14.210744, 
 							lng: -47.473297, 
-							title: 'Restaurante em Alto', 
+							titulo: 'Restaurante em Alto', 
 							img: 'slide', 
 							info: '4x4' },
 						{
 							id: 1,
 							lat: -14.137153, 
 							lng: -47.519503, 
-							title: 'Restaurante em Alto 2', 
+							titulo: 'Restaurante em Alto 2', 
 							img: 'slide', 
 							info: 'bike' }	
 					]

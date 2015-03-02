@@ -8,8 +8,10 @@ var React = require('react'),
 	render: function() {
 		return (
 		<div className="infobox-wrapper">
-			{this.props.boxes.map(function (box) {
-				return <InfoBox box={box} key={box.id} />		
+
+			{this.props.boxes.map(function (boxItem) {
+				console.log(boxItem.info);
+				return <InfoBox box={boxItem} key={boxItem.lat} />		
 			})}
 		</div>
 		);

@@ -1,7 +1,8 @@
 'use strict';
 var Router = require('react-router');
 var authLib = require('../auth.jsx');
-var Login = React.createClass({
+var React= require('react'),
+    Login = React.createClass({
   mixins: [ Router.Navigation ],
 
   statics: {

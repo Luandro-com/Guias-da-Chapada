@@ -25,9 +25,11 @@ var gulp = require('gulp'),
 	p = {
 	  html: './client/app/*.html',
 	  jsx: './client/app/js/app.jsx',
+	  component: './client/app/js/component.jsx',
 	  scss: './client/app/styles/*.scss',
-	  img: './client/app/img/*.{gif,jpg,png,svg}',
+	  img: './client/app/img/**/*.{gif,jpg,png,svg}',
 	  bundle: './app.js',
+	  serverBundle: './component.js',
 	  distJs: './client/dist/js',
 	  distCss: './client/dist/styles',
 	  distImg: './client/dist/img'
@@ -45,7 +47,7 @@ gulp.task('browserSync', function() {
   })
 });
 gulp.task('serve', function () {
-  nodemon({ script: 'index.js', ext: 'html js css' })
+  nodemon({ script: 'server/index.js', ext: 'html js css' })
     .on('restart', function () {
       console.log('restarted!')
     })
@@ -75,6 +77,14 @@ gulp.task('browserify', function() {
 	.pipe(source(p.bundle))
 	.pipe(buffer())
 	.pipe(uglify())
+	.pipe(gulp.dest(p.distJs));
+});
+gulp.task('server-build', function() {
+  browserify(p.component)
+	.transform(reactify)
+	.bundle()
+	.pipe(source(p.serverBundle))
+	.pipe(buffer())
 	.pipe(gulp.dest(p.distJs));
 });
 // Styles
@@ -110,7 +120,7 @@ gulp.task('watch', ['clean'], function() {
 
 gulp.task('build', ['clean'], function() {
   process.env.NODE_ENV = 'production';
-  gulp.start(['browserify', 'styles', 'img']);
+  gulp.start(['browserify', 'server-build', 'styles', 'img']);
 });
 
 gulp.task('default', function() {

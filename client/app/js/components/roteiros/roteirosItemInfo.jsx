@@ -1,6 +1,7 @@
 'use strict';
 
-var OverlayTrigger = require('react-bootstrap').OverlayTrigger,
+var React = require('react'),
+	OverlayTrigger = require('react-bootstrap').OverlayTrigger,
 	Tooltip = require('react-bootstrap').Tooltip, 
 	RoteirosItemInfo = React.createClass({
 	render: function() {

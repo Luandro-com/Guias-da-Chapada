@@ -1,11 +1,35 @@
 /*Guias css*/
 /*verde:  #417505*/
+.right_grass {
+    background: url('../img/Guias_Sprites.png') no-repeat 0 0;
+    width: 42px;
+    height: 451px;
+    position: absolute;
+    top: 150px;
+    right: 0;
 
+}
+.left_grass {
+    background: url('../img/Guias_Sprites.png') no-repeat -335px -2px;
+    width: 44px;
+    height: 396px;
+    position: absolute;
+    top: 180px;
+    left: 0;
+}
 .br { border-right: 4px solid #417505; }
 .bb { border-bottom: 4px solid #417505;}
 .bt { border-top: 4px solid #417505;}
 .bl  {border-left: 4px solid #417505;}
-#wrapper { border: 20px solid #937448; margin: 0 auto; overflow: hidden;}
+#wrapper { 
+    background-color: white;
+    border: 20px solid #937448; 
+    margin: 0 auto; 
+    overflow: hidden;
+   /* -webkit-box-shadow: 20px 220px 20px #de1dde;
+    -moz-box-shadow: 20px 220px 20px #de1dde; */
+    box-shadow: 0px 0px 20px 8px #000;
+}
 
 .hp_dest {margin-left: 10%; margin-top: 6%; margin-bottom: 4%; font-size: 28px; text-transform: uppercase; color: #fff; font-weight: 700; background-color: #417505; padding: 1%; width: 65%;  }
 .hp_first_row { 

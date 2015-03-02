@@ -1,5 +1,6 @@
 //Auth
-var Authentication = {
+var React= require('react'),
+  Authentication = {
   statics: {
     willTransitionTo: function (transition) {
       if (!auth.loggedIn()) {

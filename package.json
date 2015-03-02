@@ -4,8 +4,7 @@
   "description": "Guias da Chapada dos Veadeiros",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "nodemon": "nodemon index.js --watch"
+    "start": "pm2 start server/index.js"
   },
   "engines": {
     "node": "0.10.x"
@@ -33,7 +32,10 @@
     "express": "^4.11.1",
     "firebase": "^2.1.1",
     "google-maps-infobox": "^1.1.13",
+    "immutable": "^3.6.2",
     "instafeed.js": "^1.3.2",
+    "path": "^0.11.14",
+    "pm2": "^0.12.6",
     "react": "^0.12.2",
     "react-bootstrap": "^0.13.0",
     "react-router": "^0.11.6",

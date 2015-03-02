@@ -5,7 +5,8 @@ var authLib = require('../auth.jsx'),
 var ReactBootstrap = require('react-bootstrap'),
     TabbedArea = require('react-bootstrap').TabbedArea, 
     TabPane = require('react-bootstrap').TabPane;
-var Admin = React.createClass({
+var React= require('react'), 
+  Admin = React.createClass({
   mixins: [ Authentication ],
 
   render: function () {

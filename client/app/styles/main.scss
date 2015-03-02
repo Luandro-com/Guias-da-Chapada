@@ -11,7 +11,6 @@
 /* ---------------------------------------------------------- */
 
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,900,700&subset=latin,latin-ext);
-// @import "../../node_modules/material-ui-sass/material-ui";
 
 * {
 	box-sizing: content-box;
@@ -27,6 +26,7 @@ body {
 	padding: 0px;
 	height: 100%;
 	width: 100%;
+	background-color: #5B5554;
 }
 #app {
 	height: 100%;
@@ -47,15 +47,16 @@ a:focus {
 	bottom: -90px;
 	text-align: center;
 	margin: 0 auto;
+	padding-bottom: 40px;
 	font-size: 9px;
 	font-style: italic;
 }
 .luandro-footer a {
-	color: #937448;
+	color: #fff;
 	text-decoration: none;
 }
 .luandro-footer a:hover {
-	color: #937448;
+	color: #7ED321;
 	text-decoration: none;
 }
 img {border:none;}
@@ -68,7 +69,6 @@ ul, ol { margin: 0!important; padding: 0!important;}
 		width: 960px;
 }
 .inner_wrap {
-		/*padding: 20px 0px 20px 0px;*/
 }
 .grid_10,
 .grid_20,
@@ -308,7 +308,7 @@ p {
 		
 		line-height: 25px;
 		font-size: 15px;
-		color: #666666;
+		color: #000;
 }
 small {
 		font-size: 85%;

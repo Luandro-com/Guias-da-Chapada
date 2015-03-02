@@ -35,7 +35,6 @@ var React = require('react'),
 					<div className="grid_100 travel">
 						<div className="grid_49 br">
 							<h2 className="home-mapa-h2">Mapa Interativo</h2>
-							<img className="hp_travel" src="https://unsplash.imgix.net/45/eDLHCtzRR0yfFtU0BQar_sylwiabartyzel_themap.jpg?fit=crop&fm=jpg&h=700&q=75&w=1050" title="" alt=""></img>
 						</div>
 						<div className="grid_49">
 							<ul className="travel_guide_hp">

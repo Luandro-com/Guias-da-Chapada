@@ -1,6 +1,7 @@
 'use strict';
 
-var OndeItem = React.createClass({
+var React = require('react'),
+	OndeItem = React.createClass({
 	render: function() {
 		return (
 			<div className="grid_50_h br">

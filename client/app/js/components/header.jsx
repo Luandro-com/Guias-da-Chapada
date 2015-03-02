@@ -6,6 +6,12 @@ var React = require('react'),
 	NavBar = require('./header/navbar.jsx'),
 
     Header = React.createClass({
+		getInitialState: function() {
+			return {
+				agenda:'Sua agenda está vazia',
+				agendaStyle: 'nav-agenda' 
+			};
+		},
       render: function() {
         return (
         	<div className="header">
@@ -14,7 +20,7 @@ var React = require('react'),
 			    		<div id="header" className="grid_100">
 			    			<Link to="Home">
 								<div className="grid_40">
-									<h1 id="logo"></h1>
+									<h1 id="logo">Guias da Chapada</h1>
 				        		</div>
 				        	</Link>	
 							<div id="social" className="grid_60">
@@ -29,7 +35,7 @@ var React = require('react'),
 									</ul>
 								</div>
 								<div>
-									<div className="nav-agenda">Sua agenda está vazia</div>
+									<div className={this.state.agendaStyle}>{this.state.agenda}</div>
 									<div className="nav-galeria"><Link to="galeria">GALERIA</Link></div>
 								</div>
 							</div>

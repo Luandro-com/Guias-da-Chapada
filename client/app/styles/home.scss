@@ -44,7 +44,21 @@
 	padding: 1%;
 	width: 65%;
 }
+//Quem somos e Chapada dos Veadeiros
+.home-content .grid_50_h {
+	background-image: url(../img/background/home-bg.jpg);
+}
+//Mapa
 .travel { height: 395px; }
+.home-content .grid_49:nth-child(1) {
+	height: 400px;
+	background-image: url(../img/background/home-bg-mapa-interativo.jpg);
+	background-size: cover;
+}
+.home-content .grid_49:nth-child(2) {
+	background-image: url(../img/background/home-bg-map.jpg);
+	background-position: center top;
+}
 // Prévia atrações
 #left-triangle {
    position: absolute;

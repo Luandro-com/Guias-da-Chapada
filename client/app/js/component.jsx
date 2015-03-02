@@ -17,12 +17,10 @@ var Chapada = require('./components/chapada.jsx');
 var Roteiros = require('./components/roteiros.jsx');
 var Onde = require('./components/onde.jsx');
 var Galeria = require('./components/galeria.jsx');
-var Footer = require('./components/footer.jsx');
-var Mapa = require('./components/mapa.jsx');
-var Auth = require('./components/auth.jsx'),
+{/** var Auth = require('./components/auth.jsx'),
     Login = require('./components/auth/AuthLogin.jsx'),
     Logout = require('./components/auth/AuthLogout.jsx'),
-    Admin = require('./components/auth/AuthAdmin.jsx');
+    Admin = require('./components/auth/AuthAdmin.jsx'); */}
 
 var App = React.createClass({
 	mixins: [ Router.State ],
@@ -72,8 +70,6 @@ var Main = React.createClass({
         return (
           <div>
             <div id="wrapper">
-              <div className="right_grass"></div>
-              <div className="left_grass"></div>
               <Header />
               <div className="clear"></div>
               <RouteHandler 
@@ -98,18 +94,13 @@ var routes = (
       <Route name="roteiros" handler={Roteiros} path="/roteiros" />
       <Route name="onde" handler={Onde} path="/onde" />
       <Route name="galeria" handler={Galeria} path="/galeria" />
+      
     </Route>
-    <Route handler={Auth} path="/auth" >
-      <Route name="login" handler={Login} path="/login" />
-      <Route name="logout" handler={Logout} path="/logout" />
-      <Route name="admin" handler={Admin} path="/admin" />
-    </Route>
-    <Route handler={Mapa} name="mapa" path="/mapa" />    
     <DefaultRoute handler={Home} />
   </Route>
 );
 
-Router.run(routes, Router.HistoryLocation, function (Handler) {
+Router.run(routes, function (Handler) {
   React.render(<Handler />, document.getElementById('app'));
 });
 

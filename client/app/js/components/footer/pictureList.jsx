@@ -17,7 +17,7 @@ var React = require('react'),
     },
 
     componentDidMount: function(){
-        
+    
         // When the component loads, send a jQuery AJAX request
 
         var self = this;

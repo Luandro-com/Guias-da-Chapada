@@ -1,4 +1,5 @@
-var Logout = React.createClass({
+var React= require('react'),
+	Logout = React.createClass({
   componentDidMount: function () {
     auth.logout();
   },

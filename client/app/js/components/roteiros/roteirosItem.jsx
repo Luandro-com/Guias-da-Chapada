@@ -1,6 +1,7 @@
 'use strict';
 
-var RoteirosItemInfo = require('./roteirosItemInfo.jsx'),
+var React = require('react'),
+	RoteirosItemInfo = require('./roteirosItemInfo.jsx'),
 	RoteirosItem = React.createClass({
 	render: function() {
 		return (
