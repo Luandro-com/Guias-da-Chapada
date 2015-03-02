@@ -2,9 +2,9 @@
   "name": "Guias-da-Chapada",
   "version": "1.0.0",
   "description": "Guias da Chapada dos Veadeiros",
-  "main": "index.js",
+  "main": "server/index.js",
   "scripts": {
-    "start": "npm start server/index.js"
+    "start": "node server/index.js"
   },
   "engines": {
     "node": "0.10.x"

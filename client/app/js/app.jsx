@@ -50,7 +50,9 @@ var Main = React.createClass({
             achapadaCultura = snapshot.val().achapada.cultura,
             homeSlide1 = snapshot.val().Slides.slide1,
             homeSlide2 = snapshot.val().Slides.slide2,
-            homeSlide3 = snapshot.val().Slides.slide3;
+            homeSlide3 = snapshot.val().Slides.slide3,
+            chamadas = snapshot.val().chamadas;
+            console.log(chamadas);
 
         this.setState({
         homeSlide1 : homeSlide1,
@@ -60,7 +62,8 @@ var Main = React.createClass({
         achapadaIntro : achapadaIntro,
         achapadaCerrado : achapadaCerrado,
         achapadaHistoria : achapadaHistoria,
-        achapadaCultura : achapadaCultura
+        achapadaCultura : achapadaCultura,
+        chamadas : chamadas
       });
       }.bind(this));
     },
@@ -69,9 +72,10 @@ var Main = React.createClass({
       return {
         quemsomos : "...",
         achapadaIntro : "...",
-        homeSlide1 : {"img":"https://unsplash.imgix.net/photo-1415226481302-c40f24f4d45e?fit=crop&fm=jpg&h=800&q=75&w=1050", "nome":"Primeira Queda"},
-        homeSlide2 : {"img":"https://unsplash.imgix.net/photo-1415226481302-c40f24f4d45e?fit=crop&fm=jpg&h=800&q=75&w=1050", "nome":"Primeira Queda"},
-        homeSlide3 : {"img":"https://unsplash.imgix.net/photo-1415226481302-c40f24f4d45e?fit=crop&fm=jpg&h=800&q=75&w=1050", "nome":"Primeira Queda"}
+        homeSlide1 : {"img":"https://unsplash.imgix.net/photo-1415226481302-c40f24f4d45e?fit=crop&fm=jpg&h=800&q=75&w=1050", "nome":"Guias da Chapada"},
+        homeSlide2 : {"img":"https://unsplash.imgix.net/photo-1415226481302-c40f24f4d45e?fit=crop&fm=jpg&h=800&q=75&w=1050", "nome":"Guias da Chapada"},
+        homeSlide3 : {"img":"https://unsplash.imgix.net/photo-1415226481302-c40f24f4d45e?fit=crop&fm=jpg&h=800&q=75&w=1050", "nome":"Guias da Chapada"},
+        chamadas : {"img":"https://unsplash.imgix.net/photo-1415226481302-c40f24f4d45e?fit=crop&fm=jpg&h=800&q=75&w=1050", "titulo":"...", "texto": "..."}
       };
     },
 

@@ -2,10 +2,7 @@ var express = require('express'),
 	app = express(),
 	compression = require('compression'),
 	favicon = require('serve-favicon'),
-	historyApiFallback = require('connect-history-api-fallback'),
-	React = require('react');
-
-var port = process.env.PORT || 5000;
+	historyApiFallback = require('connect-history-api-fallback');
 //ISOMORPHIC TRY
 // var mainApp = React.createFactory(require('./../client/dist/js/component.js'));
 // server.use(function(req, res, next) {
