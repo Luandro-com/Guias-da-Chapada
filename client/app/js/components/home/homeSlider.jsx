@@ -8,21 +8,21 @@ var React = require('react'),
   				<div className="home-slider">
 					<Carousel>
 				      <CarouselItem>
-				        <img width={"100%"} height={550.4} alt="900x500" src="https://ununsplash.imgix.net/photo-1418227165283-1595d13726cd?q=75&w=1080&h=1080&fit=max&fm=jpg&s=4a52f1854342eddcb31662ffbb0fb77e"/>
+				        <img width={"100%"} height={550.4} alt="900x500" src={this.props.slide1.img}/>
 				        <div className="carousel-caption">
-				          <h3>Cachoeira do Zé Cascudo</h3>
+				          <h3>{this.props.slide1.nome}</h3>
 				        </div>
 				      </CarouselItem>
 				      <CarouselItem>
-				        <img width={"100%"} height={550.4} alt="900x500" src="https://unsplash.imgix.net/photo-1415226481302-c40f24f4d45e?fit=crop&fm=jpg&h=800&q=75&w=1050"/>
+				        <img width={"100%"} height={550.4} alt="900x500" src={this.props.slide2.img}/>
 				        <div className="carousel-caption">
-				          <h3>Queda da Princesa Leia</h3>
+				          <h3>{this.props.slide2.nome}</h3>
 				        </div>
 				      </CarouselItem>
 				      <CarouselItem>
-				        <img width={"100%"} height={550.4} alt="900x500" src="https://ununsplash.imgix.net/photo-1415226194219-638f50c5d25f?fit=crop&fm=jpg&h=800&q=75&w=1050"/>
+				        <img width={"100%"} height={550.4} alt="900x500" src={this.props.slide3.img}/>
 				        <div className="carousel-caption">
-				          <h3>Haduken Kame Hame Ha</h3>
+				          <h3>{this.props.slide3.nome}</h3>
 				        </div>
 				      </CarouselItem>
 				    </Carousel>

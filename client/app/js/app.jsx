@@ -47,9 +47,15 @@ var Main = React.createClass({
             achapadaIntro = snapshot.val().achapada.intro,
             achapadaCerrado = snapshot.val().achapada.cerrado,
             achapadaHistoria = snapshot.val().achapada.historia,
-            achapadaCultura = snapshot.val().achapada.cultura;
+            achapadaCultura = snapshot.val().achapada.cultura,
+            homeSlide1 = snapshot.val().Slides.slide1,
+            homeSlide2 = snapshot.val().Slides.slide2,
+            homeSlide3 = snapshot.val().Slides.slide3;
 
         this.setState({
+        homeSlide1 : homeSlide1,
+        homeSlide2 : homeSlide2,
+        homeSlide3 : homeSlide3,
         quemsomos : quemsomos,
         achapadaIntro : achapadaIntro,
         achapadaCerrado : achapadaCerrado,
@@ -62,7 +68,10 @@ var Main = React.createClass({
       this.loadData();
       return {
         quemsomos : "...",
-        achapadaIntro : "..."
+        achapadaIntro : "...",
+        homeSlide1 : {"img":"https://unsplash.imgix.net/photo-1415226481302-c40f24f4d45e?fit=crop&fm=jpg&h=800&q=75&w=1050", "nome":"Primeira Queda"},
+        homeSlide2 : {"img":"https://unsplash.imgix.net/photo-1415226481302-c40f24f4d45e?fit=crop&fm=jpg&h=800&q=75&w=1050", "nome":"Primeira Queda"},
+        homeSlide3 : {"img":"https://unsplash.imgix.net/photo-1415226481302-c40f24f4d45e?fit=crop&fm=jpg&h=800&q=75&w=1050", "nome":"Primeira Queda"}
       };
     },
 
@@ -76,7 +85,10 @@ var Main = React.createClass({
               <div className="left_grass"></div>
               <Header />
               <div className="clear"></div>
-              <RouteHandler 
+              <RouteHandler
+                homeSlide1={this.state.homeSlide1}  
+                homeSlide2={this.state.homeSlide2}
+                homeSlide3={this.state.homeSlide3}
                 achapadaIntro={this.state.achapadaIntro} 
                 achapadaCerrado={this.state.achapadaCerrado}
                 achapadaHistoria={this.state.achapadaHistoria}

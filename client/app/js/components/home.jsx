@@ -6,11 +6,15 @@ var React = require('react'),
 	Home = React.createClass({
 
 	render: function() {
+		console.log(this.props.homeSlide1);
 		return (
 	<div className="outer_wrap">
 		<div className="inner_wrap">
 			<div id="container">
-				<HomeSlider />
+				<HomeSlider 
+					slide1={this.props.homeSlide1}
+					slide2={this.props.homeSlide2}
+					slide3={this.props.homeSlide3} />
 			</div>
 			<div className="content">
 				<HomeContent 

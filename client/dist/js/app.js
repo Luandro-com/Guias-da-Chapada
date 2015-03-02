@@ -48,9 +48,15 @@ var Main = React.createClass({displayName: "Main",
             achapadaIntro = snapshot.val().achapada.intro,
             achapadaCerrado = snapshot.val().achapada.cerrado,
             achapadaHistoria = snapshot.val().achapada.historia,
-            achapadaCultura = snapshot.val().achapada.cultura;
+            achapadaCultura = snapshot.val().achapada.cultura,
+            homeSlide1 = snapshot.val().Slides.slide1,
+            homeSlide2 = snapshot.val().Slides.slide2,
+            homeSlide3 = snapshot.val().Slides.slide3;
 
         this.setState({
+        homeSlide1 : homeSlide1,
+        homeSlide2 : homeSlide2,
+        homeSlide3 : homeSlide3,
         quemsomos : quemsomos,
         achapadaIntro : achapadaIntro,
         achapadaCerrado : achapadaCerrado,
@@ -63,7 +69,10 @@ var Main = React.createClass({displayName: "Main",
       this.loadData();
       return {
         quemsomos : "...",
-        achapadaIntro : "..."
+        achapadaIntro : "...",
+        homeSlide1 : {"img":"https://unsplash.imgix.net/photo-1415226481302-c40f24f4d45e?fit=crop&fm=jpg&h=800&q=75&w=1050", "nome":"Primeira Queda"},
+        homeSlide2 : {"img":"https://unsplash.imgix.net/photo-1415226481302-c40f24f4d45e?fit=crop&fm=jpg&h=800&q=75&w=1050", "nome":"Primeira Queda"},
+        homeSlide3 : {"img":"https://unsplash.imgix.net/photo-1415226481302-c40f24f4d45e?fit=crop&fm=jpg&h=800&q=75&w=1050", "nome":"Primeira Queda"}
       };
     },
 
@@ -78,6 +87,9 @@ var Main = React.createClass({displayName: "Main",
               React.createElement(Header, null), 
               React.createElement("div", {className: "clear"}), 
               React.createElement(RouteHandler, {
+                homeSlide1: this.state.homeSlide1, 
+                homeSlide2: this.state.homeSlide2, 
+                homeSlide3: this.state.homeSlide3, 
                 achapadaIntro: this.state.achapadaIntro, 
                 achapadaCerrado: this.state.achapadaCerrado, 
                 achapadaHistoria: this.state.achapadaHistoria, 
@@ -662,11 +674,15 @@ var React = require('react'),
 	Home = React.createClass({displayName: "Home",
 
 	render: function() {
+		console.log(this.props.homeSlide1);
 		return (
 	React.createElement("div", {className: "outer_wrap"}, 
 		React.createElement("div", {className: "inner_wrap"}, 
 			React.createElement("div", {id: "container"}, 
-				React.createElement(HomeSlider, null)
+				React.createElement(HomeSlider, {
+					slide1: this.props.homeSlide1, 
+					slide2: this.props.homeSlide2, 
+					slide3: this.props.homeSlide3})
 			), 
 			React.createElement("div", {className: "content"}, 
 				React.createElement(HomeContent, {
@@ -840,21 +856,21 @@ var React = require('react'),
   				React.createElement("div", {className: "home-slider"}, 
 					React.createElement(Carousel, null, 
 				      React.createElement(CarouselItem, null, 
-				        React.createElement("img", {width: "100%", height: 550.4, alt: "900x500", src: "https://ununsplash.imgix.net/photo-1418227165283-1595d13726cd?q=75undefined080undefined=jpgundefined4342eddcb31662ffbb0fb77e"}), 
+				        React.createElement("img", {width: "100%", height: 550.4, alt: "900x500", src: this.props.slide1.img}), 
 				        React.createElement("div", {className: "carousel-caption"}, 
-				          React.createElement("h3", null, "Cachoeira do Zé Cascudo")
+				          React.createElement("h3", null, this.props.slide1.nome)
 				        )
 				      ), 
 				      React.createElement(CarouselItem, null, 
-				        React.createElement("img", {width: "100%", height: 550.4, alt: "900x500", src: "https://unsplash.imgix.net/photo-1415226481302-c40f24f4d45e?fit=cropundefined00undefined0"}), 
+				        React.createElement("img", {width: "100%", height: 550.4, alt: "900x500", src: this.props.slide2.img}), 
 				        React.createElement("div", {className: "carousel-caption"}, 
-				          React.createElement("h3", null, "Queda da Princesa Leia")
+				          React.createElement("h3", null, this.props.slide2.nome)
 				        )
 				      ), 
 				      React.createElement(CarouselItem, null, 
-				        React.createElement("img", {width: "100%", height: 550.4, alt: "900x500", src: "https://ununsplash.imgix.net/photo-1415226194219-638f50c5d25f?fit=cropundefined00undefined0"}), 
+				        React.createElement("img", {width: "100%", height: 550.4, alt: "900x500", src: this.props.slide3.img}), 
 				        React.createElement("div", {className: "carousel-caption"}, 
-				          React.createElement("h3", null, "Haduken Kame Hame Ha")
+				          React.createElement("h3", null, this.props.slide3.nome)
 				        )
 				      )
 				    )
