@@ -6,7 +6,6 @@ var React = require('react'),
 	Home = React.createClass({
 
 	render: function() {
-		console.log(this.props.homeSlide1);
 		return (
 	<div className="outer_wrap">
 		<div className="inner_wrap">
@@ -20,7 +19,8 @@ var React = require('react'),
 				<HomeContent 
 					achapadaIntro={this.props.achapadaIntro} 
 					quemsomos={this.props.quemsomos}/>
-				<HomeOfertas />
+				<HomeOfertas
+					 chamadas={this.props.chamadas} />
 				<div className="clear"></div>
 			</div>
 		</div>

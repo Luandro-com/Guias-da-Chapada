@@ -1,47 +1,49 @@
 'use strict';
-var Router = require('react-router');
-var authLib = require('../auth.jsx');
-var React= require('react'),
-    Login = React.createClass({
-  mixins: [ Router.Navigation ],
 
+var React = require('react');
+var Router = require('react-router');
+var firebaseUtils = require('./utils/firebaseUtils.jsx');
+var Login = React.createClass({
+  mixins: [Router.Navigation],
   statics: {
     attemptedTransition: null
   },
-
-  getInitialState: function () {
+  getInitialState: function(){
     return {
       error: false
-    };
+    }
   },
-
-  handleSubmit: function (event) {
-    event.preventDefault();
+  handleSubmit: function(e){
+    e.preventDefault();
     var email = this.refs.email.getDOMNode().value;
-    var pass = this.refs.pass.getDOMNode().value;
-    authLib.login(email, pass, function (loggedIn) {
-      if (!loggedIn)
-        return this.setState({ error: true });
-
-      if (Login.attemptedTransition) {
+    var pw = this.refs.pw.getDOMNode().value;
+    firebaseUtils.loginWithPW({email: email, password: pw}, function(){
+      if(Login.attemptedTransition){
         var transition = Login.attemptedTransition;
         Login.attemptedTransition = null;
         transition.retry();
       } else {
-        this.replaceWith('/admin');
+        this.replaceWith('admin');
       }
     }.bind(this));
   },
-
-  render: function () {
-    var errors = this.state.error ? <p>Bad login information</p> : '';
+  render: function(){
+    var errors = this.state.error ? <p> Error on Login </p> : '';
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label><input ref="email" placeholder="email" defaultValue="joe@example.com"/></label>
-        <label><input ref="pass" placeholder="password"/></label> (hint: password1)<br/>
-        <button type="submit">login</button>
-        {errors}
-      </form>
+      <div className="col-sm-6 col-sm-offset-3">
+        <form onSubmit={this.handleSubmit}>
+          <div className="form-group">
+            <label> Email </label>
+            <input className="form-control" ref="email" placeholder="Email"/>
+          </div>
+          <div className="form-group">
+            <label>Password</label>
+            <input ref="pw" type="password" className="form-control" placeholder="Password" />
+          </div>
+          <button type="submit" className="btn btn-primary">Login</button>
+          {errors}
+        </form>
+      </div>
     );
   }
 });

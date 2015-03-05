@@ -3,6 +3,7 @@
 var React = require('react'),
 	Router = require('react-router'),
     Link = Router.Link,
+    Clima = require('./header/clima.jsx'),
 	NavBar = require('./header/navbar.jsx'),
 
     Header = React.createClass({
@@ -26,7 +27,7 @@ var React = require('react'),
 							<div id="social" className="grid_60">
 								<div className="social">
 									<div className="nav-lang">
-										<div>ENGLISH / ESPAÑOL</div>
+										<Clima/>
 									</div>
 									<ul className="social_icons">
 										<li><a target="_blank" href="mailto:contato@guiasdachapada.com"><span className="icono-mail"></span></a></li>

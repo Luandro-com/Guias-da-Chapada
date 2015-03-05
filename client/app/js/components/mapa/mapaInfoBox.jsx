@@ -3,47 +3,50 @@ var React = require('react'),
 	InfoBox = React.createClass({
 
 	render: function() {
-		var boxId = "infobox"+ this.props.box.lat;
-		console.log(this.props.box.lng);
+		var id = this.props.id;
+		console.log('props.id gets to InfoBox as : '+id);
+		var boxId = "infobox"+ this.props.id;
+		var urlID = "http://pre.guiasdachapada.com/#"+boxId;
+		console.log("Generated InfoBox with ID of : "+boxId);
 
 	return (
 			<div id={boxId}>
 	        	<div className="box-title">
-	        		<h3>{this.props.box.titulo}</h3>
+	        		<h3>{this.props.titulo}</h3>
 	        	</div>
 			    <img src="dist/img/slide.jpg" alt="" />
 	        	<div className="grid_100">
 	        		<div className="grid_20 ">
-		        		{this.props.box.info}
+		        		{this.props.info}
 		        	</div>
 		        	<div className="grid_20 ">
-		        		1 DIA
+		        		{this.props.info}
 		        	</div>
 		        	<div className="grid_20 ">
-		        		{this.props.box.info}
+		        		{this.props.info}
 		        	</div>
 		        	<div className="grid_20 ">
-		        		{this.props.box.info}
+		        		{this.props.info}
 		        	</div>
 		        	<div className="grid_20 ">
-		        		omg
+		        		{this.props.info}
 		        	</div>
 	        	</div>
 	        	<div className="grid_100">
 	        		<div className="grid_20 ">
-		        		{this.props.box.info}
+		        		{this.props.info}
 		        	</div>
 		        	<div className="grid_20 ">
-		        		{this.props.box.info}
+		        		{this.props.info}
 		        	</div>
 		        	<div className="grid_20 ">
-		        		omg
+		        		{this.props.info}
 		        	</div>
 		        	<div className="grid_20 ">
-		        		omg
+		        		{this.props.info}
 		        	</div>
 		        	<div className="grid_20 ">
-		        		omg
+		        		<div className="fb-like" data-href={urlID} data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
 		        	</div>
 	        	</div>
 			</div>

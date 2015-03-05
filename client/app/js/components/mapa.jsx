@@ -1,5 +1,7 @@
 'use strict';
 var React = require('react/addons'),
+	Immutable = require('immutable'),
+	_ = require('lodash'),
 	MapaHeader = require('./mapa/mapaHeader.jsx'),
 	MapaMap = require('./mapa/mapaMap.jsx'),
 	InfoBoxes = require('./mapa/mapaInfoBoxes.jsx'),
@@ -9,8 +11,18 @@ var React = require('react/addons'),
 			var myFirebaseRef = new Firebase("https://guias.firebaseio.com/");
 		        myFirebaseRef.child("mapa").on("value", function(snapshot) {
 		        		var fireMarkers = snapshot.val();
+		        		console.log('Firebase generates the markers as: '+fireMarkers);
+		        		var mapChapada = _.where(fireMarkers, {'categoria': 'atrativo'}),
+		        			mapSj = _.where(fireMarkers, {'local': 'SJ'}),
+		        			mapAp = _.where(fireMarkers, {'local': 'AP'});
+		        		console.log('Not immutable logs '+_.map(mapChapada, 'titulo'));
+		        		var mapChapadaI = Immutable.Map(mapChapada);
+		        		console.log('Immutable logs '+_.map(mapChapadaI, 'titulo'));
 				        this.setState({
-				        	markers: fireMarkers
+				        	chapadaMarkers: mapChapada,
+				        	sjMarkers: mapSj,
+				        	apMarkers: mapAp,
+				        	markers: mapChapada
 				        });
 
 		    		}.bind(this));
@@ -28,25 +40,32 @@ var React = require('react/addons'),
 	            mapCenterLat: -14.137153,
 	            mapCenterLng: -47.519503
 			};
-			var MARKER_ITEMS = [
-				{
-					lat: -14.210744, 
-					lng: -47.473297, 
-					title: 'Cachoeira dos Anões', 
-					img: 'slide', 
-					info: '4x4' },
-				{
-					lat: -14.137153, 
-					lng: -47.519503, 
-					title: 'Cachoeira dos Arcanjos', 
-					img: 'slide', 
-					info: 'bike' }	
-			];
+			var MARKER_ITEMS = {
+				"cachoeira-anjos" : {
+				      "categoria" : "atrativo",
+				      "img" : "slide",
+				      "info" : "bike",
+				      "id" : "1",
+				      "lat" : -14.049433,
+				      "lng" : -47.465508,
+				      "titulo" : "Cachoeira dos 7 Anões"
+				    },
+				    "cachoeira-macacos" : {
+				      "categoria" : "atrativo",
+				      "img" : "slide",
+				      "info" : "4x4",
+				      "id" : "2",
+				      "lat" : -14.210744,
+				      "lng" : -47.473297,
+				      "titulo" : "Cachoeira dos Macacos"
+				    }
+			};
+			
 			return {
 				menu: MENU_ITEMS,
 				settings: MAP_SETTINGS,
 				markers: MARKER_ITEMS
-			};
+			}
 		},
 		onMenuAClick: function () {
 			if (this.state.menu.cidade === 'Chapada') {
@@ -62,22 +81,7 @@ var React = require('react/addons'),
 						mapCenterLat: -14.137153,
 	            		mapCenterLng: -47.519503
 					},
-					markers: [
-						{
-							id: 0,
-							lat: -14.210744, 
-							lng: -47.473297, 
-							titulo: 'Restaurante em Alto', 
-							img: 'slide', 
-							info: '4x4' },
-						{
-							id: 1,
-							lat: -14.137153, 
-							lng: -47.519503, 
-							titulo: 'Restaurante em Alto 2', 
-							img: 'slide', 
-							info: 'bike' }	
-					]
+					markers: this.state.apMarkers
 				});
 			}
 			else {
@@ -93,22 +97,7 @@ var React = require('react/addons'),
 						mapCenterLat: -14.137153,
 	            		mapCenterLng: -47.519503
 					},
-					markers: [
-						{
-							id: 2,
-							lat: -14.210744, 
-							lng: -47.473297, 
-							title: 'Cachoeira dos Macacos', 
-							img: 'slide', 
-							info: '4x4' },
-						{
-							id: 3,
-							lat: -14.137153, 
-							lng: -47.519503, 
-							title: 'Cachoeira dos Anjos', 
-							img: 'slide', 
-							info: 'bike' }	
-					]
+					markers: this.state.chapadaMarkers
 				});
 			}
 			
@@ -127,22 +116,7 @@ var React = require('react/addons'),
 						mapCenterLat: -14.177038,
 	            		mapCenterLng: -47.813581
 					},
-					markers: [
-						{
-							id: 0,
-							lat: -14.176374, 
-							lng: -47.816556, 
-							title: 'Restaurante em São Jorge', 
-							img: 'slide', 
-							info: '4x4' },
-						{
-							id: 1,
-							lat: -14.177038, 
-							lng: -47.813581, 
-							title: 'Restaurante em São Jorge 2', 
-							img: 'slide', 
-							info: 'bike' }	
-					]
+					markers: this.state.sjMarkers
 				});
 			}
 			else if (this.state.menu.cidade === 'SJ') {
@@ -161,6 +135,7 @@ var React = require('react/addons'),
 		},
 
 		render: function() {
+			console.log("From mapa.jsx / this.state.markes = "+this.state.markers);
 			return (
 				<div className='map-container'>
 					<MapaHeader 
@@ -172,7 +147,7 @@ var React = require('react/addons'),
 	    			<MapaMap 
 	    				markers={this.state.markers} 
 	    				settings={this.state.settings} />
-				    <InfoBoxes boxes={this.state.markers} />
+				    <InfoBoxes markers={this.state.markers} />
 				</div>
 			);
 		}

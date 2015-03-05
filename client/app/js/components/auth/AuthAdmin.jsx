@@ -1,30 +1,43 @@
 'use strict';
-var Router = require('react-router');
-var authLib = require('../auth.jsx'),
-    Authentication = require('../auth.jsx').Authentication;
-var ReactBootstrap = require('react-bootstrap'),
-    TabbedArea = require('react-bootstrap').TabbedArea, 
-    TabPane = require('react-bootstrap').TabPane;
-var React= require('react'), 
-  Admin = React.createClass({
-  mixins: [ Authentication ],
 
-  render: function () {
+var React = require('react');
+var Authenticated = require('./utils/authenticated.jsx');
+var Router = require('react-router'),
+	Link = Router.Link,
+	RouteHandler = Router.RouteHandler;
+var Col = require('react-bootstrap').Col,
+	Navbar = require('react-bootstrap').Navbar,
+	Nav = require('react-bootstrap').Nav,
+	NavItem = require('react-bootstrap').NavItem,
+	TabbedArea = require('react-bootstrap').TabbedArea,
+	TabPane = require('react-bootstrap').TabPane,
+	Button = require('react-bootstrap').Button,
+	Panel = require('react-bootstrap').Panel,
+	PanelGroup = require('react-bootstrap').PanelGroup,
+	Accordion = require('react-bootstrap').Accordion,
+	Jumbotron = require('react-bootstrap').Jumbotron,
+	Tables = require('react-bootstrap').Tables,
+	Input= require('react-bootstrap').Input;
+var NavItemLink = require('react-router-bootstrap').NavItemLink;	
+
+var Admin = React.createClass({
+  mixins: [Authenticated],
+  render: function(){
     return (
-      <div>
-        <TabbedArea defaultActiveKey={2}>
-          <TabPane eventKey={1} tab="Conteúdo">
-            <p></p>
-          </TabPane>
-          <TabPane eventKey={2} tab="Pontos do mapa">
-            <h1>Pontos do mapa</h1>
-          </TabPane>
-          <TabPane eventKey={3} tab="Agenda">
-            <p>Aqui vai a agenda</p>
-          </TabPane>
-        </TabbedArea>
-      </div>
-    );
+    	<div className="wrapper" >
+    		<Navbar brand="Guias da Chapada" inverse toggleNavKey={0}>
+    			<Nav right eventKey={0}>
+    				<NavItemLink to="/admin/conteudo"><span className="icono-document"></span>Conteúdo</NavItemLink>
+    				<NavItemLink to="/admin/pontos"><span className="icono-locationArrow"></span>Pontos</NavItemLink>
+    				<NavItemLink to="/admin/agenda"><span className="icono-calendar"></span>Agenda</NavItemLink>
+    				<NavItemLink to="/logout"><span className="icono-power"></span>Logout</NavItemLink>
+    			</Nav>
+    		</Navbar>
+    		<RouteHandler/>
+
+    	</div>	
+
+    	);
   }
 });
 

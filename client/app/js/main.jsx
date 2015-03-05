@@ -1,43 +1,5 @@
-'use strict';
-
-var React = require('react'),
-	TransitionGroup = require('react/lib/ReactCSSTransitionGroup');
-var Router = require('react-router')
-  , RouteHandler = Router.RouteHandler
-  , Route = Router.Route
-  , Location = Router.Location
-  , DefaultRoute = Router.DefaultRoute;
-//Meus componentes
-var Header = require('./components/header.jsx');
-var Home = require('./components/home.jsx');
-var Quem = require('./components/quem.jsx');
-var Chapada = require('./components/chapada.jsx');
-var Roteiros = require('./components/roteiros.jsx');
-var Onde = require('./components/onde.jsx');
-var Galeria = require('./components/galeria.jsx');
-var Footer = require('./components/footer.jsx');
-var Mapa = require('./components/mapa.jsx');
-var Login = require('./components/auth/authLogin.jsx'),
-    Logout = require('./components/auth/authLogout.jsx'),
-    Admin = require('./components/auth/authAdmin.jsx'),
-    AdminConteudo = require('./components/auth/adminConteudo.jsx'),
-    AdminPontos = require('./components/auth/adminPontos.jsx'),
-    AdminAgenda = require('./components/auth/adminAgenda.jsx');
-
-var App = React.createClass({
-	mixins: [ Router.State ],
-  Displayname: "Guias da Chapada App",
-
-    render: function () {
-    	var name = this.getRoutes().reverse()[0].name;
-
-        return (
-            <div className="map-container">
-		          <RouteHandler />
-            </div>
-        );
-    }
-});
+var React = require('react');
+var Router = require('react-router');
 var Main = React.createClass({
   mixins: [ Router.State ],
     loadData: function () {
@@ -104,51 +66,6 @@ var Main = React.createClass({
           </div>  
         );
     }
-}); 
-var routes = (
-  <Route handler={App}>
-    <Route handler={Main}>
-      <Route name="Home" handler={Home} path="/" />
-      <Route name="quem" handler={Quem} path="/quem" />
-      <Route name="chapada" handler={Chapada} path="/chapada" />
-      <Route name="roteiros" handler={Roteiros} path="/roteiros" />
-      <Route name="onde" handler={Onde} path="/onde" />
-      <Route name="galeria" handler={Galeria} path="/galeria" />
-    </Route>
-    <Route name="login" handler={Login} path="/login" />
-    <Route name="logout" handler={Logout} path="/logout" />
-    <Route name="admin" handler={Admin} path="/admin">
-      <Route name="conteudo" handler={AdminConteudo} path="/admin/conteudo" />
-      <Route name="pontos" handler={AdminPontos} path="/admin/pontos" />
-      <Route name="agenda" handler={AdminAgenda} path="/admin/agenda" />
-    </Route>
-    <Route handler={Mapa} name="mapa" path="/mapa" />    
-    <DefaultRoute handler={Home} />
-  </Route>
-);
-
-Router.run(routes, Router.HistoryLocation, function (Handler) {
-  React.render(<Handler />, document.getElementById('app'));
 });
 
-/**
-/*
-- NavBar
--- Agenda {TODO}
--- Langs {TODO}
--- Menu Itens *
-- Home *
--- Slider *
--- Slider atrações *
--- Slider galeria * 
-- Chapada
--- Tabs {TODO}
-- Roteiros e Onde
--- Info boxes c/ tooltips {TODO}
--- Filter {TODO}
-- Galeria {TODO}
-- Footer
--- Picture List 
---- Picture
-
-*/
+module.exports = Main;
