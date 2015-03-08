@@ -4,25 +4,31 @@ var React = require('react'),
 	Displayname:"Chapada",
 	getInitialState: function() {
 		return {
-			texto: this.props.achapadaIntro,
+			texto: '',
 			title: 'A Chapada dos Veadeiros'
 		};
 	},
+	componentWillReceiveProps: function() {
+		this.setState({
+			texto: this.props.achapada.intro,
+			title: 'A Chapada dos Veadeiros'
+		});
+	},
 	tabClickA: function () {
 		this.setState({
-			texto: this.props.achapadaCerrado,
+			texto: this.props.achapada.cerrado,
 			title: 'O Cerrado'
 		});
 	},
 	tabClickB: function () {
 		this.setState({
-			texto: this.props.achapadaHistoria,
+			texto: this.props.achapada.historia,
 			title: 'A História da Chapada'
 		});
 	},
 	tabClickC: function () {
 		this.setState({
-			texto: this.props.achapadaCultura,
+			texto: this.props.achapada.cultura,
 			title: 'Nossa Cultura'
 		});
 	},
@@ -38,6 +44,7 @@ var React = require('react'),
 					<div className="grid_50_h br">
 						<h2 className="hp_dest">{this.state.title}</h2>
 						<div className="upcoming_txt" id="chapada-handler">
+							{this.props.achapada.intro}
 							{this.state.texto}
 						</div>
 					</div>

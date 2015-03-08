@@ -24,7 +24,7 @@ var React = require('react'),
 								<h2 className="hp_dest">Chapada dos Veadeiros</h2>
 							</Link>	
 							<div className="upcoming_txt">
-								<p>{this.props.achapadaIntro}</p>
+								<p>{this.props.achapada.intro}</p>
 								<Link className="more" to='/chapada'>Veja mais &gt;</Link>
 							</div>
 						</div>

@@ -9,14 +9,13 @@ var Router = require('react-router')
   , Location = Router.Location
   , DefaultRoute = Router.DefaultRoute;
 //Meus componentes
-var Header = require('./components/header.jsx');
+var Main = require('./main.jsx');
 var Home = require('./components/home.jsx');
 var Quem = require('./components/quem.jsx');
 var Chapada = require('./components/chapada.jsx');
 var Roteiros = require('./components/roteiros.jsx');
 var Onde = require('./components/onde.jsx');
 var Galeria = require('./components/galeria.jsx');
-var Footer = require('./components/footer.jsx');
 var Mapa = require('./components/mapa.jsx');
 var Login = require('./components/auth/authLogin.jsx'),
     Logout = require('./components/auth/authLogout.jsx'),
@@ -28,84 +27,59 @@ var Login = require('./components/auth/authLogin.jsx'),
 var App = React.createClass({displayName: "App",
 	mixins: [ Router.State ],
   Displayname: "Guias da Chapada App",
+    loadData: function () {
+      var myFirebaseRef = new Firebase(this.props.url);
+      myFirebaseRef.on("value", function(snapshot) {
+        var conteudoSlides = snapshot.val().conteudo.slides,
+            conteudoQuemsomos = snapshot.val().conteudo.quemsomos,
+            conteudoAchapada = snapshot.val().conteudo.achapada,
+            conteudoChamadas = snapshot.val().conteudo.chamadas,
+            mapa = snapshot.val().mapa;
+        this.setState({
+          conteudoSlides: conteudoSlides,
+          conteudoQuemsomos: conteudoQuemsomos,
+          conteudoAchapada: conteudoAchapada,
+          conteudoChamadas: conteudoChamadas,
+          mapa: mapa
+        });    
+      }.bind(this));
 
+      },
+    getInitialState: function() {
+      this.loadData();
+      return {
+        conteudoSlides: {
+            "slide1" : {
+              "img" : "https://unsplash.imgix.net/photo-1415226481302-c40f24f4d45e?fit=crop&fm=jpg&h=800&q=75&w=1050",
+              "nome" : "Bem Vindos"
+            }
+        },
+        conteudoQuemsomos: "carregando...",
+        conteudoAchapada: {
+          "cerrado" : "carregando...",
+          "cultura" : "carregando...",
+          "historia" : "carregando...",
+          "intro" : "carregando..."
+        }
+      }
+    },    
     render: function () {
     	var name = this.getRoutes().reverse()[0].name;
 
         return (
             React.createElement("div", {className: "map-container"}, 
-		          React.createElement(RouteHandler, null)
+		          React.createElement(RouteHandler, {
+                slides: this.state.conteudoSlides, 
+                quemsomos: this.state.conteudoQuemsomos, 
+                achapada: this.state.conteudoAchapada, 
+                chamadas: this.state.conteudoChamadas, 
+                mapa: this.state.mapa, 
+                url: this.props.url})
             )
         );
     }
 });
-var Main = React.createClass({displayName: "Main",
-  mixins: [ Router.State ],
-    loadData: function () {
-      var myFirebaseRef = new Firebase("https://guias.firebaseio.com/");
-       myFirebaseRef.child("conteudo").on("value", function(snapshot) {
-        var quemsomos = snapshot.val().quemsomos,
-            achapadaIntro = snapshot.val().achapada.intro,
-            achapadaCerrado = snapshot.val().achapada.cerrado,
-            achapadaHistoria = snapshot.val().achapada.historia,
-            achapadaCultura = snapshot.val().achapada.cultura,
-            homeSlide1 = snapshot.val().Slides.slide1,
-            homeSlide2 = snapshot.val().Slides.slide2,
-            homeSlide3 = snapshot.val().Slides.slide3,
-            chamadas = snapshot.val().chamadas;
 
-        this.setState({
-        homeSlide1 : homeSlide1,
-        homeSlide2 : homeSlide2,
-        homeSlide3 : homeSlide3,
-        quemsomos : quemsomos,
-        achapadaIntro : achapadaIntro,
-        achapadaCerrado : achapadaCerrado,
-        achapadaHistoria : achapadaHistoria,
-        achapadaCultura : achapadaCultura,
-        chamadas : chamadas
-      });
-      }.bind(this));
-    },
-    getInitialState: function() {
-      this.loadData();
-      return {
-        quemsomos : "...",
-        achapadaIntro : "...",
-        homeSlide1 : {"img":"https://unsplash.imgix.net/photo-1415226481302-c40f24f4d45e?fit=crop&fm=jpg&h=800&q=75&w=1050", "nome":"Guias da Chapada"},
-        homeSlide2 : {"img":"https://unsplash.imgix.net/photo-1415226481302-c40f24f4d45e?fit=crop&fm=jpg&h=800&q=75&w=1050", "nome":"Guias da Chapada"},
-        homeSlide3 : {"img":"https://unsplash.imgix.net/photo-1415226481302-c40f24f4d45e?fit=crop&fm=jpg&h=800&q=75&w=1050", "nome":"Guias da Chapada"},
-        chamadas : {"img":"https://unsplash.imgix.net/photo-1415226481302-c40f24f4d45e?fit=crop&fm=jpg&h=800&q=75&w=1050", "titulo":"...", "texto": "..."}
-      };
-    },
-
-    render: function () {
-      var name = this.getRoutes().reverse()[0].name;
-
-        return (
-          React.createElement("div", null, 
-            React.createElement("div", {id: "wrapper"}, 
-              React.createElement("div", {className: "right_grass"}), 
-              React.createElement("div", {className: "left_grass"}), 
-              React.createElement(Header, null), 
-              React.createElement("div", {className: "clear"}), 
-              React.createElement(RouteHandler, {
-                homeSlide1: this.state.homeSlide1, 
-                homeSlide2: this.state.homeSlide2, 
-                homeSlide3: this.state.homeSlide3, 
-                achapadaIntro: this.state.achapadaIntro, 
-                achapadaCerrado: this.state.achapadaCerrado, 
-                achapadaHistoria: this.state.achapadaHistoria, 
-                achapadaCultura: this.state.achapadaCultura, 
-                quemsomos: this.state.quemsomos, 
-                chamadas: this.state.chamadas}), 
-              React.createElement(Footer, null)
-            ), 
-            React.createElement("div", {className: "luandro-footer"}, React.createElement("a", {href: "http://luandro.com"}, "desenvolvido por Luandro"))
-          )  
-        );
-    }
-}); 
 var routes = (
   React.createElement(Route, {handler: App}, 
     React.createElement(Route, {handler: Main}, 
@@ -121,7 +95,8 @@ var routes = (
     React.createElement(Route, {name: "admin", handler: Admin, path: "/admin"}, 
       React.createElement(Route, {name: "conteudo", handler: AdminConteudo, path: "/admin/conteudo"}), 
       React.createElement(Route, {name: "pontos", handler: AdminPontos, path: "/admin/pontos"}), 
-      React.createElement(Route, {name: "agenda", handler: AdminAgenda, path: "/admin/agenda"})
+      React.createElement(Route, {name: "agenda", handler: AdminAgenda, path: "/admin/agenda"}), 
+      React.createElement(DefaultRoute, {handler: AdminConteudo})
     ), 
     React.createElement(Route, {handler: Mapa, name: "mapa", path: "/mapa"}), 
     React.createElement(DefaultRoute, {handler: Home})
@@ -129,31 +104,68 @@ var routes = (
 );
 
 Router.run(routes, Router.HistoryLocation, function (Handler) {
-  React.render(React.createElement(Handler, null), document.getElementById('app'));
+  React.render(React.createElement(Handler, {url: 'https://guias.firebaseio.com/'}), document.getElementById('app'));
 });
 
 /**
 /*
-- NavBar
--- Agenda {TODO}
--- Langs {TODO}
--- Menu Itens *
-- Home *
--- Slider *
--- Slider atrações *
--- Slider galeria * 
-- Chapada
--- Tabs {TODO}
-- Roteiros e Onde
--- Info boxes c/ tooltips {TODO}
--- Filter {TODO}
-- Galeria {TODO}
-- Footer
--- Picture List 
---- Picture
-
+App
+  -Main {conteudo, agenda}
+    --Header
+      ---Agenda
+      ---Clima
+    --Footer
+      ---Instafeed
+    --Home
+      ---Slider
+        ----Slides {slides}
+          -----Slide[] {img, nome}
+      ---Content {achapadaIntro, quemsomos}
+      ---Ofertas {chamadas}
+        ----Bloco [chamada]
+          -----Oferta {img, nome}
+    --Quem
+    --A Chapada
+    --Roteiros e Atrativos
+    --Onde ficar 
+    --Galeria
+      ---Instafeed
+  -Mapa {mapa}
+    --MapaHeader
+    --MapaMap
+    --Ma    
+  -Auth {conteudo, mapa, users}
+    --Login
+    --Logout
+    --Admin
+      ---Conteudo {conteudo}
+        ----Slider {slides}
+        ----Textos {quesomos, achapada}
+        ----Ofertas {chamadas}
+      ---Pontos {mapa}
+      ---Agenda
+  
+var myFirebaseRef = new Firebase(this.props.url);
+       myFirebaseRef.child("conteudo").on("value", function(snapshot) {
+        var quemsomos = snapshot.val().quemsomos,
+            achapadaIntro = snapshot.val().achapada.intro,
+            achapadaCerrado = snapshot.val().achapada.cerrado,
+            achapadaHistoria = snapshot.val().achapada.historia,
+            achapadaCultura = snapshot.val().achapada.cultura,
+            slides = snapshot.val().slides,
+            chamadas = snapshot.val().chamadas;
+        this.setState({
+        slides: slides,
+        quemsomos : quemsomos,
+        achapadaIntro : achapadaIntro,
+        achapadaCerrado : achapadaCerrado,
+        achapadaHistoria : achapadaHistoria,
+        achapadaCultura : achapadaCultura,
+        chamadas : chamadas
+      });
+      }.bind(this));
 */
-},{"./components/auth/adminAgenda.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/auth/adminAgenda.jsx","./components/auth/adminConteudo.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/auth/adminConteudo.jsx","./components/auth/adminPontos.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/auth/adminPontos.jsx","./components/auth/authAdmin.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/auth/authAdmin.jsx","./components/auth/authLogin.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/auth/authLogin.jsx","./components/auth/authLogout.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/auth/authLogout.jsx","./components/chapada.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/chapada.jsx","./components/footer.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/footer.jsx","./components/galeria.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/galeria.jsx","./components/header.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/header.jsx","./components/home.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/home.jsx","./components/mapa.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/mapa.jsx","./components/onde.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/onde.jsx","./components/quem.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/quem.jsx","./components/roteiros.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/roteiros.jsx","react":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/react/react.js","react-router":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/react-router/modules/index.js","react/lib/ReactCSSTransitionGroup":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/react/lib/ReactCSSTransitionGroup.js"}],"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/auth/adminAgenda.jsx":[function(require,module,exports){
+},{"./components/auth/adminAgenda.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/auth/adminAgenda.jsx","./components/auth/adminConteudo.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/auth/adminConteudo.jsx","./components/auth/adminPontos.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/auth/adminPontos.jsx","./components/auth/authAdmin.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/auth/authAdmin.jsx","./components/auth/authLogin.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/auth/authLogin.jsx","./components/auth/authLogout.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/auth/authLogout.jsx","./components/chapada.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/chapada.jsx","./components/galeria.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/galeria.jsx","./components/home.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/home.jsx","./components/mapa.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/mapa.jsx","./components/onde.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/onde.jsx","./components/quem.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/quem.jsx","./components/roteiros.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/roteiros.jsx","./main.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/main.jsx","react":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/react/react.js","react-router":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/react-router/modules/index.js","react/lib/ReactCSSTransitionGroup":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/react/lib/ReactCSSTransitionGroup.js"}],"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/auth/adminAgenda.jsx":[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -172,24 +184,188 @@ var AdminAgenda = React.createClass({displayName: "AdminAgenda",
 module.exports = AdminAgenda;
 },{"react":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/react/react.js"}],"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/auth/adminConteudo.jsx":[function(require,module,exports){
 'use strict';
-
-var React = require('react');
-
+var React = require('react'),
+	Table = require('react-bootstrap').Table,
+	Input= require('react-bootstrap').Input,
+	Button= require('react-bootstrap').Button,
+	TabbedArea = require('react-bootstrap').TabbedArea,
+	TabPane = require('react-bootstrap').TabPane,
+	_ = require('lodash');
 var AdminConteudo = React.createClass({displayName: "AdminConteudo",
+	 getInitialState: function() {
+      return {
+      	slideImg: '',
+      	slideNome: '',
+      	conteudoQuem: '',
+      	conteudoChapadaIntro: '',
+      	conteudoChapadaCerrado: '',
+      	conteudoChapadaCultura: '',
+      	conteudoChapadaHistoria: '',
+      	itemKey: ''
 
+      };
+    },
+    handleChange: function(name, e) {
+      var change = {};
+      change[name] = e.target.value;
+      this.setState(change);
+    },
+	addItem: function () {
+		var myFirebaseRef = new Firebase(this.props.url);
+		var slideRef = myFirebaseRef.child("conteudo").child("slides");
+		slideRef.push({
+			img: this.state.slideImg,
+		    nome: this.state.slideNome
+		});
 
+	},
+	deleteItem: function (itemKey) {
+		var keyId = {};
+		var myFirebaseRef = new Firebase(this.props.url).child("conteudo").child("slides");
+		myFirebaseRef.child(itemKey).remove();
+		console.log('item '+itemKey+' removed');
+		
+	},
+	updateQuem: function () {
+		var myFirebaseRef = new Firebase(this.props.url).child("conteudo").child("quemsomos");
+		console.log('State: '+this.state.conteudoQuem);
+		myFirebaseRef.set(this.state.conteudoQuem);
+	},
+	updateChapadaIntro: function () {
+		var myFirebaseRef = new Firebase(this.props.url).child("conteudo").child("achapada").child("intro");
+		console.log('State: '+this.state.conteudoChapadaIntro);
+		myFirebaseRef.set(this.state.conteudoChapadaIntro);
+	},
+	updateChapadaCerrado: function () {
+		var myFirebaseRef = new Firebase(this.props.url).child("conteudo").child("achapada").child("cerrado");
+		console.log('State: '+this.state.conteudoChapadaCerrado);
+		myFirebaseRef.set(this.state.conteudoChapadaCerrado);
+	},
+	updateChapadaCultura: function () {
+		var myFirebaseRef = new Firebase(this.props.url).child("conteudo").child("achapada").child("cultura");
+		console.log('State: '+this.state.conteudoChapadaCultura);
+		myFirebaseRef.set(this.state.conteudoChapadaCultura);
+	},
+	updateChapadaHistoria: function () {
+		var myFirebaseRef = new Firebase(this.props.url).child("conteudo").child("achapada").child("Historia");
+		console.log('State: '+this.state.conteudoChapadaHistoria);
+		myFirebaseRef.set(this.state.conteudoChapadaHistoria);
+	},
   render: function () {
+
+  	var slideItems = _.map(this.props.slides, function (slide, key) {
+  		//get item key
+  		var itemKey = key;
+  		var deleteClick = this.deleteItem.bind(this, key);
+  		//pass key on click
+  		return (
+  			React.createElement("tbody", {key: slide.nome}, 
+	        	React.createElement("tr", null, 
+		          React.createElement("td", null, React.createElement(Button, {bsSize: "small", bsStyle: "danger", onClick: deleteClick}, React.createElement("i", {className: "icono-cross"}))), 
+		          React.createElement("td", null, React.createElement("img", {src: slide.img, height: "100px"})), 
+		          React.createElement("td", null, React.createElement("h3", null, slide.nome))
+	        	)
+	        )
+  			);
+  	}.bind(this));
     return (
-    	React.createElement("div", {className: "row"}, 
+    	React.createElement("div", {className: "admin-area row"}, 
     		React.createElement("div", {className: "col-md-12"}, 
-    			React.createElement("h1", null, "Conteudo")
+    			React.createElement("h1", null, "Conteudo"), 
+    			React.createElement("hr", null), 
+    			React.createElement("h2", null, "Slider inicial"), 
+    			React.createElement(Table, {responsive: true}, 
+			    	React.createElement("thead", null, 
+			        	React.createElement("tr", null, 
+				          React.createElement("th", null), 
+				          React.createElement("th", null, "Imagem"), 
+				          React.createElement("th", null, "Nome")
+			        	)
+			      	), 
+			      	React.createElement("tbody", null, 
+			        	React.createElement("tr", null, 
+				          React.createElement("td", null, 
+				          	React.createElement(Button, {bsSize: "small", bsStyle: "success", onClick: this.addItem}, React.createElement("i", {className: "icono-check"}))
+				          ), 
+				          React.createElement("td", null, React.createElement(Input, {
+				          		placeholder: "url da imagem", 
+				          		type: "text", 
+				          		ref: "slideImg", 
+				          		value: this.state.slideImg, 
+            					onChange: this.handleChange.bind(this, 'slideImg')})
+				          	), 
+				          React.createElement("td", null, React.createElement(Input, {
+				          		placeholder: "título do slide", 
+				          		type: "text", 
+				          		ref: "slideNome", 
+				          		value: this.state.slideNome, 
+            					onChange: this.handleChange.bind(this, 'slideNome')})
+				          	)
+			        	)
+			        ), 
+			      	slideItems
+			    ), 
+			    React.createElement("h2", null, "Textos"), 
+			    React.createElement("div", {className: "row"}, 
+			    	React.createElement("div", {className: "col-md-6 col-sm-12"}, 
+			    		React.createElement("h3", null, "Quem Somos"), 
+			    		React.createElement(Input, {
+			    			className: "quem-text-area", 
+			          		type: "textarea", 
+			          		ref: "conteudoQuem", 
+			          		placeholder: this.props.quemsomos, 
+	    					onChange: this.handleChange.bind(this, 'conteudoQuem')}), 
+	    					React.createElement(Button, {bsStyle: "success", bsSize: "small", onClick: this.updateQuem}, React.createElement("i", {className: "icono-check"}), " Salvar")
+			    	), 
+			    	React.createElement("div", {className: "col-md-6 col-sm-12"}, 
+			    		React.createElement("h3", null, "A Chapada"), 
+			    		React.createElement(TabbedArea, {defaultActiveKey: 1}, 
+					    	React.createElement(TabPane, {eventKey: 1, tab: "Introdução"}, 
+						    	React.createElement(Input, {
+					    			className: "chapada-text-area", 
+					          		type: "textarea", 
+					          		ref: "conteudoChapadaIntro", 
+					          		placeholder: this.props.achapada.intro, 
+					          		onChange: this.handleChange.bind(this, 'conteudoChapadaIntro')}), 
+			    				React.createElement(Button, {bsStyle: "success", bsSize: "small", onClick: this.updateChapadaIntro}, React.createElement("i", {className: "icono-check"}), " Salvar")
+					    	), 
+					    	React.createElement(TabPane, {eventKey: 2, tab: "Cerrado"}, 
+						    	React.createElement(Input, {
+					    			className: "chapada-text-area", 
+					          		type: "textarea", 
+					          		ref: "conteudoChapadaCerrado", 
+					          		placeholder: this.props.achapada.cerrado, 
+			    					onChange: this.handleChange.bind(this, 'conteudoChapadaCerrado')}), 
+			    				React.createElement(Button, {bsStyle: "success", bsSize: "small", onClick: this.updateChapadaCerrado}, React.createElement("i", {className: "icono-check"}), " Salvar")
+					    	), 
+					    	React.createElement(TabPane, {eventKey: 3, tab: "Cultura"}, 
+						    	React.createElement(Input, {
+					    			className: "chapada-text-area", 
+					          		type: "textarea", 
+					          		ref: "conteudoChapadaCultura", 
+					          		placeholder: this.props.achapada.cultura, 
+			    					onChange: this.handleChange.bind(this, 'conteudoChapadaCultura')}), 
+			    				React.createElement(Button, {bsStyle: "success", bsSize: "small", onClick: this.updateChapadaCultura}, React.createElement("i", {className: "icono-check"}), " Salvar")
+					    	), 
+					    	React.createElement(TabPane, {eventKey: 4, tab: "História"}, 
+						    	React.createElement(Input, {
+					    			className: "chapada-text-area", 
+					          		type: "textarea", 
+					          		ref: "conteudoChapadaHistoria", 
+					          		placeholder: this.props.achapada.historia, 
+			    					onChange: this.handleChange.bind(this, 'conteudoChapadaHistoria')}), 
+			    				React.createElement(Button, {bsStyle: "success", bsSize: "small", onClick: this.updateChapadaHistoria}, React.createElement("i", {className: "icono-check"}), " Salvar")
+					    	)
+					    )
+			    	)
+			    )
     		)	
     	));
   }
 });
 
 module.exports = AdminConteudo;
-},{"react":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/react/react.js"}],"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/auth/adminPontos.jsx":[function(require,module,exports){
+},{"lodash":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/lodash/index.js","react":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/react/react.js","react-bootstrap":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/react-bootstrap/lib/main.js"}],"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/auth/adminPontos.jsx":[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -234,15 +410,21 @@ var Admin = React.createClass({displayName: "Admin",
   render: function(){
     return (
     	React.createElement("div", {className: "wrapper"}, 
-    		React.createElement(Navbar, {brand: "Guias da Chapada", inverse: true, toggleNavKey: 0}, 
+    		React.createElement(Navbar, {brand: "Administração", inverse: true, toggleNavKey: 0}, 
     			React.createElement(Nav, {right: true, eventKey: 0}, 
-    				React.createElement(NavItemLink, {to: "/admin/conteudo"}, React.createElement("span", {className: "icono-document"}), "Conteúdo"), 
-    				React.createElement(NavItemLink, {to: "/admin/pontos"}, React.createElement("span", {className: "icono-locationArrow"}), "Pontos"), 
-    				React.createElement(NavItemLink, {to: "/admin/agenda"}, React.createElement("span", {className: "icono-calendar"}), "Agenda"), 
-    				React.createElement(NavItemLink, {to: "/logout"}, React.createElement("span", {className: "icono-power"}), "Logout")
+                    React.createElement(NavItemLink, {to: "/"}, React.createElement("span", {className: "icono-eye"}), " ver página"), 
+    				React.createElement(NavItemLink, {to: "/admin/conteudo"}, React.createElement("span", {className: "icono-document"}), " Conteúdo"), 
+    				React.createElement(NavItemLink, {to: "/admin/pontos"}, React.createElement("span", {className: "icono-locationArrow"}), " Pontos"), 
+    				React.createElement(NavItemLink, {to: "/admin/agenda"}, React.createElement("span", {className: "icono-calendar"}), " Agenda"), 
+    				React.createElement(NavItemLink, {to: "/logout"}, React.createElement("span", {className: "icono-power"}), " Logout")
     			)
     		), 
-    		React.createElement(RouteHandler, null)
+    		React.createElement(RouteHandler, {
+                slides: this.props.slides, 
+                quemsomos: this.props.quemsomos, 
+                achapada: this.props.achapada, 
+                chamadas: this.props.chamadas, 
+                url: this.props.url})
 
     	)	
 
@@ -325,7 +507,8 @@ var Logout = React.createClass({displayName: "Logout",
   render: function () {
     return (
     	React.createElement("div", null, 
-    		React.createElement("h1", null, "Logout feito!")
+    		React.createElement("h3", null, "Logout feito!"), 
+        React.createElement("p", null, "redirecionando para página principal")
     	));
   }
 });
@@ -423,25 +606,31 @@ var React = require('react'),
 	Displayname:"Chapada",
 	getInitialState: function() {
 		return {
-			texto: this.props.achapadaIntro,
+			texto: '',
 			title: 'A Chapada dos Veadeiros'
 		};
 	},
+	componentWillReceiveProps: function() {
+		this.setState({
+			texto: this.props.achapada.intro,
+			title: 'A Chapada dos Veadeiros'
+		});
+	},
 	tabClickA: function () {
 		this.setState({
-			texto: this.props.achapadaCerrado,
+			texto: this.props.achapada.cerrado,
 			title: 'O Cerrado'
 		});
 	},
 	tabClickB: function () {
 		this.setState({
-			texto: this.props.achapadaHistoria,
+			texto: this.props.achapada.historia,
 			title: 'A História da Chapada'
 		});
 	},
 	tabClickC: function () {
 		this.setState({
-			texto: this.props.achapadaCultura,
+			texto: this.props.achapada.cultura,
 			title: 'Nossa Cultura'
 		});
 	},
@@ -457,6 +646,7 @@ var React = require('react'),
 					React.createElement("div", {className: "grid_50_h br"}, 
 						React.createElement("h2", {className: "hp_dest"}, this.state.title), 
 						React.createElement("div", {className: "upcoming_txt", id: "chapada-handler"}, 
+							this.props.achapada.intro, 
 							this.state.texto
 						)
 					), 
@@ -706,21 +896,42 @@ var React = require('react'),
 	reqwest = require('reqwest'),
 	
 		Clima = React.createClass({displayName: "Clima",
-			componentDidMount: function() {
+			getInitialState: function() {
+				return {
+					temperatura: " ",
+					tempo: " ",
+					icon: "http://openweathermap.org/img/w/50d.png"
+				};
+			},
+			loadClima: function () {
 				reqwest({
-				    url: 'http://api.openweathermap.org/data/2.5/weather?lat=-14.13359&lon=-47.52079'
-				  , type: 'json'
-				  , method: 'post'
-				  , error: function (err) { }
+				    url: 'http://api.openweathermap.org/data/2.5/weather?lat=-14.13359&lon=-47.52079&units=metric&lang=pt'
+				  , type: 'jsonp'
+				  , method: 'get'
+				  , error: function (err) { 
+				  	console.log('erro!');
+				  }
 				  , success: function (resp) {
-				      console.log(resp.main);
-				    }
-				})
+				  		console.log(resp.weather[0].description);
+				      	var temperatura = (parseInt(resp.main.temp));
+				      	var tempo = (resp.weather[0].description);
+				      	var icon = (resp.weather[0].icon);
+				      	var iconUrl = "http://openweathermap.org/img/w/"+icon+".png";
+				      	this.setState({
+				      		temperatura: temperatura,
+				      		tempo: tempo,
+				      		icon: iconUrl
+				      	})
+				  }.bind(this)
+				});
+			},
+			componentDidMount: function() {
+				this.loadClima();
 			},
 			render: function() {
 				return (
 				React.createElement("div", null, 
-					"Clima em Alto Paraíso"
+					React.createElement("img", {src: this.state.icon}), " ", this.state.temperatura, "° em Alto Paraíso com ", this.state.tempo
 				)
 					)
 			}
@@ -762,24 +973,19 @@ var React = require('react'),
   	HomeSlider = require('./home/homeSlider.jsx'),
   	HomeContent = require('./home/homeContent.jsx'),
   	HomeOfertas = require('./home/homeOfertas.jsx'),
-	Home = React.createClass({displayName: "Home",
-
+	Home = React.createClass({displayName: "Home",	
 	render: function() {
 		return (
 	React.createElement("div", {className: "outer_wrap"}, 
 		React.createElement("div", {className: "inner_wrap"}, 
 			React.createElement("div", {id: "container"}, 
-				React.createElement(HomeSlider, {
-					slide1: this.props.homeSlide1, 
-					slide2: this.props.homeSlide2, 
-					slide3: this.props.homeSlide3})
+				React.createElement(HomeSlider, {slides: this.props.slides})
 			), 
 			React.createElement("div", {className: "content"}, 
 				React.createElement(HomeContent, {
-					achapadaIntro: this.props.achapadaIntro, 
-					quemsomos: this.props.quemsomos}), 
-				React.createElement(HomeOfertas, {
-					 chamadas: this.props.chamadas}), 
+					quemsomos: this.props.quemsomos, 
+					achapada: this.props.achapada}), 
+				React.createElement(HomeOfertas, null), 
 				React.createElement("div", {className: "clear"})
 			)
 		)
@@ -817,7 +1023,7 @@ var React = require('react'),
 								React.createElement("h2", {className: "hp_dest"}, "Chapada dos Veadeiros")
 							), 	
 							React.createElement("div", {className: "upcoming_txt"}, 
-								React.createElement("p", null, this.props.achapadaIntro), 
+								React.createElement("p", null, this.props.achapada.intro), 
 								React.createElement(Link, {className: "more", to: "/chapada"}, "Veja mais >")
 							)
 						)
@@ -854,10 +1060,6 @@ var React = require('react'),
 		render: function () {
 			var chamadas = this.props.chamadas;
 			
-			for(var key in chamadas) {
-			    var chamada = chamadas[key];
-			    console.log(chamada.titulo);
-			}
 			return (
 				React.createElement("div", {className: "grid_100 ofertas"}, 
 					React.createElement("div", {className: "flight_hp_l"}, 
@@ -868,7 +1070,7 @@ var React = require('react'),
 										React.createElement("div", {id: "left-triangle-home"}), 
 										React.createElement("a", {className: "", href: ""}, 
 											React.createElement("div", {className: "dyn_hp_offer_thumb"}, 
-												React.createElement("img", {width: "300", height: "255", src: chamada.img, className: "attachment-medium wp-post-image", alt: "kuba_24 THUMB"})
+												React.createElement("img", {width: "300", height: "255", src: "https://unsplash.imgix.net/uploads/141315993607248a8be6a/5cf8b62b?fit=cropundefined00undefined0", className: "attachment-medium wp-post-image", alt: "kuba_24 THUMB"})
 											)
 										), 
 										React.createElement("div", {className: "dyn_hp_offer_txt"}, 
@@ -945,38 +1147,33 @@ module.exports = HomeOfertas;
 },{"react":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/react/react.js","react-bootstrap":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/react-bootstrap/lib/main.js"}],"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/home/homeSlider.jsx":[function(require,module,exports){
 'use strict';
 var React = require('react'),
+	_ = require('lodash'),
 	Carousel = require('react-bootstrap').Carousel,
   	CarouselItem = require('react-bootstrap').CarouselItem,
   	HomeSlider = React.createClass({displayName: "HomeSlider",
   		render: function () {
+  			var slides = this.props.slides;
+  			var itemCarousel = _.map(slides, function (slide) {
+  				return (
+						React.createElement(CarouselItem, {key: slide.nome}, 
+					        React.createElement("img", {width: "100%", height: 550.4, alt: "900x500", src: slide.img}), 
+					        React.createElement("div", {className: "carousel-caption"}, 
+					          React.createElement("h3", null, slide.nome)
+					        )
+				      	)
+				      	);
+					});
   			return (
   				React.createElement("div", {className: "home-slider"}, 
 					React.createElement(Carousel, null, 
-				      React.createElement(CarouselItem, null, 
-				        React.createElement("img", {width: "100%", height: 550.4, alt: "900x500", src: this.props.slide1.img}), 
-				        React.createElement("div", {className: "carousel-caption"}, 
-				          React.createElement("h3", null, this.props.slide1.nome)
-				        )
-				      ), 
-				      React.createElement(CarouselItem, null, 
-				        React.createElement("img", {width: "100%", height: 550.4, alt: "900x500", src: this.props.slide2.img}), 
-				        React.createElement("div", {className: "carousel-caption"}, 
-				          React.createElement("h3", null, this.props.slide2.nome)
-				        )
-				      ), 
-				      React.createElement(CarouselItem, null, 
-				        React.createElement("img", {width: "100%", height: 550.4, alt: "900x500", src: this.props.slide3.img}), 
-				        React.createElement("div", {className: "carousel-caption"}, 
-				          React.createElement("h3", null, this.props.slide3.nome)
-				        )
-				      )
+						itemCarousel
 				    )
 				)
   			);
   		}
   	});
 module.exports = HomeSlider;
-},{"react":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/react/react.js","react-bootstrap":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/react-bootstrap/lib/main.js"}],"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/mapa.jsx":[function(require,module,exports){
+},{"lodash":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/lodash/index.js","react":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/react/react.js","react-bootstrap":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/react-bootstrap/lib/main.js"}],"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/mapa.jsx":[function(require,module,exports){
 'use strict';
 var React = require('react/addons'),
 	Immutable = require('immutable'),
@@ -1739,7 +1936,40 @@ var React = require('react'),
 });
 
 module.exports = RoteirosItemInfo;
-},{"react":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/react/react.js","react-bootstrap":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/react-bootstrap/lib/main.js"}],"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/browserify/node_modules/buffer/index.js":[function(require,module,exports){
+},{"react":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/react/react.js","react-bootstrap":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/react-bootstrap/lib/main.js"}],"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/main.jsx":[function(require,module,exports){
+var React = require('react');
+var Router = require('react-router');
+var Router = require('react-router')
+  , RouteHandler = Router.RouteHandler;
+var Header = require('./components/header.jsx');
+var Footer = require('./components/footer.jsx');
+
+var Main = React.createClass({displayName: "Main",
+  mixins: [ Router.State ],
+    render: function () {
+      var name = this.getRoutes().reverse()[0].name;
+
+        return (
+          React.createElement("div", null, 
+            React.createElement("div", {id: "wrapper"}, 
+              React.createElement("div", {className: "right_grass"}), 
+              React.createElement("div", {className: "left_grass"}), 
+              React.createElement(Header, null), 
+              React.createElement("div", {className: "clear"}), 
+              React.createElement(RouteHandler, {
+                slides: this.props.slides, 
+                quemsomos: this.props.quemsomos, 
+                achapada: this.props.achapada}), 
+              React.createElement(Footer, null)
+            ), 
+            React.createElement("div", {className: "luandro-footer"}, React.createElement("a", {href: "http://luandro.com"}, "desenvolvido por Luandro"))
+          )  
+        );
+    }
+});
+
+module.exports = Main;
+},{"./components/footer.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/footer.jsx","./components/header.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/header.jsx","react":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/react/react.js","react-router":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/react-router/modules/index.js"}],"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/browserify/node_modules/buffer/index.js":[function(require,module,exports){
 /*!
  * The buffer module from node.js, for the browser.
  *

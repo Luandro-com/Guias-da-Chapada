@@ -25,15 +25,21 @@ var Admin = React.createClass({
   render: function(){
     return (
     	<div className="wrapper" >
-    		<Navbar brand="Guias da Chapada" inverse toggleNavKey={0}>
+    		<Navbar brand="Administração" inverse toggleNavKey={0}>
     			<Nav right eventKey={0}>
-    				<NavItemLink to="/admin/conteudo"><span className="icono-document"></span>Conteúdo</NavItemLink>
-    				<NavItemLink to="/admin/pontos"><span className="icono-locationArrow"></span>Pontos</NavItemLink>
-    				<NavItemLink to="/admin/agenda"><span className="icono-calendar"></span>Agenda</NavItemLink>
-    				<NavItemLink to="/logout"><span className="icono-power"></span>Logout</NavItemLink>
+                    <NavItemLink to="/"><span className="icono-eye"></span> ver página</NavItemLink>
+    				<NavItemLink to="/admin/conteudo"><span className="icono-document"></span> Conteúdo</NavItemLink>
+    				<NavItemLink to="/admin/pontos"><span className="icono-locationArrow"></span> Pontos</NavItemLink>
+    				<NavItemLink to="/admin/agenda"><span className="icono-calendar"></span> Agenda</NavItemLink>
+    				<NavItemLink to="/logout"><span className="icono-power"></span> Logout</NavItemLink>
     			</Nav>
     		</Navbar>
-    		<RouteHandler/>
+    		<RouteHandler
+                slides={this.props.slides}
+                quemsomos={this.props.quemsomos}
+                achapada={this.props.achapada}
+                chamadas={this.props.chamadas}
+                url={this.props.url} />
 
     	</div>	
 

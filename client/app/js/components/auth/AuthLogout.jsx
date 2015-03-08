@@ -19,7 +19,8 @@ var Logout = React.createClass({
   render: function () {
     return (
     	<div>
-    		<h1>Logout feito!</h1>
+    		<h3>Logout feito!</h3>
+        <p>redirecionando para página principal</p>
     	</div>);
   }
 });

@@ -7,10 +7,6 @@ var React = require('react'),
 		render: function () {
 			var chamadas = this.props.chamadas;
 			
-			for(var key in chamadas) {
-			    var chamada = chamadas[key];
-			    console.log(chamada.titulo);
-			}
 			return (
 				<div className="grid_100 ofertas">
 					<div className="flight_hp_l">
@@ -21,7 +17,7 @@ var React = require('react'),
 										<div id="left-triangle-home"></div>
 										<a className="" href="">
 											<div className="dyn_hp_offer_thumb">
-												<img width="300" height="255" src={chamada.img} className="attachment-medium wp-post-image" alt="kuba_24 THUMB"></img>
+												<img width="300" height="255" src="https://unsplash.imgix.net/uploads/141315993607248a8be6a/5cf8b62b?fit=crop&fm=jpg&h=700&q=75&w=1050" className="attachment-medium wp-post-image" alt="kuba_24 THUMB"></img>
 											</div>
 										</a>
 										<div className="dyn_hp_offer_txt">
