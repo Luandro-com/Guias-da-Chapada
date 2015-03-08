@@ -18,6 +18,7 @@ var Galeria = require('./components/galeria.jsx');
 var Mapa = require('./components/mapa.jsx');
 var Login = require('./components/auth/authLogin.jsx'),
     Logout = require('./components/auth/authLogout.jsx'),
+    Register = require('./components/auth/authRegister.jsx'),
     Admin = require('./components/auth/authAdmin.jsx'),
     AdminConteudo = require('./components/auth/adminConteudo.jsx'),
     AdminPontos = require('./components/auth/adminPontos.jsx'),
@@ -90,6 +91,7 @@ var routes = (
       <Route name="galeria" handler={Galeria} path="/galeria" />
     </Route>
     <Route name="login" handler={Login} path="/login" />
+    <Route name="register" handler={Register} path="/register" />
     <Route name="logout" handler={Logout} path="/logout" />
     <Route name="admin" handler={Admin} path="/admin">
       <Route name="conteudo" handler={AdminConteudo} path="/admin/conteudo" />

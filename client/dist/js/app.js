@@ -19,6 +19,7 @@ var Galeria = require('./components/galeria.jsx');
 var Mapa = require('./components/mapa.jsx');
 var Login = require('./components/auth/authLogin.jsx'),
     Logout = require('./components/auth/authLogout.jsx'),
+    Register = require('./components/auth/authRegister.jsx'),
     Admin = require('./components/auth/authAdmin.jsx'),
     AdminConteudo = require('./components/auth/adminConteudo.jsx'),
     AdminPontos = require('./components/auth/adminPontos.jsx'),
@@ -91,6 +92,7 @@ var routes = (
       React.createElement(Route, {name: "galeria", handler: Galeria, path: "/galeria"})
     ), 
     React.createElement(Route, {name: "login", handler: Login, path: "/login"}), 
+    React.createElement(Route, {name: "register", handler: Register, path: "/register"}), 
     React.createElement(Route, {name: "logout", handler: Logout, path: "/logout"}), 
     React.createElement(Route, {name: "admin", handler: Admin, path: "/admin"}, 
       React.createElement(Route, {name: "conteudo", handler: AdminConteudo, path: "/admin/conteudo"}), 
@@ -165,7 +167,7 @@ var myFirebaseRef = new Firebase(this.props.url);
       });
       }.bind(this));
 */
-},{"./components/auth/adminAgenda.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/auth/adminAgenda.jsx","./components/auth/adminConteudo.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/auth/adminConteudo.jsx","./components/auth/adminPontos.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/auth/adminPontos.jsx","./components/auth/authAdmin.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/auth/authAdmin.jsx","./components/auth/authLogin.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/auth/authLogin.jsx","./components/auth/authLogout.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/auth/authLogout.jsx","./components/chapada.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/chapada.jsx","./components/galeria.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/galeria.jsx","./components/home.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/home.jsx","./components/mapa.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/mapa.jsx","./components/onde.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/onde.jsx","./components/quem.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/quem.jsx","./components/roteiros.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/roteiros.jsx","./main.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/main.jsx","react":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/react/react.js","react-router":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/react-router/modules/index.js","react/lib/ReactCSSTransitionGroup":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/react/lib/ReactCSSTransitionGroup.js"}],"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/auth/adminAgenda.jsx":[function(require,module,exports){
+},{"./components/auth/adminAgenda.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/auth/adminAgenda.jsx","./components/auth/adminConteudo.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/auth/adminConteudo.jsx","./components/auth/adminPontos.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/auth/adminPontos.jsx","./components/auth/authAdmin.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/auth/authAdmin.jsx","./components/auth/authLogin.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/auth/authLogin.jsx","./components/auth/authLogout.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/auth/authLogout.jsx","./components/auth/authRegister.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/auth/authRegister.jsx","./components/chapada.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/chapada.jsx","./components/galeria.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/galeria.jsx","./components/home.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/home.jsx","./components/mapa.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/mapa.jsx","./components/onde.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/onde.jsx","./components/quem.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/quem.jsx","./components/roteiros.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/roteiros.jsx","./main.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/main.jsx","react":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/react/react.js","react-router":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/react-router/modules/index.js","react/lib/ReactCSSTransitionGroup":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/react/lib/ReactCSSTransitionGroup.js"}],"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/auth/adminAgenda.jsx":[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -514,7 +516,45 @@ var Logout = React.createClass({displayName: "Logout",
 });
 
 module.exports = Logout;
-},{"./utils/firebaseUtils.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/auth/utils/firebaseUtils.jsx","react":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/react/react.js","react-router":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/react-router/modules/index.js"}],"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/auth/utils/authenticated.jsx":[function(require,module,exports){
+},{"./utils/firebaseUtils.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/auth/utils/firebaseUtils.jsx","react":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/react/react.js","react-router":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/react-router/modules/index.js"}],"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/auth/authRegister.jsx":[function(require,module,exports){
+var React = require('react');
+var firebaseUtils = require('./utils/firebaseUtils.jsx');
+var Authenticated = require('./utils/authenticated.jsx');
+var Router = require('react-router');
+
+var Register = React.createClass({displayName: "Register",
+  mixins: [ Router.Navigation, Authenticated ],
+  handleSubmit: function(e){
+    e.preventDefault();
+    var email = this.refs.email.getDOMNode().value;
+    var pw = this.refs.pw.getDOMNode().value;
+    firebaseUtils.createUser({email: email, password: pw}, function(result){
+      if(result){
+        this.replaceWith('admin');
+      }
+    }.bind(this));
+  },
+  render: function(){
+    return (
+      React.createElement("div", {className: "col-sm-6 col-sm-offset-3"}, 
+        React.createElement("form", {onSubmit: this.handleSubmit}, 
+          React.createElement("div", {className: "form-group"}, 
+            React.createElement("label", null, " Email "), 
+            React.createElement("input", {className: "form-control", ref: "email", placeholder: "Email"})
+          ), 
+          React.createElement("div", {className: "form-group"}, 
+            React.createElement("label", null, "Password"), 
+            React.createElement("input", {ref: "pw", type: "password", className: "form-control", placeholder: "Password"})
+          ), 
+          React.createElement("button", {type: "submit", className: "btn btn-primary"}, "Register")
+        )
+      )
+    )
+  }
+});
+
+module.exports = Register;
+},{"./utils/authenticated.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/auth/utils/authenticated.jsx","./utils/firebaseUtils.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/auth/utils/firebaseUtils.jsx","react":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/react/react.js","react-router":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/react-router/modules/index.js"}],"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/auth/utils/authenticated.jsx":[function(require,module,exports){
 var Login = require("../authLogin.jsx");
 var firebaseUtils = require('./firebaseUtils.jsx');
 
