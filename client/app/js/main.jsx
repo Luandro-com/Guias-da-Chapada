@@ -20,7 +20,8 @@ var Main = React.createClass({
               <RouteHandler
                 slides={this.props.slides}
                 quemsomos={this.props.quemsomos}
-                achapada={this.props.achapada} />
+                achapada={this.props.achapada}
+                chamadas={this.props.chamadas} />
               <Footer />
             </div>
             <div className="luandro-footer"><a href="http://luandro.com">desenvolvido por Luandro</a></div>

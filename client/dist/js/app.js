@@ -203,8 +203,12 @@ var AdminConteudo = React.createClass({displayName: "AdminConteudo",
       	conteudoChapadaCerrado: '',
       	conteudoChapadaCultura: '',
       	conteudoChapadaHistoria: '',
-      	itemKey: ''
-
+      	conteudoChamadaBlocoAImg: '',
+      	conteudoChamadaBlocoATitulo: '',
+      	conteudoChamadaBlocoATexto: '',
+      	conteudoChamadaBlocoBImg: '',
+      	conteudoChamadaBlocoBTitulo: '',
+      	conteudoChamadaBlocoBTexto: ''
       };
     },
     handleChange: function(name, e) {
@@ -212,7 +216,7 @@ var AdminConteudo = React.createClass({displayName: "AdminConteudo",
       change[name] = e.target.value;
       this.setState(change);
     },
-	addItem: function () {
+	addSlide: function () {
 		var myFirebaseRef = new Firebase(this.props.url);
 		var slideRef = myFirebaseRef.child("conteudo").child("slides");
 		slideRef.push({
@@ -221,7 +225,7 @@ var AdminConteudo = React.createClass({displayName: "AdminConteudo",
 		});
 
 	},
-	deleteItem: function (itemKey) {
+	deleteSlides: function (itemKey) {
 		var keyId = {};
 		var myFirebaseRef = new Firebase(this.props.url).child("conteudo").child("slides");
 		myFirebaseRef.child(itemKey).remove();
@@ -253,12 +257,35 @@ var AdminConteudo = React.createClass({displayName: "AdminConteudo",
 		console.log('State: '+this.state.conteudoChapadaHistoria);
 		myFirebaseRef.set(this.state.conteudoChapadaHistoria);
 	},
+	addChamada: function () {
+		var myFirebaseRef = new Firebase(this.props.url);
+		var slideRef = myFirebaseRef.child("conteudo").child("chamadas");
+		slideRef.push({
+			chamada1: {
+				img: this.state.conteudoChamadaBlocoAImg,
+				titulo: this.state.conteudoChamadaBlocoATitulo, 
+				texto: this.state.conteudoChamadaBlocoATexto
+			},
+			chamada2: {
+				img: this.state.conteudoChamadaBlocoBImg, 
+				titulo: this.state.conteudoChamadaBlocoBTitulo, 
+				texto: this.state.conteudoChamadaBlocoBTexto
+			}
+		});
+
+	},
+	deleteChamadas: function (itemKey) {
+		var keyId = {};
+		var myFirebaseRef = new Firebase(this.props.url).child("conteudo").child("chamadas");
+		myFirebaseRef.child(itemKey).remove();
+		console.log('item '+itemKey+' removed');
+		
+	},
   render: function () {
 
   	var slideItems = _.map(this.props.slides, function (slide, key) {
   		//get item key
-  		var itemKey = key;
-  		var deleteClick = this.deleteItem.bind(this, key);
+  		var deleteClick = this.deleteSlides.bind(this, key);
   		//pass key on click
   		return (
   			React.createElement("tbody", {key: slide.nome}, 
@@ -269,6 +296,39 @@ var AdminConteudo = React.createClass({displayName: "AdminConteudo",
 	        	)
 	        )
   			);
+  	}.bind(this));
+
+  	var chamadaBlocos = _.map(this.props.chamadas, function (bloco, key) {
+  		var deleteClick = this.deleteChamadas.bind(this, key);
+  		var blocoItem = _.map(bloco, function (item, key) {
+  			return (
+  			React.createElement("tbody", {key: key}, 
+	        	React.createElement("tr", null, 
+		          React.createElement("td", null, React.createElement("img", {src: item.img, height: "100px"})), 
+		          React.createElement("td", null, React.createElement("h4", null, item.titulo)), 
+		          React.createElement("td", null, React.createElement("p", null, item.texto))
+	        	)
+	        )
+  			);
+  		});
+  		return (
+  			React.createElement("div", {key: key}, 
+  				React.createElement("h3", null, React.createElement(Button, {bsSize: "xsmall", bsStyle: "danger", onClick: deleteClick}, React.createElement("i", {className: "icono-cross"})), " Bloco"), 
+  				React.createElement(Table, {responsive: true}, 
+			    	React.createElement("thead", null, 
+			        	React.createElement("tr", null, 
+				          React.createElement("th", null, "Imagem"), 
+				          React.createElement("th", null, "Titulo"), 
+				          React.createElement("th", null, "Texto")
+			        	)
+			      	), 
+			      	React.createElement("tbody", null, 
+  						blocoItem
+  					)
+  				)		
+  			)
+  			);
+
   	}.bind(this));
     return (
     	React.createElement("div", {className: "admin-area row"}, 
@@ -287,7 +347,7 @@ var AdminConteudo = React.createClass({displayName: "AdminConteudo",
 			      	React.createElement("tbody", null, 
 			        	React.createElement("tr", null, 
 				          React.createElement("td", null, 
-				          	React.createElement(Button, {bsSize: "small", bsStyle: "success", onClick: this.addItem}, React.createElement("i", {className: "icono-check"}))
+				          	React.createElement(Button, {bsSize: "small", bsStyle: "success", onClick: this.addSlide}, React.createElement("i", {className: "icono-check"}))
 				          ), 
 				          React.createElement("td", null, React.createElement(Input, {
 				          		placeholder: "url da imagem", 
@@ -360,7 +420,57 @@ var AdminConteudo = React.createClass({displayName: "AdminConteudo",
 					    	)
 					    )
 			    	)
-			    )
+			    ), 
+			    React.createElement("h2", null, "Chamadas"), 
+		    		React.createElement("div", {className: "row chamada-wrapper"}, 
+		    			React.createElement("h3", null, React.createElement(Button, {bsStyle: "success", bsSize: "xsmall", onClick: this.addChamada}, React.createElement("i", {className: "icono-check"})), " Adicionar novo bloco"), 
+		    			React.createElement(Table, {responsive: true}, 
+		    				React.createElement("thead", null, 
+					        	React.createElement("tr", null, 
+						          React.createElement("th", null, "Imagem"), 
+						          React.createElement("th", null, "Titulo"), 
+						          React.createElement("th", null, "Texto")
+					        	)
+					      	), 
+					      	React.createElement("tbody", null, 
+					        	React.createElement("tr", null, 
+						          React.createElement("td", null, React.createElement(Input, {
+						          	placeholder: "url da imagem", 
+					          		type: "text", 
+					          		ref: "conteudoChamadaBlocoAImg", 
+			    					onChange: this.handleChange.bind(this, 'conteudoChamadaBlocoAImg')})), 
+						          React.createElement("td", null, React.createElement(Input, {
+						          		placeholder: "titulo", 
+						          		type: "text", 
+						          		ref: "conteudoChamadaBlocoATitulo", 
+				    					onChange: this.handleChange.bind(this, 'conteudoChamadaBlocoATitulo')})), 
+						          React.createElement("td", null, React.createElement(Input, {
+						          		placeholder: "texto da chamada", 
+						          		type: "textarea", 
+						          		ref: "conteudoChamadaBlocoATexto", 
+				    					onChange: this.handleChange.bind(this, 'conteudoChamadaBlocoATexto')}))
+					        	), 
+					        	React.createElement("tr", null, 
+						          React.createElement("td", null, React.createElement(Input, {
+						          	placeholder: "url da imagem", 
+					          		type: "text", 
+					          		ref: "conteudoChamadaBlocoBImg", 
+			    					onChange: this.handleChange.bind(this, 'conteudoChamadaBlocoBImg')})), 
+						          React.createElement("td", null, React.createElement(Input, {
+						          		placeholder: "titulo", 
+						          		type: "text", 
+						          		ref: "conteudoChamadaBlocoBTitulo", 
+				    					onChange: this.handleChange.bind(this, 'conteudoChamadaBlocoBTitulo')})), 
+						          React.createElement("td", null, React.createElement(Input, {
+						          		placeholder: "texto da chamada", 
+						          		type: "textarea", 
+						          		ref: "conteudoChamadaBlocoBTexto", 
+				    					onChange: this.handleChange.bind(this, 'conteudoChamadaBlocoBTexto')}))
+					        	)
+					        )
+		    			)
+		    		), 
+			    chamadaBlocos
     		)	
     	));
   }
@@ -1025,7 +1135,8 @@ var React = require('react'),
 				React.createElement(HomeContent, {
 					quemsomos: this.props.quemsomos, 
 					achapada: this.props.achapada}), 
-				React.createElement(HomeOfertas, null), 
+				React.createElement(HomeOfertas, {
+					chamadas: this.props.chamadas}), 
 				React.createElement("div", {className: "clear"})
 			)
 		)
@@ -1094,84 +1205,45 @@ module.exports = HomeContent;
 'use strict';
 
 var React = require('react'),
+	_ = require('lodash'),
 	Carousel = require('react-bootstrap').Carousel,
   	CarouselItem = require('react-bootstrap').CarouselItem,
 	HomeOfertas = React.createClass ({displayName: "HomeOfertas",
 		render: function () {
 			var chamadas = this.props.chamadas;
-			
+			var blocoChamadas = _.map(chamadas, function (bloco, key) {
+				var blocoItem = _.map(bloco, function (item, key) {
+					return (
+						React.createElement("li", {key: key, className: "dyn_hp_offer"}, 
+							React.createElement("div", {id: "left-triangle-home"}), 
+							React.createElement("a", {className: "", href: ""}, 
+								React.createElement("div", {className: "dyn_hp_offer_thumb"}, 
+									React.createElement("img", {width: "300", height: "255", src: item.img, className: "attachment-medium wp-post-image", alt: item.titulo})
+								)
+							), 
+							React.createElement("div", {className: "dyn_hp_offer_txt"}, 
+								React.createElement("a", {className: "dyn_hp_offer_title", href: ""}, 
+									React.createElement("h2", null, item.titulo)
+								), 
+								React.createElement("a", {className: "dyn_hp_offer_desc", href: ""}, item.texto)
+							), 
+							React.createElement("a", {className: "more", href: ""}, "Veja mais >")
+						)
+						);
+				});
+				return (
+					React.createElement(CarouselItem, {key: key}, 
+						React.createElement("ul", null, 	
+							blocoItem
+						)
+					)		
+					);
+			});
 			return (
 				React.createElement("div", {className: "grid_100 ofertas"}, 
 					React.createElement("div", {className: "flight_hp_l"}, 
 						React.createElement(Carousel, null, 
-							React.createElement(CarouselItem, null, 
-								React.createElement("ul", null, 																
-									React.createElement("li", {className: "dyn_hp_offer"}, 
-										React.createElement("div", {id: "left-triangle-home"}), 
-										React.createElement("a", {className: "", href: ""}, 
-											React.createElement("div", {className: "dyn_hp_offer_thumb"}, 
-												React.createElement("img", {width: "300", height: "255", src: "https://unsplash.imgix.net/uploads/141315993607248a8be6a/5cf8b62b?fit=cropundefined00undefined0", className: "attachment-medium wp-post-image", alt: "kuba_24 THUMB"})
-											)
-										), 
-										React.createElement("div", {className: "dyn_hp_offer_txt"}, 
-											React.createElement("a", {className: "dyn_hp_offer_title", href: ""}, 
-												React.createElement("h2", null, "Essa é a Doga")
-											), 
-											React.createElement("a", {className: "dyn_hp_offer_desc", href: ""}, "Dalo é um ser imortal")
-										), 
-										React.createElement("a", {className: "more", href: ""}, "Veja mais >")
-									), 
-									React.createElement("li", {className: "dyn_hp_offer"}, 
-										React.createElement("div", {id: "left-triangle-home"}), 
-										React.createElement("a", {className: "", href: ""}, 
-											React.createElement("div", {className: "dyn_hp_offer_thumb"}, 
-												React.createElement("img", {width: "300", height: "255", src: "https://unsplash.imgix.net/reserve/vNE8214NS9GOvXOy7DCu_DSC_0266.JPG?fit=cropundefined00undefined0", className: "attachment-medium wp-post-image", alt: "kuba_24 THUMB"})
-											)
-										), 
-										React.createElement("div", {className: "dyn_hp_offer_txt"}, 
-											React.createElement("a", {className: "dyn_hp_offer_title", href: ""}, 
-												React.createElement("h2", null, "Essa é a Doga")
-											), 
-											React.createElement("a", {className: "dyn_hp_offer_desc", href: ""}, "Dalo é um ser imortal")
-										), 
-										React.createElement("a", {className: "more", href: ""}, "Veja mais >")
-									)														
-								)
-							), 
-							React.createElement(CarouselItem, null, 
-								React.createElement("ul", null, 																
-									React.createElement("li", {className: "dyn_hp_offer"}, 
-										React.createElement("div", {id: "left-triangle-home"}), 
-										React.createElement("a", {className: "", href: ""}, 
-											React.createElement("div", {className: "dyn_hp_offer_thumb"}, 
-												React.createElement("img", {width: "300", height: "255", src: "https://unsplash.imgix.net/uploads/141315993607248a8be6a/5cf8b62b?fit=cropundefined00undefined0", className: "attachment-medium wp-post-image", alt: "kuba_24 THUMB"})
-											)
-										), 
-										React.createElement("div", {className: "dyn_hp_offer_txt"}, 
-											React.createElement("a", {className: "dyn_hp_offer_title", href: ""}, 
-												React.createElement("h2", null, "Essa é a Doga")
-											), 
-											React.createElement("a", {className: "dyn_hp_offer_desc", href: ""}, "Dalo é um ser imortal")
-										), 
-										React.createElement("a", {className: "more", href: ""}, "Veja mais >")
-									), 
-									React.createElement("li", {className: "dyn_hp_offer"}, 
-										React.createElement("div", {id: "left-triangle-home"}), 
-										React.createElement("a", {className: "", href: ""}, 
-											React.createElement("div", {className: "dyn_hp_offer_thumb"}, 
-												React.createElement("img", {width: "300", height: "255", src: "https://ununsplash.imgix.net/reserve/zU6fwmDaSVWZdCXcZfot_IMG_3838.JPG?fit=cropundefined00undefined0", className: "attachment-medium wp-post-image", alt: "kuba_24 THUMB"})
-											)
-										), 
-										React.createElement("div", {className: "dyn_hp_offer_txt"}, 
-											React.createElement("a", {className: "dyn_hp_offer_title", href: ""}, 
-												React.createElement("h2", null, "Essa é a Doga")
-											), 
-											React.createElement("a", {className: "dyn_hp_offer_desc", href: ""}, "Dalo é um ser imortal")
-										), 
-										React.createElement("a", {className: "more", href: ""}, "Veja mais >")
-									)														
-								)
-							)
+							blocoChamadas
 						)	
 						
 					), 
@@ -1184,7 +1256,7 @@ var React = require('react'),
 		}
 	});
 module.exports = HomeOfertas;
-},{"react":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/react/react.js","react-bootstrap":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/react-bootstrap/lib/main.js"}],"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/home/homeSlider.jsx":[function(require,module,exports){
+},{"lodash":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/lodash/index.js","react":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/react/react.js","react-bootstrap":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/react-bootstrap/lib/main.js"}],"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/home/homeSlider.jsx":[function(require,module,exports){
 'use strict';
 var React = require('react'),
 	_ = require('lodash'),
@@ -1999,7 +2071,8 @@ var Main = React.createClass({displayName: "Main",
               React.createElement(RouteHandler, {
                 slides: this.props.slides, 
                 quemsomos: this.props.quemsomos, 
-                achapada: this.props.achapada}), 
+                achapada: this.props.achapada, 
+                chamadas: this.props.chamadas}), 
               React.createElement(Footer, null)
             ), 
             React.createElement("div", {className: "luandro-footer"}, React.createElement("a", {href: "http://luandro.com"}, "desenvolvido por Luandro"))

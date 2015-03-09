@@ -1,84 +1,45 @@
 'use strict';
 
 var React = require('react'),
+	_ = require('lodash'),
 	Carousel = require('react-bootstrap').Carousel,
   	CarouselItem = require('react-bootstrap').CarouselItem,
 	HomeOfertas = React.createClass ({
 		render: function () {
 			var chamadas = this.props.chamadas;
-			
+			var blocoChamadas = _.map(chamadas, function (bloco, key) {
+				var blocoItem = _.map(bloco, function (item, key) {
+					return (
+						<li key={key} className="dyn_hp_offer">
+							<div id="left-triangle-home"></div>
+							<a className="" href="">
+								<div className="dyn_hp_offer_thumb">
+									<img width="300" height="255" src={item.img} className="attachment-medium wp-post-image" alt={item.titulo}></img>
+								</div>
+							</a>
+							<div className="dyn_hp_offer_txt">
+								<a className="dyn_hp_offer_title" href="">
+									<h2>{item.titulo}</h2>
+								</a>
+								<a className="dyn_hp_offer_desc" href="">{item.texto}</a>
+							</div>
+							<a className="more" href="">Veja mais &gt;</a>
+						</li>
+						);
+				});
+				return (
+					<CarouselItem key={key}>
+						<ul>	
+							{blocoItem}
+						</ul>
+					</CarouselItem>		
+					);
+			});
 			return (
 				<div className="grid_100 ofertas">
 					<div className="flight_hp_l">
 						<Carousel>
-							<CarouselItem>
-								<ul>																
-									<li className="dyn_hp_offer">
-										<div id="left-triangle-home"></div>
-										<a className="" href="">
-											<div className="dyn_hp_offer_thumb">
-												<img width="300" height="255" src="https://unsplash.imgix.net/uploads/141315993607248a8be6a/5cf8b62b?fit=crop&fm=jpg&h=700&q=75&w=1050" className="attachment-medium wp-post-image" alt="kuba_24 THUMB"></img>
-											</div>
-										</a>
-										<div className="dyn_hp_offer_txt">
-											<a className="dyn_hp_offer_title" href="">
-												<h2>Essa é a Doga</h2>
-											</a>
-											<a className="dyn_hp_offer_desc" href="">Dalo é um ser imortal</a>
-										</div>
-										<a className="more" href="">Veja mais &gt;</a>
-									</li>
-									<li className="dyn_hp_offer">
-										<div id="left-triangle-home"></div>
-										<a className="" href="">
-											<div className="dyn_hp_offer_thumb">
-												<img width="300" height="255" src="https://unsplash.imgix.net/reserve/vNE8214NS9GOvXOy7DCu_DSC_0266.JPG?fit=crop&fm=jpg&h=700&q=75&w=1050" className="attachment-medium wp-post-image" alt="kuba_24 THUMB"></img>
-											</div>
-										</a>
-										<div className="dyn_hp_offer_txt">
-											<a className="dyn_hp_offer_title" href="">
-												<h2>Essa é a Doga</h2>
-											</a>
-											<a className="dyn_hp_offer_desc" href="">Dalo é um ser imortal</a>
-										</div>
-										<a className="more" href="">Veja mais &gt;</a>
-									</li>														
-								</ul>
-							</CarouselItem>
-							<CarouselItem>
-								<ul>																
-									<li className="dyn_hp_offer">
-										<div id="left-triangle-home"></div>
-										<a className="" href="">
-											<div className="dyn_hp_offer_thumb">
-												<img width="300" height="255" src="https://unsplash.imgix.net/uploads/141315993607248a8be6a/5cf8b62b?fit=crop&fm=jpg&h=700&q=75&w=1050" className="attachment-medium wp-post-image" alt="kuba_24 THUMB"></img>
-											</div>
-										</a>
-										<div className="dyn_hp_offer_txt">
-											<a className="dyn_hp_offer_title" href="">
-												<h2>Essa é a Doga</h2>
-											</a>
-											<a className="dyn_hp_offer_desc" href="">Dalo é um ser imortal</a>
-										</div>
-										<a className="more" href="">Veja mais &gt;</a>
-									</li>
-									<li className="dyn_hp_offer">
-										<div id="left-triangle-home"></div>
-										<a className="" href="">
-											<div className="dyn_hp_offer_thumb">
-												<img width="300" height="255" src="https://ununsplash.imgix.net/reserve/zU6fwmDaSVWZdCXcZfot_IMG_3838.JPG?fit=crop&fm=jpg&h=700&q=75&w=1050" className="attachment-medium wp-post-image" alt="kuba_24 THUMB"></img>
-											</div>
-										</a>
-										<div className="dyn_hp_offer_txt">
-											<a className="dyn_hp_offer_title" href="">
-												<h2>Essa é a Doga</h2>
-											</a>
-											<a className="dyn_hp_offer_desc" href="">Dalo é um ser imortal</a>
-										</div>
-										<a className="more" href="">Veja mais &gt;</a>
-									</li>														
-								</ul>
-							</CarouselItem>
+							{blocoChamadas}
 						</Carousel>	
 						
 					</div>

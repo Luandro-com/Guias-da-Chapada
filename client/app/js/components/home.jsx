@@ -14,8 +14,9 @@ var React = require('react'),
 			<div className="content">
 				<HomeContent 
 					quemsomos={this.props.quemsomos}
-					achapada={this.props.achapada}/>
-				<HomeOfertas />
+					achapada={this.props.achapada} />
+				<HomeOfertas 
+					chamadas={this.props.chamadas} />
 				<div className="clear"></div>
 			</div>
 		</div>

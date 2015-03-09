@@ -16,8 +16,12 @@ var AdminConteudo = React.createClass({
       	conteudoChapadaCerrado: '',
       	conteudoChapadaCultura: '',
       	conteudoChapadaHistoria: '',
-      	itemKey: ''
-
+      	conteudoChamadaBlocoAImg: '',
+      	conteudoChamadaBlocoATitulo: '',
+      	conteudoChamadaBlocoATexto: '',
+      	conteudoChamadaBlocoBImg: '',
+      	conteudoChamadaBlocoBTitulo: '',
+      	conteudoChamadaBlocoBTexto: ''
       };
     },
     handleChange: function(name, e) {
@@ -25,7 +29,7 @@ var AdminConteudo = React.createClass({
       change[name] = e.target.value;
       this.setState(change);
     },
-	addItem: function () {
+	addSlide: function () {
 		var myFirebaseRef = new Firebase(this.props.url);
 		var slideRef = myFirebaseRef.child("conteudo").child("slides");
 		slideRef.push({
@@ -34,7 +38,7 @@ var AdminConteudo = React.createClass({
 		});
 
 	},
-	deleteItem: function (itemKey) {
+	deleteSlides: function (itemKey) {
 		var keyId = {};
 		var myFirebaseRef = new Firebase(this.props.url).child("conteudo").child("slides");
 		myFirebaseRef.child(itemKey).remove();
@@ -66,12 +70,35 @@ var AdminConteudo = React.createClass({
 		console.log('State: '+this.state.conteudoChapadaHistoria);
 		myFirebaseRef.set(this.state.conteudoChapadaHistoria);
 	},
+	addChamada: function () {
+		var myFirebaseRef = new Firebase(this.props.url);
+		var slideRef = myFirebaseRef.child("conteudo").child("chamadas");
+		slideRef.push({
+			chamada1: {
+				img: this.state.conteudoChamadaBlocoAImg,
+				titulo: this.state.conteudoChamadaBlocoATitulo, 
+				texto: this.state.conteudoChamadaBlocoATexto
+			},
+			chamada2: {
+				img: this.state.conteudoChamadaBlocoBImg, 
+				titulo: this.state.conteudoChamadaBlocoBTitulo, 
+				texto: this.state.conteudoChamadaBlocoBTexto
+			}
+		});
+
+	},
+	deleteChamadas: function (itemKey) {
+		var keyId = {};
+		var myFirebaseRef = new Firebase(this.props.url).child("conteudo").child("chamadas");
+		myFirebaseRef.child(itemKey).remove();
+		console.log('item '+itemKey+' removed');
+		
+	},
   render: function () {
 
   	var slideItems = _.map(this.props.slides, function (slide, key) {
   		//get item key
-  		var itemKey = key;
-  		var deleteClick = this.deleteItem.bind(this, key);
+  		var deleteClick = this.deleteSlides.bind(this, key);
   		//pass key on click
   		return (
   			<tbody key={slide.nome}>
@@ -82,6 +109,39 @@ var AdminConteudo = React.createClass({
 	        	</tr>
 	        </tbody>
   			);
+  	}.bind(this));
+
+  	var chamadaBlocos = _.map(this.props.chamadas, function (bloco, key) {
+  		var deleteClick = this.deleteChamadas.bind(this, key);
+  		var blocoItem = _.map(bloco, function (item, key) {
+  			return (
+  			<tbody key={key}>
+	        	<tr>
+		          <td><img src={item.img}  height="100px" /></td>
+		          <td><h4>{item.titulo}</h4></td>
+		          <td><p>{item.texto}</p></td>
+	        	</tr>
+	        </tbody>
+  			);
+  		});
+  		return (
+  			<div key={key}>
+  				<h3><Button bsSize="xsmall" bsStyle="danger" onClick={deleteClick} ><i className="icono-cross"></i></Button> Bloco</h3>
+  				<Table responsive>
+			    	<thead>
+			        	<tr>
+				          <th>Imagem</th>
+				          <th>Titulo</th>
+				          <th>Texto</th>
+			        	</tr>
+			      	</thead>
+			      	<tbody>
+  						{blocoItem}
+  					</tbody>
+  				</Table>		
+  			</div>
+  			);
+
   	}.bind(this));
     return (
     	<div className="admin-area row">
@@ -100,7 +160,7 @@ var AdminConteudo = React.createClass({
 			      	<tbody>
 			        	<tr>
 				          <td>
-				          	<Button bsSize="small" bsStyle="success" onClick={this.addItem} ><i className="icono-check"></i></Button>
+				          	<Button bsSize="small" bsStyle="success" onClick={this.addSlide} ><i className="icono-check"></i></Button>
 				          </td>
 				          <td><Input 
 				          		placeholder="url da imagem"
@@ -174,6 +234,56 @@ var AdminConteudo = React.createClass({
 					    </TabbedArea>
 			    	</div>
 			    </div>
+			    <h2>Chamadas</h2>
+		    		<div className="row chamada-wrapper">
+		    			<h3><Button bsStyle="success" bsSize="xsmall" onClick={this.addChamada}><i className="icono-check"></i></Button> Adicionar novo bloco</h3>
+		    			<Table responsive>
+		    				<thead>
+					        	<tr>
+						          <th>Imagem</th>
+						          <th>Titulo</th>
+						          <th>Texto</th>
+					        	</tr>
+					      	</thead>
+					      	<tbody>
+					        	<tr>
+						          <td><Input 
+						          	placeholder="url da imagem"
+					          		type="text" 
+					          		ref="conteudoChamadaBlocoAImg"
+			    					onChange={this.handleChange.bind(this, 'conteudoChamadaBlocoAImg')}/></td>
+						          <td><Input
+						          		placeholder="titulo" 
+						          		type="text" 
+						          		ref="conteudoChamadaBlocoATitulo"
+				    					onChange={this.handleChange.bind(this, 'conteudoChamadaBlocoATitulo')}/></td>
+						          <td><Input 
+						          		placeholder="texto da chamada"
+						          		type="textarea" 
+						          		ref="conteudoChamadaBlocoATexto"
+				    					onChange={this.handleChange.bind(this, 'conteudoChamadaBlocoATexto')}/></td>
+					        	</tr>
+					        	<tr>
+						          <td><Input
+						          	placeholder="url da imagem" 
+					          		type="text" 
+					          		ref="conteudoChamadaBlocoBImg"
+			    					onChange={this.handleChange.bind(this, 'conteudoChamadaBlocoBImg')}/></td>
+						          <td><Input 
+						          		placeholder="titulo"
+						          		type="text" 
+						          		ref="conteudoChamadaBlocoBTitulo"
+				    					onChange={this.handleChange.bind(this, 'conteudoChamadaBlocoBTitulo')}/></td>
+						          <td><Input 
+						          		placeholder="texto da chamada"
+						          		type="textarea" 
+						          		ref="conteudoChamadaBlocoBTexto"
+				    					onChange={this.handleChange.bind(this, 'conteudoChamadaBlocoBTexto')}/></td>
+					        	</tr>
+					        </tbody>
+		    			</Table>
+		    		</div>
+			    {chamadaBlocos}
     		</div>	
     	</div>);
   }
