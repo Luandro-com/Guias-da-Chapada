@@ -39,6 +39,10 @@ var Admin = React.createClass({
                 quemsomos={this.props.quemsomos}
                 achapada={this.props.achapada}
                 chamadas={this.props.chamadas}
+                atrativos={this.props.atrativos}
+                roteiros={this.props.roteiros}
+                hospedagem={this.props.hospedagem}
+                alimentacao={this.props.alimentacao}
                 url={this.props.url} />
 
     	</div>	

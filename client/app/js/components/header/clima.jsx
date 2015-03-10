@@ -39,7 +39,7 @@ var React = require('react'),
 			render: function() {
 				return (
 				<div>
-					<img src={this.state.icon} /> {this.state.temperatura}&deg; em Alto Paraíso com {this.state.tempo}
+					<img src={this.state.icon} /> {this.state.temperatura}&deg; com {this.state.tempo} na Chapada dos Veadeiros
 				</div>
 					)
 			}

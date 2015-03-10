@@ -34,13 +34,19 @@ var App = React.createClass({
             conteudoQuemsomos = snapshot.val().conteudo.quemsomos,
             conteudoAchapada = snapshot.val().conteudo.achapada,
             conteudoChamadas = snapshot.val().conteudo.chamadas,
-            mapa = snapshot.val().mapa;
+            mapaAtrativos = snapshot.val().mapa.atrativos,
+            mapaRoteiros = snapshot.val().mapa.roteiros,
+            mapaHospedagem = snapshot.val().mapa.hospedagem,
+            mapaAlimentacao = snapshot.val().mapa.alimentação;
         this.setState({
           conteudoSlides: conteudoSlides,
           conteudoQuemsomos: conteudoQuemsomos,
           conteudoAchapada: conteudoAchapada,
           conteudoChamadas: conteudoChamadas,
-          mapa: mapa
+          mapaAtrativos: mapaAtrativos,
+          mapaRoteiros: mapaRoteiros,
+          mapaHospedagem: mapaHospedagem,
+          mapaAlimentacao: mapaAlimentacao
         });    
       }.bind(this));
 
@@ -50,7 +56,7 @@ var App = React.createClass({
       return {
         conteudoSlides: {
             "slide1" : {
-              "img" : "https://unsplash.imgix.net/photo-1415226481302-c40f24f4d45e?fit=crop&fm=jpg&h=800&q=75&w=1050",
+              "img" : "http://preloaders.net/preloaders/285/Moving%20blocks.gif",
               "nome" : "Bem Vindos"
             }
         },
@@ -60,8 +66,22 @@ var App = React.createClass({
           "cultura" : "carregando...",
           "historia" : "carregando...",
           "intro" : "carregando..."
+        },
+        conteudoChamadas: {
+          "bloco1" : {
+            "chamada1" : {
+              "img" : "http://preloaders.net/preloaders/285/Moving%20blocks.gif",
+              "texto" : "carregando...",
+              "titulo" : ""
+            },
+            "chamada2" : {
+              "img" : "http://preloaders.net/preloaders/285/Moving%20blocks.gif",
+              "texto" : "carregando...",
+              "titulo" : ""
+            }
+          }
         }
-      }
+      };
     },    
     render: function () {
     	var name = this.getRoutes().reverse()[0].name;
@@ -73,7 +93,10 @@ var App = React.createClass({
                 quemsomos={this.state.conteudoQuemsomos} 
                 achapada={this.state.conteudoAchapada}
                 chamadas={this.state.conteudoChamadas}
-                mapa={this.state.mapa}
+                atrativos={this.state.mapaAtrativos}
+                roteiros={this.state.mapaRoteiros}
+                hospedagem={this.state.mapaHospedagem}
+                alimentacao={this.state.mapaAlimentacao}
                 url={this.props.url} />
             </div>
         );

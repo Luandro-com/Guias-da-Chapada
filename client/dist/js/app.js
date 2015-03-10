@@ -35,13 +35,19 @@ var App = React.createClass({displayName: "App",
             conteudoQuemsomos = snapshot.val().conteudo.quemsomos,
             conteudoAchapada = snapshot.val().conteudo.achapada,
             conteudoChamadas = snapshot.val().conteudo.chamadas,
-            mapa = snapshot.val().mapa;
+            mapaAtrativos = snapshot.val().mapa.atrativos,
+            mapaRoteiros = snapshot.val().mapa.roteiros,
+            mapaHospedagem = snapshot.val().mapa.hospedagem,
+            mapaAlimentacao = snapshot.val().mapa.alimentação;
         this.setState({
           conteudoSlides: conteudoSlides,
           conteudoQuemsomos: conteudoQuemsomos,
           conteudoAchapada: conteudoAchapada,
           conteudoChamadas: conteudoChamadas,
-          mapa: mapa
+          mapaAtrativos: mapaAtrativos,
+          mapaRoteiros: mapaRoteiros,
+          mapaHospedagem: mapaHospedagem,
+          mapaAlimentacao: mapaAlimentacao
         });    
       }.bind(this));
 
@@ -51,7 +57,7 @@ var App = React.createClass({displayName: "App",
       return {
         conteudoSlides: {
             "slide1" : {
-              "img" : "https://unsplash.imgix.net/photo-1415226481302-c40f24f4d45e?fit=crop&fm=jpg&h=800&q=75&w=1050",
+              "img" : "http://preloaders.net/preloaders/285/Moving%20blocks.gif",
               "nome" : "Bem Vindos"
             }
         },
@@ -61,8 +67,22 @@ var App = React.createClass({displayName: "App",
           "cultura" : "carregando...",
           "historia" : "carregando...",
           "intro" : "carregando..."
+        },
+        conteudoChamadas: {
+          "bloco1" : {
+            "chamada1" : {
+              "img" : "http://preloaders.net/preloaders/285/Moving%20blocks.gif",
+              "texto" : "carregando...",
+              "titulo" : ""
+            },
+            "chamada2" : {
+              "img" : "http://preloaders.net/preloaders/285/Moving%20blocks.gif",
+              "texto" : "carregando...",
+              "titulo" : ""
+            }
+          }
         }
-      }
+      };
     },    
     render: function () {
     	var name = this.getRoutes().reverse()[0].name;
@@ -74,7 +94,10 @@ var App = React.createClass({displayName: "App",
                 quemsomos: this.state.conteudoQuemsomos, 
                 achapada: this.state.conteudoAchapada, 
                 chamadas: this.state.conteudoChamadas, 
-                mapa: this.state.mapa, 
+                atrativos: this.state.mapaAtrativos, 
+                roteiros: this.state.mapaRoteiros, 
+                hospedagem: this.state.mapaHospedagem, 
+                alimentacao: this.state.mapaAlimentacao, 
                 url: this.props.url})
             )
         );
@@ -173,13 +196,12 @@ var myFirebaseRef = new Firebase(this.props.url);
 var React = require('react');
 
 var AdminAgenda = React.createClass({displayName: "AdminAgenda",
-
-
   render: function () {
     return (
     	React.createElement("div", null, 
     		React.createElement("h1", null, "Agenda")
-    	));
+    	)
+    	);
   }
 });
 
@@ -480,21 +502,153 @@ module.exports = AdminConteudo;
 },{"lodash":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/lodash/index.js","react":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/react/react.js","react-bootstrap":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/react-bootstrap/lib/main.js"}],"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/auth/adminPontos.jsx":[function(require,module,exports){
 'use strict';
 
-var React = require('react');
-
+var React = require('react'),
+	_ = require('lodash'),
+	Table = require('react-bootstrap').Table,
+	Input= require('react-bootstrap').Input,
+	Button= require('react-bootstrap').Button;
 var AdminPontos = React.createClass({displayName: "AdminPontos",
-
+	mixins: [React.addons.LinkedStateMixin],
+	getInitialState: function() {
+		return {
+			atrativoImg: '',
+			atrativoTitulo: '',
+			atrativoLat: '',
+			atrativoLng: '',
+			atrativoInfoDificuldade: '',
+			atrativoInfoCusto: '',
+			atrativoInfoAcesso: '',
+			atrativoInfoEstrutura: '',
+			atrativoDescricao: ''
+		};
+	},
+	handleChange: function(name, e) {
+      var change = {};
+      change[name] = e.target.value;
+      this.setState(change);
+    },
+    addAtrativos: function () {
+    	console.log(this.state.atrativoTitulo+" adicionado");
+		var myFirebaseRef = new Firebase(this.props.url);
+		var slideRef = myFirebaseRef.child("mapa").child("atrativos");
+		slideRef.push({
+			img: this.state.atrativoImg,
+			titulo: this.state.atrativoTitulo,
+			lat: this.state.atrativoLat,
+			lng: this.state.atrativoLng,
+			info: {
+				dificuldade: this.state.atrativoInfoDificuldade,
+				custo: this.state.atrativoInfoCusto,
+				acesso: this.state.atrativoInfoAcesso,
+				estrutura: this.state.atrativoInfoEstrutura
+			},
+			descricao: this.state.atrativoDescricao
+		});
+	},	
+	deleteAtrativos: function (itemKey) {
+		var keyId = {};
+		var myFirebaseRef = new Firebase(this.props.url).child("mapa").child("atrativos");
+		myFirebaseRef.child(itemKey).remove();
+		console.log('item '+itemKey+' removed');
+	},
 
   render: function () {
+  	var atrativos = _.map(this.props.atrativos, function (item, key) {
+  		var deleteClick = this.deleteAtrativos.bind(this, key);
+  		var infos = _.map(item.info, function(info, key) {
+  			return React.createElement("span", {key: key}, info, ", ") 
+  		});
+  		return (
+  			React.createElement("tr", {key: key}, 
+  				React.createElement("th", null, React.createElement(Button, {bsSize: "xsmall", bsStyle: "danger", onClick: deleteClick}, React.createElement("i", {className: "icono-cross"}))), 
+				React.createElement("th", null, React.createElement("img", {height: "auto", width: "200", src: item.img})), 
+				React.createElement("th", null, React.createElement("h4", null, item.titulo)), 
+				React.createElement("th", null, infos), 
+				React.createElement("th", null, React.createElement("pre", null, item.lat, ", ", item.lng)), 
+				React.createElement("th", null, item.descricao)
+			)
+  			);
+  	}.bind(this));
+  	
     return (
-    	React.createElement("div", null, 
-    		React.createElement("h1", null, "Pontos")
-    	));
+    	React.createElement("div", {className: "admin-area row"}, 
+    		React.createElement("div", {className: "col-md-12"}, 
+    		React.createElement("h1", null, "Pontos"), 
+    		React.createElement("hr", null), 
+    		React.createElement("h2", null, "Atrativos"), 
+    			React.createElement("h3", null, "Adicionar novo atrativo"), 
+    				React.createElement(Table, null, 
+    					React.createElement("tbody", null, 
+    						React.createElement("tr", null, 
+    							React.createElement("th", null, React.createElement(Input, {valueLink: this.linkState('atrativoImg'), type: "text", placeholder: "url da imagem"})), 
+    							React.createElement("th", null, React.createElement(Input, {ref: "atrativoTitulo", onChange: this.handleChange.bind(this, 'atrativoTitulo'), type: "text", placeholder: "titulo"})), 
+    							React.createElement("th", null, React.createElement(Input, {ref: "atrativoLat", onChange: this.handleChange.bind(this, 'atrativoLat'), type: "text", placeholder: "latitude"})), 
+    							React.createElement("th", null, React.createElement(Input, {ref: "atrativoLng", onChange: this.handleChange.bind(this, 'atrativoLng'), type: "text", placeholder: "longitude"}))
+    						), 
+    						React.createElement("tr", null, 
+    							React.createElement("th", null, 
+    								React.createElement(Input, {ref: "atrativoInfoDificuldade", onChange: this.handleChange.bind(this, 'atrativoInfoDificuldade'), type: "select", label: "dificuldade"}, 
+    									React.createElement("option", {value: "facil"}, "fácil"), 
+        								React.createElement("option", {value: "medio"}, "médio"), 
+        								React.createElement("option", {value: "dificil"}, "difícil")
+        							)			
+    							), 
+    							React.createElement("th", null, 
+    								React.createElement(Input, {ref: "atrativoInfoCusto", onChange: this.handleChange.bind(this, 'atrativoInfoCusto'), type: "select", label: "custo"}, 
+    									React.createElement("option", {value: "gratis"}, "grátis"), 
+        								React.createElement("option", {value: "$"}, "R$5,00 a R$10,00"), 
+        								React.createElement("option", {value: "$$"}, "R$11,00 a R$20,00"), 
+        								React.createElement("option", {value: "$$$"}, "R$25,00 ou mais")
+        							)			
+    							), 
+    							React.createElement("th", null, 
+    								React.createElement(Input, {ref: "atrativoInfoAcesso", onChange: this.handleChange.bind(this, 'atrativoInfoAcesso'), type: "select", label: "acesso"}, 
+    									React.createElement("option", {value: "caminhada"}, "caminhada"), 
+        								React.createElement("option", {value: "carro"}, "carro"), 
+        								React.createElement("option", {value: "4x4"}, "4x4")
+        							)			
+    							), 
+    							React.createElement("th", null, 
+    								React.createElement(Input, {ref: "atrativoInfoEstrutura", onChange: this.handleChange.bind(this, 'atrativoInfoEstrutura'), type: "select", label: "estrutura"}, 
+    									React.createElement("option", {value: "nada"}, "nada"), 
+    									React.createElement("option", {value: "restaurante"}, "restaurante"), 
+        								React.createElement("option", {value: "camping"}, "camping"), 
+        								React.createElement("option", {value: "pousada"}, "pousada")
+        							)			
+    							)
+    						)
+    					)
+    				), 
+    				React.createElement("hr", null), 
+    				React.createElement(Input, {ref: "atrativoDescricao", onChange: this.handleChange.bind(this, 'atrativoDescricao'), type: "textarea", placeholder: "descrição"}), 
+    				React.createElement(Button, {bsSize: "small", bsStyle: "success", onClick: this.addAtrativos}, React.createElement("i", {className: "icono-check"}), " Salvar"), 
+    				React.createElement("br", null), 
+    			React.createElement(Table, {responsive: true}, 
+    				React.createElement("thead", null, 
+    					React.createElement("tr", null, 
+    						React.createElement("th", null), 
+    						React.createElement("th", null, "Imagem"), 
+    						React.createElement("th", null, "Titulo"), 
+    						React.createElement("th", null, "Informações"), 
+    						React.createElement("th", null, "Latitude, Longitude"), 
+    						React.createElement("th", null, "Descrição")
+    					)
+    				), 
+    				React.createElement("tbody", null, 
+    					atrativos
+    				)
+    			), 
+    		React.createElement("h2", null, "Roteiros"), 
+    		React.createElement("h2", null, "Alimentação"), 
+    		React.createElement("h2", null, "Hospedagem")
+    		)
+    	)	
+    		);
   }
 });
 
 module.exports = AdminPontos;
-},{"react":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/react/react.js"}],"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/auth/authAdmin.jsx":[function(require,module,exports){
+},{"lodash":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/lodash/index.js","react":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/react/react.js","react-bootstrap":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/react-bootstrap/lib/main.js"}],"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/auth/authAdmin.jsx":[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -536,6 +690,10 @@ var Admin = React.createClass({displayName: "Admin",
                 quemsomos: this.props.quemsomos, 
                 achapada: this.props.achapada, 
                 chamadas: this.props.chamadas, 
+                atrativos: this.props.atrativos, 
+                roteiros: this.props.roteiros, 
+                hospedagem: this.props.hospedagem, 
+                alimentacao: this.props.alimentacao, 
                 url: this.props.url})
 
     	)	
@@ -1081,7 +1239,7 @@ var React = require('react'),
 			render: function() {
 				return (
 				React.createElement("div", null, 
-					React.createElement("img", {src: this.state.icon}), " ", this.state.temperatura, "° em Alto Paraíso com ", this.state.tempo
+					React.createElement("img", {src: this.state.icon}), " ", this.state.temperatura, "° com ", this.state.tempo, " na Chapada dos Veadeiros"
 				)
 					)
 			}
