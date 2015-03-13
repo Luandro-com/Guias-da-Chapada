@@ -21,6 +21,7 @@ var React = require('react'),
 				var zoomControl = new ZoomControl(zoomControlDiv, map);
 		 	 		zoomControlDiv.index = 1;
 		  			map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(zoomControlDiv);
+
 		  		var newInfoBox = new InfoBox({
 				    disableAutoPan: false,
 				    maxWidth: 150,
@@ -46,14 +47,13 @@ var React = require('react'),
 	            return new google.maps.LatLng(this.props.settings.mapCenterLat, this.props.settings.mapCenterLng);
 	    },
 	    setMarkers: function (markers, map, Infobox) {
-    		_.map(markers, function(marker) {
-    			console.log('Looping on markers to find ID: '+marker.id);
-    			this.clearMarkers(marker, map);
-    			this.createMarkers(marker, map, Infobox); 
+    		_.map(markers, function(marker, key) {
+    			console.log('Looping on markers to find ID: '+key);
+    			this.createMarkers(marker, map, Infobox, key); 
     		}.bind(this));
 	    },
-	    createMarkers: function (marker, map, Infobox) {
-	    	var boxId = "infobox"+marker.id;
+	    createMarkers: function (marker, map, Infobox, key) {
+	    	var boxId = "infobox"+key;
 	    	console.log('createMarkers creates infobox with boxId of: '+boxId);
 	    	var newMarker = new google.maps.Marker({
 		        position: new google.maps.LatLng(marker.lat, marker.lng),
@@ -72,10 +72,7 @@ var React = require('react'),
 		    
 		    return newMarker;
 	    },
-	    clearMarkers: function (marker, map) {
-	    	
-	    },
-	    componentDidUpdate: function () {
+		componentDidUpdate: function () {
 	    	var Infobox = this.state.Infobox;
 	    	var map = this.state.map;
 	    	var markersArray = this.state.markersArray;
@@ -87,7 +84,6 @@ var React = require('react'),
 	        this.setMarkers(this.props.markers, map, Infobox);
 	        map.setOptions(mapOptions);
 	    },
-		
 	    render: function () {
 	        return (
 	        	<div id='map'>

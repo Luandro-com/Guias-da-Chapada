@@ -1,36 +1,88 @@
 'use strict';
 
 var React = require('react'),
-	RoteirosItemInfo = require('./roteirosItemInfo.jsx'),
+	_ = require('lodash'),
+	OverlayTrigger = require('react-bootstrap').OverlayTrigger,
+	Tooltip = require('react-bootstrap').Tooltip, 
 	RoteirosItem = React.createClass({
 	render: function() {
+		var infoItems = _.map(this.props.info, function(info, key) {
+			var tooltip = "Ajuda";
+			switch (info) {
+				case "facil": 
+					tooltip = "caminhadas leves";
+					break;
+				case "medio": 
+					tooltip = "caminhadas de nível médio";
+					break;
+				case "dificil": 
+					tooltip = "caminhadas pesadas";
+					break;
+				case "caminhada": 
+					tooltip = "distância pode ser percorrida a pé";
+					break;
+				case "carro": 
+					tooltip = "acesso com veículos de passeio";
+					break;	
+				case "4x4": 
+					tooltip = "acesso somente com veículos 4x4";
+					break;
+				case "livre": 
+					tooltip = "acesso gratuíto";
+					break;
+				case "custo1": 
+					tooltip = "custo de entrada até R$10,00";
+					break;
+				case "custo2": 
+					tooltip = "custo de entrada até R$20,00";
+					break;
+				case "custo3": 
+					tooltip = "custo de entrada mais de R$20,00";
+					break;
+				case "restaurante": 
+					tooltip = "possui opção de alimentação";
+					break;
+				case "camping": 
+					tooltip = "com área para camping";
+					break;
+				case "camping-restaurante": 
+					tooltip = "área de camping e alimentação";
+					break;
+				case "pousada": 
+					tooltip = "estrutura completa com hospedagem";
+					break;							
+			}
+			var infoIco = "roteiros-item-icons i-"+info;
+			
+			return (
+				<OverlayTrigger key={key} placement="top" overlay={<Tooltip>{tooltip}</Tooltip>}>
+					<li><div className={infoIco} ></div></li>
+				</OverlayTrigger>
+				);
+		});
+		var fb = "http://guiasdachpada.com/"+this.props.titulo;
 		return (
-			<div className="grid_50_h br">
 				<div className="roteiros-item-wrapper">
 					<div className="roteiros-item">
-						<h3>Caminhos de São Jorge</h3>
+						<h3>{this.props.titulo} </h3>
 						<div className="roteiros-img">
-							<img src="https://unsplash.imgix.net/photo-1419064642531-e575728395f2?fit=crop&fm=jpg&h=700&q=75&w=1050" />
-							<p><span className="roteiros-dia">1</span> DIA</p>
+							<img src={this.props.img} />
+							<p><span className="roteiros-dia">{this.props.duracao}</span> DIA</p>
 							<figcaption>
 								<div className="roteiros-box">
-									<p>rain wonton soup camera claymore mine dissident savant bridge papier-mache franchise saturation point sign crypto- spook otaku bicycle long-chain hydrocarbons industrial grade Tokyo faded computer woman chrome Kowloon table face forwards realism vinyl voodoo god pen plastic Legba smart- human garage monofilament city -ware narrative paranoid construct office assassin apophenia convenience store San Francisco dolphin network bomb hacker vehicle shoes knife digital into corporation j-pop disposable sprawl assault systemic cartel tattoo pistol boat refrigerator tower car katana ablative shanty town nodal point sentient</p>
-									<button>ver no mapa</button>
+									<p>{this.props.descricao}</p>
+									<div className="roteiros-botao-mapa">ver no mapa</div>
 								</div>
-								<button>Três diárias</button>
-								<button>Agendar</button>								
+								<div className="roteiros-botao-duracao">{this.props.duracao} diarias</div>
+								<div className="roteiros-botao-agendar">Agendar</div>								
 							</figcaption>
 						</div>
 						<ul>
-							<RoteirosItemInfo />
-							<li><i className="fa fa-car"></i></li>
-							<li><i className="fa fa-bar-chart"></i></li>
-							<li><i className="fa fa-cutlery"></i></li>
-							<li><div className="fb-like" data-href="http://luandro.com" data-layout="button" data-action="like" data-show-faces="true" data-share="false"></div></li>
+							{infoItems}	
+							<li><div className="fb-like" data-href={fb} data-layout="button" data-action="like" data-show-faces="true" data-share="false"></div></li>
 						</ul>
 					</div>
 				</div>
-			</div>
 		);
 	}
 });

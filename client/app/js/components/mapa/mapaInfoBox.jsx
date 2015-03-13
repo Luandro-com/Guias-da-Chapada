@@ -6,7 +6,7 @@ var React = require('react'),
 		var id = this.props.id;
 		console.log('props.id gets to InfoBox as : '+id);
 		var boxId = "infobox"+ this.props.id;
-		var urlID = "http://pre.guiasdachapada.com/#"+boxId;
+		var urlID = "http://guiasdachapada.com/#"+boxId;
 		console.log("Generated InfoBox with ID of : "+boxId);
 
 	return (

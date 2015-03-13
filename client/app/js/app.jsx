@@ -80,7 +80,11 @@ var App = React.createClass({
               "titulo" : ""
             }
           }
-        }
+        },
+        mapaAtrativos: {},
+        mapaRoteiros: {},
+        mapaHospedagem: {},
+        mapaAlimentacao: {}
       };
     },    
     render: function () {

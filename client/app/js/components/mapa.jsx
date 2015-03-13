@@ -1,6 +1,5 @@
 'use strict';
 var React = require('react/addons'),
-	Immutable = require('immutable'),
 	_ = require('lodash'),
 	MapaHeader = require('./mapa/mapaHeader.jsx'),
 	MapaMap = require('./mapa/mapaMap.jsx'),
@@ -15,9 +14,6 @@ var React = require('react/addons'),
 		        		var mapChapada = _.where(fireMarkers, {'categoria': 'atrativo'}),
 		        			mapSj = _.where(fireMarkers, {'local': 'SJ'}),
 		        			mapAp = _.where(fireMarkers, {'local': 'AP'});
-		        		console.log('Not immutable logs '+_.map(mapChapada, 'titulo'));
-		        		var mapChapadaI = Immutable.Map(mapChapada);
-		        		console.log('Immutable logs '+_.map(mapChapadaI, 'titulo'));
 				        this.setState({
 				        	chapadaMarkers: mapChapada,
 				        	sjMarkers: mapSj,
@@ -28,7 +24,6 @@ var React = require('react/addons'),
 		    		}.bind(this));
 		},
 		getInitialState: function() {
-			this.loadData();
 			var MENU_ITEMS = {
 				menua: 'Alto Paraíso', 
 				menub: 'São Jorge', 
@@ -40,26 +35,7 @@ var React = require('react/addons'),
 	            mapCenterLat: -14.137153,
 	            mapCenterLng: -47.519503
 			};
-			var MARKER_ITEMS = {
-				"cachoeira-anjos" : {
-				      "categoria" : "atrativo",
-				      "img" : "slide",
-				      "info" : "bike",
-				      "id" : "1",
-				      "lat" : -14.049433,
-				      "lng" : -47.465508,
-				      "titulo" : "Cachoeira dos 7 Anões"
-				    },
-				    "cachoeira-macacos" : {
-				      "categoria" : "atrativo",
-				      "img" : "slide",
-				      "info" : "4x4",
-				      "id" : "2",
-				      "lat" : -14.210744,
-				      "lng" : -47.473297,
-				      "titulo" : "Cachoeira dos Macacos"
-				    }
-			};
+			var MARKER_ITEMS = {};
 			
 			return {
 				menu: MENU_ITEMS,
@@ -146,8 +122,9 @@ var React = require('react/addons'),
 	    			<div classNameName="clear"></div>
 	    			<MapaMap 
 	    				markers={this.state.markers} 
-	    				settings={this.state.settings} />
-				    <InfoBoxes markers={this.state.markers} />
+	    				settings={this.state.settings}
+	    				atrativos={this.props.atrativos} />
+				    <InfoBoxes markers={this.props.atrativos} />
 				</div>
 			);
 		}
