@@ -10,7 +10,7 @@ var React = require('react'),
 		return (
 			<div className="footer">
 				<h1 className="instagram-hash"><span className="hash">#</span>vamoprachapada</h1>
-				<PictureList apiKey="642176ece1e7445e99244cec26f4de1f" />
+				<PictureList />
 				<div className="grid_100">
 					<div className="banner">
 						<a href="">

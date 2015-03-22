@@ -9,11 +9,18 @@
 }
 #header h1 { 
 	text-transform: uppercase; 
-	color: white;
+	color: #fff;
 	text-align: center;
 	line-height: 100px;
 }
 #header h1 img { margin-left: 22%; width: 56%; margin-top: 3%; }
+#navigation li:hover {
+	background: #000;
+	color:#fff;
+}
+#navigation li:focus {
+	background: #000;
+}
 #social { height: 100px;}
 .social_icons {height: 50px;}
 .social_icons .icono-mail,
@@ -24,9 +31,10 @@
 .social_icons .icono-mail:hover,
 .social_icons .icono-facebook:hover,
 .social_icons .icono-instagram:hover {
-	color: #000;
+	color: #fff;
 }
 .social_icons li {height: 50px; list-style: none; float: left; display: inline; width: 31.7%; padding: 0; margin: 0;  }
+.social_icons li:hover { background: #000;}
 .social_icons li  span { text-align: center; display: block; margin: 10px auto;}
 .social_icons { 
 	float: left; 

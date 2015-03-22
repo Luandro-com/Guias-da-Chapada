@@ -1030,7 +1030,7 @@ var React = require('react'),
 		return (
 			React.createElement("div", {className: "footer"}, 
 				React.createElement("h1", {className: "instagram-hash"}, React.createElement("span", {className: "hash"}, "#"), "vamoprachapada"), 
-				React.createElement(PictureList, {apiKey: "642176ece1e7445e99244cec26f4de1f"}), 
+				React.createElement(PictureList, null), 
 				React.createElement("div", {className: "grid_100"}, 
 					React.createElement("div", {className: "banner"}, 
 						React.createElement("a", {href: ""}, 
@@ -1101,7 +1101,7 @@ var React = require('react'),
 
         // API endpoint for Instagram's popular images for the day
 
-        var url = 'https://api.instagram.com/v1/media/popular?client_id=' + this.props.apiKey + '&callback=?&count=4';
+        var url = 'https://api.instagram.com/v1/tags/chapadadosveadeiros/media/recent?access_token=185738962.5b9e1e6.63edef07cf4040e79276a375baa68456&callback=?&count=4';
 
         reqwest({
             url: url,
@@ -1179,7 +1179,7 @@ var React = require('react'),
 
         // API endpoint for Instagram's popular images for the day
 
-        var url = 'https://api.instagram.com/v1/tags/coffee/media/recent?access_token=fb2e77d.47a0479900504cb3ab4a1f626d174d2d&callback=?';
+        var url = 'https://api.instagram.com/v1/tags/chapadadosveadeiros/media/recent?access_token=185738962.5b9e1e6.63edef07cf4040e79276a375baa68456&callback=?&count=12';
 
         reqwest({
             url: url,

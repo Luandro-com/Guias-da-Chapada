@@ -24,7 +24,7 @@ var React = require('react'),
 
         // API endpoint for Instagram's popular images for the day
 
-        var url = 'https://api.instagram.com/v1/media/popular?client_id=' + this.props.apiKey + '&callback=?&count=4';
+        var url = 'https://api.instagram.com/v1/tags/chapadadosveadeiros/media/recent?access_token=185738962.5b9e1e6.63edef07cf4040e79276a375baa68456&callback=?&count=4';
 
         reqwest({
             url: url,

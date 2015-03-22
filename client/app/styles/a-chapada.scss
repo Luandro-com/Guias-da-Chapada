@@ -11,6 +11,13 @@
  	height: 144.5px;
  	background-size: cover;
  	background-position: bottom;
+ 	cursor: pointer;
+ 	opacity: 0.8;
+ }
+ .chapada-cerrado:hover,
+ .chapada-historia:hover,
+ .chapada-cultura:hover {
+ 	opacity: 1;
  }
  .chapada-cerrado {background-image: url(../img/background/chapada-bg-cerrado.jpg);}
  .chapada-historia {background-image: url(../img/background/chapada-bg-historia.jpg);}
