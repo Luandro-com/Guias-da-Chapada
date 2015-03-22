@@ -150,6 +150,51 @@ ul, ol { margin: 0!important; padding: 0!important;}
 .clear {
 		clear: both;
 }
+/* Loader */
+.loader-container-main {
+	width: 80px;
+	height: 80px;
+	margin: 0 auto;
+}
+.loader-container {
+	width: 80px;
+	height: 80px;
+	margin: 0 auto;
+}
+.switchbox {
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+
+.switchbox {
+  -webkit-animation: spin 2s infinite linear; 
+}
+
+.switch {
+  position: absolute;
+  top: 50%;
+  margin-top: -10px;
+  width: 20px;
+  height: 20px;
+  background-color: #417505;
+  border-radius: 20px;
+  -webkit-animation: cross 2s infinite linear;
+}
+
+#switch2 {
+  -webkit-animation-delay: -1s;
+}
+@-webkit-keyframes cross {
+  50% {
+    margin-left: 60px;
+  }
+}
+@-webkit-keyframes spin { 
+  100% { 
+    -webkit-transform: rotate(360deg); 
+  } 
+} 
 /* Header */
 /* ---------------------------------------------------------- */
 #header {

@@ -28,6 +28,10 @@ var Login = require('./components/auth/authLogin.jsx'),
 var App = React.createClass({displayName: "App",
 	mixins: [ Router.State ],
   Displayname: "Guias da Chapada App",
+    componentWillMount: function() {
+      var loader = document.getElementsByClassName("loader-container-main")[0].remove();
+      
+    },
     loadData: function () {
       var myFirebaseRef = new Firebase(this.props.url);
       myFirebaseRef.on("value", function(snapshot) {
@@ -1154,23 +1158,74 @@ module.exports = PictureList;
 },{"./picture.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/footer/picture.jsx","instafeed.js":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/instafeed.js/instafeed.js","react":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/react/react.js","react-bootstrap":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/react-bootstrap/lib/main.js","reqwest":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/reqwest/reqwest.js"}],"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/galeria.jsx":[function(require,module,exports){
 'use strict';
 var React = require('react'),
-	Instagram = require('instafeed.js'),
+	reqwest = require('reqwest'),
+	InfiniteScroll = require('react-infinite-scroll')(React),
     Picture = require('./footer/picture.jsx'),
 	Galeria = React.createClass({displayName: "Galeria",
 
-	getInitialState: function(){
+		getInitialState: function(){
+        
+        // The pictures array will be populated via AJAX, and 
+        // the favorites one when the user clicks on an image:
+        
         return { pictures: [] };
     },
+
     componentDidMount: function(){
+    
+        // When the component loads, send a jQuery AJAX request
+
         var self = this;
-        var url = 'https://api.instagram.com/v1/media/popular?client_id=' + this.props.apiKey + '&callback=?&count=4';
+
+        // API endpoint for Instagram's popular images for the day
+
+        var url = 'https://api.instagram.com/v1/tags/coffee/media/recent?access_token=fb2e77d.47a0479900504cb3ab4a1f626d174d2d&callback=?';
+
+        reqwest({
+            url: url,
+            type: 'jsonp',
+            success: function(result){
+
+            if(!result || !result.data || !result.data.length){
+                return;
+            }
+
+            var pictures = result.data.map(function(p){
+
+                return { 
+                    id: p.id, 
+                    url: p.link, 
+                    src: p.images.low_resolution.url, 
+                    title: p.caption ? p.caption.text : '', 
+                    favorite: false 
+                };
+
+            });
+
+            // Update the component's state. This will trigger a render.
+            // Note that this only updates the pictures property, and does
+            // not remove the favorites array.
+
+            self.setState({ pictures: pictures });
+
+        }});
     },
 
 	render: function() {
-		
+		var loadFunc = function () {
+			console.log("loading more");
+		};
+		var pictures = this.state.pictures.map(function(p){
+            return React.createElement(Picture, {ref: p.id, src: p.src, title: p.title, key: p.id})
+        });
 		return (
 			React.createElement("div", {className: "galeria"}, 
-				pictures
+				React.createElement(InfiniteScroll, {
+				    loadMore: loadFunc, 
+				    hasMore: true || false, 
+				    loader: React.createElement("div", {className: "loader-container"}, React.createElement("div", {className: "switchbox"}, React.createElement("div", {className: "switch"}), React.createElement("div", {className: "switch", id: "switch2"})))}, 
+				  pictures
+				)
 			)	
 		);
 	}
@@ -1178,7 +1233,7 @@ var React = require('react'),
 });
 
 module.exports = Galeria;
-},{"./footer/picture.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/footer/picture.jsx","instafeed.js":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/instafeed.js/instafeed.js","react":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/react/react.js"}],"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/header.jsx":[function(require,module,exports){
+},{"./footer/picture.jsx":"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/footer/picture.jsx","react":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/react/react.js","react-infinite-scroll":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/react-infinite-scroll/src/react-infinite-scroll.js","reqwest":"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/reqwest/reqwest.js"}],"/Users/luandrito/Sites/Guias-da-Chapada-V1/client/app/js/components/header.jsx":[function(require,module,exports){
 'use strict';
 
 var React = require('react'),
@@ -21635,6 +21690,70 @@ function joinClasses(className/*, ... */) {
 
 module.exports = joinClasses;
 
+},{}],"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/react-infinite-scroll/src/react-infinite-scroll.js":[function(require,module,exports){
+function topPosition(domElt) {
+  if (!domElt) {
+    return 0;
+  }
+  return domElt.offsetTop + topPosition(domElt.offsetParent);
+}
+
+module.exports = function (React) {
+  if (React.addons && React.addons.InfiniteScroll) {
+    return React.addons.InfiniteScroll;
+  }
+  React.addons = React.addons || {};
+  var InfiniteScroll = React.addons.InfiniteScroll = React.createClass({
+    getDefaultProps: function () {
+      return {
+        pageStart: 0,
+        hasMore: false,
+        loadMore: function () {},
+        threshold: 250
+      };
+    },
+    componentDidMount: function () {
+      this.pageLoaded = this.props.pageStart;
+      this.attachScrollListener();
+    },
+    componentDidUpdate: function () {
+      this.attachScrollListener();
+    },
+    render: function () {
+      var props = this.props;
+      return React.DOM.div(null, props.children, props.hasMore && (props.loader || InfiniteScroll._defaultLoader));
+    },
+    scrollListener: function () {
+      var el = this.getDOMNode();
+      var scrollTop = (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
+      if (topPosition(el) + el.offsetHeight - scrollTop - window.innerHeight < Number(this.props.threshold)) {
+        this.detachScrollListener();
+        // call loadMore after detachScrollListener to allow
+        // for non-async loadMore functions
+        this.props.loadMore(this.pageLoaded += 1);
+      }
+    },
+    attachScrollListener: function () {
+      if (!this.props.hasMore) {
+        return;
+      }
+      window.addEventListener('scroll', this.scrollListener);
+      window.addEventListener('resize', this.scrollListener);
+      this.scrollListener();
+    },
+    detachScrollListener: function () {
+      window.removeEventListener('scroll', this.scrollListener);
+      window.removeEventListener('resize', this.scrollListener);
+    },
+    componentWillUnmount: function () {
+      this.detachScrollListener();
+    }
+  });
+  InfiniteScroll.setDefaultLoader = function (loader) {
+    InfiniteScroll._defaultLoader = loader;
+  };
+  return InfiniteScroll;
+};
 },{}],"/Users/luandrito/Sites/Guias-da-Chapada-V1/node_modules/react-router-bootstrap/lib/ButtonLink.js":[function(require,module,exports){
 var React = require('react');
 

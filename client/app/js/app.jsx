@@ -27,6 +27,10 @@ var Login = require('./components/auth/authLogin.jsx'),
 var App = React.createClass({
 	mixins: [ Router.State ],
   Displayname: "Guias da Chapada App",
+    componentWillMount: function() {
+      var loader = document.getElementsByClassName("loader-container-main")[0].remove();
+      
+    },
     loadData: function () {
       var myFirebaseRef = new Firebase(this.props.url);
       myFirebaseRef.on("value", function(snapshot) {
