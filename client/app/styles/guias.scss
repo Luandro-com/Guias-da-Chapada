@@ -1,5 +1,13 @@
 /*Guias css*/
 /*verde:  #417505*/
+.slideDown-enter {
+  opacity: 0.01;
+  transition: opacity 5s ease-in;
+}
+
+.slideDown-enter.slideDown-enter-active {
+  opacity: 1;
+}
 .right_grass {
     background: url('../img/Guias_Sprites.png') no-repeat 0 0;
     width: 42px;

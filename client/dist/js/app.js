@@ -1,8 +1,8 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"./client/app/js/app.jsx":[function(require,module,exports){
 'use strict';
 
-var React = require('react'),
-	TransitionGroup = require('react/lib/ReactCSSTransitionGroup');
+var React = require('react');
+var ReactCSSTransitionGroup = require('react/lib/ReactCSSTransitionGroup');
 var Router = require('react-router')
   , RouteHandler = Router.RouteHandler
   , Route = Router.Route
@@ -96,6 +96,7 @@ var App = React.createClass({displayName: "App",
     	var name = this.getRoutes().reverse()[0].name;
 
         return (
+          React.createElement(ReactCSSTransitionGroup, {transitionName: "slideDown"}, 
             React.createElement("div", {className: "map-container"}, 
 		          React.createElement(RouteHandler, {
                 slides: this.state.conteudoSlides, 
@@ -108,6 +109,7 @@ var App = React.createClass({displayName: "App",
                 alimentacao: this.state.mapaAlimentacao, 
                 url: this.props.url})
             )
+           ) 
         );
     }
 });
@@ -1570,7 +1572,14 @@ var React = require('react/addons'),
 	            mapCenterLat: -14.137153,
 	            mapCenterLng: -47.519503
 			};
-			var MARKER_ITEMS = {};
+			var MARKER_ITEMS = {
+				Alto_Paraiso : {
+					lat: -14.137153,
+					lng: -47.519503,
+					img: "slide",
+					titulo: "Cachoeira"
+				}
+			};
 			
 			return {
 				menu: MENU_ITEMS,
@@ -1903,6 +1912,7 @@ var React = require('react'),
 	            return new google.maps.LatLng(this.props.settings.mapCenterLat, this.props.settings.mapCenterLng);
 	    },
 	    setMarkers: function (markers, map, Infobox) {
+	    	console.log("setmarkers");
     		_.map(markers, function(marker, key) {
     			console.log('Looping on markers to find ID: '+key);
     			this.createMarkers(marker, map, Infobox, key); 
@@ -1929,6 +1939,7 @@ var React = require('react'),
 		    return newMarker;
 	    },
 		componentDidUpdate: function () {
+			console.log(this.props.markers);
 	    	var Infobox = this.state.Infobox;
 	    	var map = this.state.map;
 	    	var markersArray = this.state.markersArray;

@@ -1,7 +1,7 @@
 'use strict';
 
-var React = require('react'),
-	TransitionGroup = require('react/lib/ReactCSSTransitionGroup');
+var React = require('react');
+var ReactCSSTransitionGroup = require('react/lib/ReactCSSTransitionGroup');
 var Router = require('react-router')
   , RouteHandler = Router.RouteHandler
   , Route = Router.Route
@@ -95,6 +95,7 @@ var App = React.createClass({
     	var name = this.getRoutes().reverse()[0].name;
 
         return (
+          <ReactCSSTransitionGroup transitionName="slideDown">
             <div className="map-container">
 		          <RouteHandler 
                 slides={this.state.conteudoSlides}
@@ -107,6 +108,7 @@ var App = React.createClass({
                 alimentacao={this.state.mapaAlimentacao}
                 url={this.props.url} />
             </div>
+           </ReactCSSTransitionGroup> 
         );
     }
 });

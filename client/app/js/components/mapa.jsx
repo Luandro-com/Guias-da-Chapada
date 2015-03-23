@@ -35,7 +35,14 @@ var React = require('react/addons'),
 	            mapCenterLat: -14.137153,
 	            mapCenterLng: -47.519503
 			};
-			var MARKER_ITEMS = {};
+			var MARKER_ITEMS = {
+				Alto_Paraiso : {
+					lat: -14.137153,
+					lng: -47.519503,
+					img: "slide",
+					titulo: "Cachoeira"
+				}
+			};
 			
 			return {
 				menu: MENU_ITEMS,

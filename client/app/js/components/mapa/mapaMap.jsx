@@ -47,6 +47,7 @@ var React = require('react'),
 	            return new google.maps.LatLng(this.props.settings.mapCenterLat, this.props.settings.mapCenterLng);
 	    },
 	    setMarkers: function (markers, map, Infobox) {
+	    	console.log("setmarkers");
     		_.map(markers, function(marker, key) {
     			console.log('Looping on markers to find ID: '+key);
     			this.createMarkers(marker, map, Infobox, key); 
@@ -73,6 +74,7 @@ var React = require('react'),
 		    return newMarker;
 	    },
 		componentDidUpdate: function () {
+			console.log(this.props.markers);
 	    	var Infobox = this.state.Infobox;
 	    	var map = this.state.map;
 	    	var markersArray = this.state.markersArray;
