@@ -1,0 +1,19 @@
+{
+  "name": "guias-da-chapada",
+  "version": "0.0.2",
+  "description": "Page created for Chapada dos Veadeiros region.",
+  "main": "src/server.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Luandro-com/Guias-da-Chapada.git"
+  },
+  "author": "Luandro Vieira",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Luandro-com/Guias-da-Chapada/issues"
+  },
+  "homepage": "https://github.com/Luandro-com/Guias-da-Chapada#readme"
+}
