@@ -1,4 +1,4 @@
-#Guias da Chapada
+#Guias da Chapada v2.0
 Página feita para Guias da Chapada dos Veadeiros
 
 ##Front-End
