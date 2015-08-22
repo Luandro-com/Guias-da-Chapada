@@ -4,7 +4,8 @@
   "description": "Guias da Chapada dos Veadeiros",
   "main": "server/index.js",
   "scripts": {
-    "start": "node server/index.js"
+    "start": "node server/index.js",
+    "postinstall": "npm -g install gulp && gulp build"
   },
   "engines": {
     "node": "0.10.x"
