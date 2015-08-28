@@ -2,14 +2,13 @@
 
 var gulp = require('gulp'),
 	changed = require('gulp-changed'),
-	watchify = require('watchify'),
 	source = require('vinyl-source-stream'),
 	buffer = require('vinyl-buffer'),
 	notify = require('gulp-notify'),
 	browserSync = require('browser-sync'),
 	reload = browserSync.reload,
-	nodemon = require('gulp-nodemon'),
 	concat = require('gulp-concat'),
+  del = require('del'),
 	/* CSS */
 	sass = require('gulp-sass'),
 	csso = require('gulp-csso'),
@@ -17,75 +16,23 @@ var gulp = require('gulp'),
 	/* Images */
 	imagemin = require('gulp-imagemin'),
 	pngquant = require('imagemin-pngquant'),
-	/* React and Browerify */
-	browserify = require('browserify'),
-	reactify = require('reactify'),
-	uglify = require('gulp-uglify'),
-	del = require('del'),
 	p = {
-	  html: './client/app/*.html',
-	  jsx: './client/app/js/app.jsx',
-	  component: './client/app/js/component.jsx',
-	  scss: './client/app/styles/*.scss',
-	  img: './client/app/img/**/*.{gif,jpg,png,svg}',
-	  bundle: './app.js',
-	  serverBundle: './component.js',
-	  distJs: './client/dist/js',
-	  distCss: './client/dist/styles',
-	  distImg: './client/dist/img'
+	  scss: './src/assets/styles/*.scss',
+	  img: './src/assets/imgs/**/*.{gif,jpg,png,svg}',
+	  distCss: './static/dist',
+	  distImg: './static/dist/imgs'
 	};
 // Clean
 gulp.task('clean', function(cb) {
-  del(['./client/dist'], cb);
+  del(['./static/dist'], cb);
 });
 // BrowserSync
 gulp.task('browserSync', function() {
   browserSync({
 	server: {
-	  baseDir: './client'
+	  baseDir: './src'
 	}
   })
-});
-gulp.task('serve', function () {
-  nodemon({ script: 'server/index.js', ext: 'html js css' })
-    .on('restart', function () {
-      console.log('restarted!')
-    })
-});
-// Browserify and React
-gulp.task('watchify', function() {
-  var bundler = watchify(browserify(p.jsx, watchify.args));
-
-  function rebundle() {
-	return bundler
-	  .bundle()
-	  .on('error', notify.onError())
-	  .pipe(source(p.bundle))
-	  .pipe(gulp.dest(p.distJs))
-	  .pipe(reload({stream: true}));
-  }
-
-  bundler.transform(reactify)
-  .on('update', rebundle);
-  return rebundle();
-});
-
-gulp.task('browserify', function() {
-  browserify(p.jsx)
-	.transform(reactify)
-	.bundle()
-	.pipe(source(p.bundle))
-	.pipe(buffer())
-	.pipe(uglify())
-	.pipe(gulp.dest(p.distJs));
-});
-gulp.task('server-build', function() {
-  browserify(p.component)
-	.transform(reactify)
-	.bundle()
-	.pipe(source(p.serverBundle))
-	.pipe(buffer())
-	.pipe(gulp.dest(p.distJs));
 });
 // Styles
 gulp.task('styles', function() {
@@ -114,13 +61,13 @@ gulp.task('watchTask', function() {
   gulp.watch(p.img, ['img']);
 });
 
-gulp.task('watch', ['clean'], function() {
-  gulp.start(['browserSync', 'watchTask', 'watchify', 'styles', 'img']);
+gulp.task('watch', function() {
+  gulp.start(['browserSync', 'watchTask', 'styles', 'img']);
 });
 
-gulp.task('build', ['clean'], function() {
+gulp.task('build', function() {
   process.env.NODE_ENV = 'production';
-  gulp.start(['browserify', 'server-build', 'styles', 'img']);
+  gulp.start(['styles', 'img']);
 });
 
 gulp.task('default', function() {

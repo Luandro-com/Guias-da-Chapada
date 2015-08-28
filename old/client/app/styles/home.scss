@@ -1,0 +1,155 @@
+.home-slider {height: 550.4px; max-width: 1500px; position: relative;}
+.carousel-caption {
+	position: absolute;
+	top: 16%;
+	left: 10%;
+	text-transform: uppercase;
+	color: #fff;
+	background-color: #417505;
+	padding: 0.3%;
+	width: 40%;
+	height: 60px;
+}
+.home-slider img {
+	max-height: 550.4px;
+}
+.carousel-indicators {
+	left: 20%;
+}
+.carousel-indicators li {
+	border-radius: 0;
+	width: 36px;
+	height: 4px;
+	background-color: #FFF;
+}
+.carousel-indicators li:hover {
+	background-color: #000;
+	border-color: #000;
+}
+.carousel-indicators .active {
+	border-radius: 0;
+	width: 36px;
+	height: 4px;
+	background-color: #417505;
+	border:solid 1px #417505;
+	margin-bottom: 1px;
+}
+.home-mapa-h2 {
+	position: absolute;
+	top: 6%;
+	left: 10%;
+	text-transform: uppercase;
+	color: #fff;
+	background-color: #417505;
+	padding: 1%;
+	width: 65%;
+}
+//Quem somos e Chapada dos Veadeiros
+.home-content .grid_50_h {
+	background-image: url(../img/background/home-bg.jpg);
+}
+//Mapa
+.travel { height: 395px; }
+.home-content .grid_49:nth-child(1) {
+	height: 400px;
+	background-image: url(../img/background/home-bg-mapa-interativo.jpg);
+	background-size: cover;
+}
+.home-content .grid_49:nth-child(2) {
+	background-image: url(../img/background/home-bg-map.jpg);
+	background-position: center top;
+}
+// Prévia atrações
+#left-triangle {
+   position: absolute;
+   left: -10%;
+   top: 50%;
+   width: 0;
+   height: 0;
+   border-right: 30px solid white;
+   border-top: 30px solid transparent;
+   border-bottom: 30px solid transparent;
+}
+#right-triangle {
+   position: absolute;
+   left: -10%;
+   top: 50%;
+   width: 0;
+   height: 0;
+   border-left: 30px solid white;
+   border-top: 30px solid transparent;
+   border-bottom: 30px solid transparent;
+}
+#left-triangle-home {
+   position: absolute;
+   left: 46%;
+   top: 40%;
+   width: 0;
+   height: 0;
+   border-right: 27px solid white;
+   border-top: 27px solid transparent;
+   border-bottom: 27px solid transparent;
+}
+#right-triangle-home {
+   position: absolute;
+   left: 50%;
+   top: 40%;
+   width: 0;
+   height: 0;
+   border-left: 27px solid white;
+   border-top: 27px solid transparent;
+   border-bottom: 27px solid transparent;
+}
+/*dinamic offers HP*/
+.ofertas {
+	border-top: 4px solid #417505;
+}
+.flight_hp_l { float: left; }
+.more { font-size: 14px; color: #fff; background-color: #417505; margin-left: 3%; padding: 3px;}
+.more:hover {color:  #417505; background-color:#000000; }
+.dyn_hp_offer { list-style: none;  width: 50%; float: left; height: 255px; position: relative; }
+.dyn_hp_offer_thumb { width: 50%;float: left; }
+.dyn_hp_offer_thumb img { width: 100%; height: 255px; }
+
+.dyn_hp_offer_title { font-size: 24px; text-transform:capitalize; color: #000000; padding-bottom: 5%;}
+.dyn_hp_offer_txt { float: left; width: 40%; color: #666666; font-size: 14px; line-height: 20px; padding-left: 3%; padding-bottom: 5%;}
+.dyn_hp_offer_desc {color: #666666; font-size: 14px; line-height: 20px }
+
+.flight_hp_r {  float: right; }
+.flight_hp_r .dyn_hp_offer_thumb { width: 50%;float: right; }
+
+/*categories offers*/
+.categories { }
+.dyn_offer { position: relative; list-style: none;  width: 50%; float: left;min-height: 255px; border-bottom: 4px solid #417505; }
+.dyn_offer_thumb { width: 50%; float: left;  }
+.dyn_offer_thumb img { width: 100%; min-height: 255px; float: left;}
+.dyn_offer .more { font-size: 14px; color: #000000; background-color: #417505; margin-left: 3%; padding: 3px;}
+.dyn_offer .more:hover{color: #417505; background-color:#000000 ; }
+.dyn_offer_title { font-size: 24px; color: #000000; padding-bottom: 5%; text-transform: capitalize;}
+.dyn_offer_txt { float: left; width: 40%; color: #666666; font-size: 14px; line-height: 20px; padding-left: 3%; padding-bottom: 5%;}
+.dyn_offer_desc {color: #666666; font-size: 14px; line-height: 20px;  }
+
+/*img arrow*/
+.arrow-left {
+	width: 0; 
+	height: 0; 
+	border-top: 10px solid transparent;
+	border-bottom: 10px solid transparent; 
+	border-right: 10px solid #fff; 
+}
+/* Double controls */
+.ofertas ol {
+	bottom: -35px;
+} 
+.ofertas ol li {
+	background-color: #FFF;
+}
+.ofertas .active {
+	background-color: #000;
+	border: 1px solid #000;
+}
+.double-controls {
+	height: 50px;
+	background: #417505;
+	margin-bottom: -50px;
+}

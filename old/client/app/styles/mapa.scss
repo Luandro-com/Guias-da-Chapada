@@ -1,0 +1,32 @@
+html {height:100%;}
+body {height:100%;}
+.map-container {
+	width: 100%;
+	height: 100%;
+}
+#map {
+	width: 100%;
+	height: 100%;
+}
+.infobox-wrapper {display: none;}
+.box-title {
+	background: white;
+	padding: 5px;
+	border-bottom: 4px solid #417505;
+}
+.grid_20 {
+	background: white;
+	height: 54px;
+	width: 54px;
+	color: #417505;
+	float: left;
+	border: 1px solid #417505;
+	font-size: 2em;
+	font-weight: 900;
+	line-height: 50px;
+	text-align: center;
+}
+.fb-like {
+	float: none !important;
+	line-height: 30px;
+}
