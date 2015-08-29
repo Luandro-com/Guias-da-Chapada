@@ -62,7 +62,7 @@ gulp.task('watchTask', function() {
 });
 
 gulp.task('watch', function() {
-  gulp.start(['browserSync', 'watchTask', 'styles', 'img']);
+  gulp.start(['watchTask', 'styles', 'img']);
 });
 
 gulp.task('build', function() {

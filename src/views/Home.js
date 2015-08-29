@@ -1,22 +1,24 @@
 import React from 'react';
-import {createClass} from 're-base';
-const base = createClass('https://guias.firebaseio.com/');
+import HomeHeader from 'components/HomeHeader';
+import HomeMain from 'components/HomeMain';
+import HomeFooter from 'components/HomeFooter';
 
 export default class extends React.Component {
-  componentDidMount(){
-    base.fetch('conteudo', {
-    context: this,
-    asArray: true,
-    then(data){
-      console.log(data);
-    }
-  });
-  }
 
   render() {
-    console.log("state:", this.state)
     return (
-      <h1>Home</h1>
+      <div className="outer_wrap">
+        <div className="inner_wrap">
+          <div id="container">
+            <HomeHeader />
+          </div>
+          <div className="content">
+            <HomeMain />
+            <HomeFooter />
+            <div className="clear"></div>
+          </div>
+        </div>
+      </div>
     );
   }
 

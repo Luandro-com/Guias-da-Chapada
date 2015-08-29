@@ -5,6 +5,8 @@ import Transmit from 'react-transmit';
 import { createStore, combineReducers } from 'redux';
 import {Provider} from 'react-redux';
 import * as reducers from '../reducers/index';
+import {createClass} from 're-base';
+const base = createClass('https://guias.firebaseio.com/');
 
 class AppContainer extends React.Component {
   componentWillMount() {
@@ -20,7 +22,7 @@ class AppContainer extends React.Component {
       <Provider store={store}>
         {() =>
           <div className="map-container">
-            <RouteHandler />
+            <RouteHandler base={base} />
           </div>
         }
       </Provider>

@@ -1,16 +1,14 @@
 /* Contents
- 
+
  Global
- Header 
+ Header
  Navigation
  Typography
- 
+
 */
 
 /* Global */
 /* ---------------------------------------------------------- */
-
-@import url(http://fonts.googleapis.com/css?family=Roboto:400,900,700&subset=latin,latin-ext);
 
 * {
 	box-sizing: content-box;
@@ -168,7 +166,7 @@ ul, ol { margin: 0!important; padding: 0!important;}
 }
 
 .switchbox {
-  -webkit-animation: spin 2s infinite linear; 
+  -webkit-animation: spin 2s infinite linear;
 }
 
 .switch {
@@ -190,11 +188,11 @@ ul, ol { margin: 0!important; padding: 0!important;}
     margin-left: 60px;
   }
 }
-@-webkit-keyframes spin { 
-  100% { 
-    -webkit-transform: rotate(360deg); 
-  } 
-} 
+@-webkit-keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
 /* Header */
 /* ---------------------------------------------------------- */
 #header {
@@ -218,7 +216,7 @@ nav a#pull {
 }
 #navigation li li a {
 		color: #000;
-		
+
 }
 #navigation ul {
 		font-size: 13px;
@@ -284,7 +282,7 @@ nav a#pull {
 		color: #000;
 		font-size: 13px;
 		font-weight: normal;
-		text-align: left;		
+		text-align: left;
 }
 #navigation li:hover > a {
 		background: #000;
@@ -350,7 +348,7 @@ h3 {
 		widows: 3;
 }
 p {
-		
+
 		line-height: 25px;
 		font-size: 15px;
 		color: #000;
@@ -611,7 +609,7 @@ checkbox {
 		min-height: 20px;
 		padding-left: 20px;
 		background-color:#fff !important;
-	
+
 }
 radio input[type="radio"],
 checkbox input[type="checkbox"] {

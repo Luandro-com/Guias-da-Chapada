@@ -13,7 +13,7 @@ export default class extends React.Component {
           <div className="left_grass"></div>
           {/* <Header /> */}
           <div className="clear"></div>
-          <RouteHandler />
+          <RouteHandler {...this.props} />
           {/* <Footer /> */}
         </div>
         <div className="luandro-footer"><a href="http://luandro.com">desenvolvido por Luandro</a></div>

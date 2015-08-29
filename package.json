@@ -1,13 +1,13 @@
 {
-  "name": "hapi-universal-redux",
+  "name": "guias-da-chapada",
   "description": "Isomorphic starterkit with server-side React rendering.",
   "version": "0.0.3",
   "license": "BSD-3",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Luandro/hapi-universal-redux.git"
+    "url": "https://github.com/Luandro-com/guias-da-chapada.git"
   },
-  "homepage": "https://github.com/Luandro/hapi-universal-redux",
+  "homepage": "https://github.com/Luandro-com/guias-da-chapada",
   "keywords": [
     "react",
     "isomorphic",
@@ -31,12 +31,14 @@
     "babel-loader": "^5.3.2",
     "babel-plugin-typecheck": "^1.2.0",
     "babel-runtime": "^5.8.20",
+    "fg-loadcss": "^0.1.8",
     "hapi": "^8.8.1",
     "isomorphic-fetch": "^2.1.1",
     "json-loader": "^0.5.2",
     "piping": "^0.2.0",
     "re-base": "^1.1.2",
     "react": "^0.13.3",
+    "react-bootstrap": "^0.25.1",
     "react-redux": "^0.8.0",
     "react-router": "^0.13.3",
     "react-tap-event-plugin": "^0.1.7",
@@ -69,6 +71,6 @@
     "webpack-dev-server": "1.10.1"
   },
   "engines": {
-    "node": ">=0.10.32"
+    "node": ">=0.12.x"
   }
 }

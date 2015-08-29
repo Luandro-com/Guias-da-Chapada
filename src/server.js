@@ -1,7 +1,7 @@
 import {Server} from 'hapi';
 import Router from 'react-router';
 import Transmit from 'react-transmit';
-import routes from 'views/Routes';
+import routes from './routes';
 import url from 'url';
 import * as reducers from 'reducers';
 import { createStore, combineReducers } from 'redux';
@@ -68,10 +68,15 @@ server.ext('onPreResponse', (request, reply) => {
             <meta charset='utf-8'>
             <title>Guias da Chapada | Time Rupestre</title>
             <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-            <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-            <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
             <link rel='shortcut icon' href='/favicon.ico'>
+            <script src="/loadCss.js"></script>
+            <script>
+              loadCSS( "https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" );
+              loadCSS( "//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" );
+            </script>
             <link rel='stylesheet' type='text/css' href='/dist/main.css'>
+            <noscript><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet"></noscript>
+            <noscript><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"></noscript>
           </head>
           <body>
             <div class="loader-container-main">
@@ -82,6 +87,22 @@ server.ext('onPreResponse', (request, reply) => {
             </div>
             <div id='react-root'>${reactString}</div>
           </body>
+          <script>
+          var WebFontConfig = {
+              google: {
+                  families: [ 'Roboto:400,900,700&subset=latin,latin-ext' ]
+              },
+              timeout: 2000
+          };
+
+          (function(){
+              var wf = document.createElement("script");
+              wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+                  '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+              wf.async = 'true';
+              document.head.appendChild(wf);
+          })();
+          </script>
         </html>`
       );
 
