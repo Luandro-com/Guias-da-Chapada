@@ -1,7 +1,7 @@
 import React from 'react';
 import {RouteHandler} from 'react-router';
-// import Header from '../components/Header';
-// import Footer from '../components/Footer';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 export default class extends React.Component {
 
@@ -11,10 +11,10 @@ export default class extends React.Component {
         <div id="wrapper">
           <div className="right_grass"></div>
           <div className="left_grass"></div>
-          {/* <Header /> */}
+          <Header />
           <div className="clear"></div>
           <RouteHandler {...this.props} />
-          {/* <Footer /> */}
+          <Footer />
         </div>
         <div className="luandro-footer"><a href="http://luandro.com">desenvolvido por Luandro</a></div>
       </div>

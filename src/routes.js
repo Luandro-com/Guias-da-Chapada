@@ -14,7 +14,7 @@ export default (
   <Route handler={App}>
     <Route handler={Main}>
       <Route name="Home" handler={Home} path="/" />
-      <Route name="quem" handler={About} path="/quem" />
+      <Route name="About" handler={About} path="/quem" />
       {/*<Route name="chapada" handler={Chapada} path="/chapada" />
       <Route name="roteiros" handler={Roteiros} path="/roteiros" />
       <Route name="onde" handler={Onde} path="/onde" />

@@ -6,7 +6,10 @@ export default class extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      slides: [{title: "loading", img: "/dist/imgs/slide.jpg"}, {title: "loading", img: "/dist/imgs/slide.jpg"}]
+      slides: [
+        {title: "loading", img: "/dist/imgs/slide.jpg"},
+        {title: "loading", img: "/dist/imgs/slide.jpg"}
+      ]
     }
   }
 

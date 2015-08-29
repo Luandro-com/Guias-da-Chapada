@@ -1,11 +1,20 @@
 import React from 'react';
 import {Link} from 'react-router';
-import Clima from './Clima';
-import NavBar from './NavBar';
+import HeaderWeather from './HeaderWeather';
+import HeaderNavBar from './HeaderNavBar';
 
 export default class extends React.Component {
 
+  constructor(props){
+    super(props)
+    this.state = {
+      agenda:'Sua agenda está vazia',
+      agendaStyle: 'nav-agenda'
+    }
+  }
+
   render() {
+    const {agendaStyle, agenda} = this.state
     return (
       <div className="header">
         <div className="outer_wrap">
@@ -19,7 +28,7 @@ export default class extends React.Component {
               <div id="social" className="grid_60">
                 <div className="social">
                   <div className="nav-lang">
-                    <Clima/>
+                    <HeaderWeather/>
                   </div>
                   <ul className="social_icons">
                     <li><a target="_blank" href="mailto:contato@guiasdachapada.com"><span className="icono-mail"></span></a></li>
@@ -28,12 +37,12 @@ export default class extends React.Component {
                   </ul>
                 </div>
                 <div>
-                  <div className={this.state.agendaStyle}>{this.state.agenda}</div>
-                  <div className="nav-galeria"><Link to="galeria">GALERIA</Link></div>
+                  <div className={agendaStyle}>{agenda}</div>
+                  <div className="nav-galeria"><Link to="About">GALERIA</Link></div>
                 </div>
               </div>
             </div>
-            <NavBar />
+            <HeaderNavBar />
           </div>
         </div>
       </div>
