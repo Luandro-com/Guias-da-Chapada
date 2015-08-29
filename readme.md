@@ -10,6 +10,7 @@ Make sure you have [NodeJs](http://nodejs.org) installed in your system.
 Install npm dependencies 
 `npm i`
 
+Start client and server watch 
 `npm run dev`
 
 
