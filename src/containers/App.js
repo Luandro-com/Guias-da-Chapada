@@ -7,8 +7,10 @@ import {Provider} from 'react-redux';
 import * as reducers from '../reducers/index';
 
 class AppContainer extends React.Component {
-  static propTypes = {
-    initialState: React.PropTypes.object.isRequired,
+  componentWillMount() {
+    if (__CLIENT__) {
+      document.getElementsByClassName("loader-container-main")[0].remove();
+    }
   }
 
   render() {
@@ -17,7 +19,9 @@ class AppContainer extends React.Component {
     return (
       <Provider store={store}>
         {() =>
-          <RouteHandler />
+          <div className="map-container">
+            <RouteHandler />
+          </div>
         }
       </Provider>
     );

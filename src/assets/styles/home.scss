@@ -1,63 +1,63 @@
 .home-slider {height: 550.4px; max-width: 1500px; position: relative;}
 .carousel-caption {
-	position: absolute;
-	top: 16%;
-	left: 10%;
-	text-transform: uppercase;
-	color: #fff;
-	background-color: #417505;
-	padding: 0.3%;
-	width: 40%;
-	height: 60px;
+    position: absolute;
+    top: 16%;
+    left: 10%;
+    text-transform: uppercase;
+    color: #fff;
+    background-color: #417505;
+    padding: 0.3%;
+    width: 40%;
+    height: 60px;
 }
 .home-slider img {
-	max-height: 550.4px;
+    max-height: 550.4px;
 }
 .carousel-indicators {
-	left: 20%;
+    left: 20%;
 }
 .carousel-indicators li {
-	border-radius: 0;
-	width: 36px;
-	height: 4px;
-	background-color: #FFF;
+    border-radius: 0;
+    width: 36px;
+    height: 4px;
+    background-color: #FFF;
 }
 .carousel-indicators li:hover {
-	background-color: #000;
-	border-color: #000;
+    background-color: #000;
+    border-color: #000;
 }
 .carousel-indicators .active {
-	border-radius: 0;
-	width: 36px;
-	height: 4px;
-	background-color: #417505;
-	border:solid 1px #417505;
-	margin-bottom: 1px;
+    border-radius: 0;
+    width: 36px;
+    height: 4px;
+    background-color: #417505;
+    border:solid 1px #417505;
+    margin-bottom: 1px;
 }
 .home-mapa-h2 {
-	position: absolute;
-	top: 6%;
-	left: 10%;
-	text-transform: uppercase;
-	color: #fff;
-	background-color: #417505;
-	padding: 1%;
-	width: 65%;
+    position: absolute;
+    top: 6%;
+    left: 10%;
+    text-transform: uppercase;
+    color: #fff;
+    background-color: #417505;
+    padding: 1%;
+    width: 65%;
 }
 //Quem somos e Chapada dos Veadeiros
 .home-content .grid_50_h {
-	background-image: url(../img/background/home-bg.jpg);
+    background-image: url(/dist/imgs/background/home-bg.jpg);
 }
 //Mapa
 .travel { height: 395px; }
 .home-content .grid_49:nth-child(1) {
-	height: 400px;
-	background-image: url(../img/background/home-bg-mapa-interativo.jpg);
-	background-size: cover;
+    height: 400px;
+    background-image: url(/dist/imgs/background/home-bg-mapa-interativo.jpg);
+    background-size: cover;
 }
 .home-content .grid_49:nth-child(2) {
-	background-image: url(../img/background/home-bg-map.jpg);
-	background-position: center top;
+    background-image: url(/dist/imgs/background/home-bg-map.jpg);
+    background-position: center top;
 }
 // Prévia atrações
 #left-triangle {
@@ -102,7 +102,7 @@
 }
 /*dinamic offers HP*/
 .ofertas {
-	border-top: 4px solid #417505;
+    border-top: 4px solid #417505;
 }
 .flight_hp_l { float: left; }
 .more { font-size: 14px; color: #fff; background-color: #417505; margin-left: 3%; padding: 3px;}
@@ -131,25 +131,25 @@
 
 /*img arrow*/
 .arrow-left {
-	width: 0; 
-	height: 0; 
-	border-top: 10px solid transparent;
-	border-bottom: 10px solid transparent; 
-	border-right: 10px solid #fff; 
+    width: 0; 
+    height: 0; 
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent; 
+    border-right: 10px solid #fff; 
 }
 /* Double controls */
 .ofertas ol {
-	bottom: -35px;
+    bottom: -35px;
 } 
 .ofertas ol li {
-	background-color: #FFF;
+    background-color: #FFF;
 }
 .ofertas .active {
-	background-color: #000;
-	border: 1px solid #000;
+    background-color: #000;
+    border: 1px solid #000;
 }
 .double-controls {
-	height: 50px;
-	background: #417505;
-	margin-bottom: -50px;
+    height: 50px;
+    background: #417505;
+    margin-bottom: -50px;
 }

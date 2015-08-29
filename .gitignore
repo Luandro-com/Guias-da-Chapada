@@ -3,4 +3,5 @@ tmux-client-34529.log
 reattach-to-user-namespace
 ./static/dist
 old/
+.DS_Store
 

@@ -9,7 +9,7 @@
   opacity: 1;
 }
 .right_grass {
-    background: url('../img/Guias_Sprites.png') no-repeat 0 0;
+    background: url('/dist/imgs/Guias_Sprites.png') no-repeat 0 0;
     width: 42px;
     height: 451px;
     position: absolute;
@@ -18,7 +18,7 @@
 
 }
 .left_grass {
-    background: url('../img/Guias_Sprites.png') no-repeat -335px -2px;
+    background: url('/dist/imgs/Guias_Sprites.png') no-repeat -335px -2px;
     width: 44px;
     height: 396px;
     position: absolute;
@@ -164,8 +164,8 @@ h1  span{ font-size: 36px; font-weight: 900; text-transform: uppercase; backgrou
 // li.bjqs-slide{position:absolute; display:none;}
 // ul.bjqs-controls{list-style:none;margin:0;padding:0;z-index:9999;}
 // ul.bjqs-controls.v-centered li a{position:absolute;}
-// ul.bjqs-controls.v-centered li.bjqs-next a{right:1%; background: url(../img/arrow_right.png) no-repeat; width: 24px; height: 46px;}
-// ul.bjqs-controls.v-centered li.bjqs-prev a{left:1%;background: url(../img/arrow_left.png) no-repeat; width: 24px; height: 46px;}
+// ul.bjqs-controls.v-centered li.bjqs-next a{right:1%; background: url(/dist/imgs/arrow_right.png) no-repeat; width: 24px; height: 46px;}
+// ul.bjqs-controls.v-centered li.bjqs-prev a{left:1%;background: url(/dist/imgs/arrow_left.png) no-repeat; width: 24px; height: 46px;}
 // ol.bjqs-markers{list-style: none; padding: 0; margin: 0; width:100%;position: absolute; bottom: 2%;}
 // ol.bjqs-markers.h-centered{text-align: center;}
 // ol.bjqs-markers li{display:inline;}
@@ -180,18 +180,18 @@ h1  span{ font-size: 36px; font-weight: 900; text-transform: uppercase; backgrou
 // ol.bjqs-markers li.active-marker a, ol.bjqs-markers li a:hover{ background: #417505;color: #417505; height: 3px; width: 20px; border:1px solid #417505}
 
 
-// .cat_prev  {  float: left; background: url(../img/left-arrow.jpg) no-repeat; width: 21px; height: 21px; }
-// .cat_next {  float: right;  background: url(../img/right-arrow.jpg) no-repeat; width: 21px; height: 21px;  }
+// .cat_prev  {  float: left; background: url(/dist/imgs/left-arrow.jpg) no-repeat; width: 21px; height: 21px; }
+// .cat_next {  float: right;  background: url(/dist/imgs/right-arrow.jpg) no-repeat; width: 21px; height: 21px;  }
 // .cat_prev a { font-size: 14px; text-transform: uppercase; text-decoration: none; color: #000; display: inline-block; padding-left: 27px; }
 // .cat_next a{ font-size: 14px; text-transform: uppercase; text-decoration: none; color: #000; display: inline-block; float: right; padding-right: 27px; }
 // .nav_dest { width: 68%; margin-left: 25%; margin-top: 7%;}
 // .nav_dest_dest { width: 68%; margin-left: 25%; margin-top: -2%; }
 
-// .nav_dest_dest a[rel="prev"] { background: url(../img/right-arrow.jpg) no-repeat; height: 21px; font-size: 15px; text-transform: uppercase; text-decoration: none; color: #000; display: inline-block; float: right;padding-left: 27px;}
-// .nav_dest_dest a[rel="next"]{ float: left;  background: url(../img/left-arrow.jpg) no-repeat;  height: 21px; font-size: 15px; text-transform: uppercase; text-decoration: none; color: #000; display: inline-block; padding-left: 27px;}
+// .nav_dest_dest a[rel="prev"] { background: url(/dist/imgs/right-arrow.jpg) no-repeat; height: 21px; font-size: 15px; text-transform: uppercase; text-decoration: none; color: #000; display: inline-block; float: right;padding-left: 27px;}
+// .nav_dest_dest a[rel="next"]{ float: left;  background: url(/dist/imgs/left-arrow.jpg) no-repeat;  height: 21px; font-size: 15px; text-transform: uppercase; text-decoration: none; color: #000; display: inline-block; padding-left: 27px;}
 
-// .nav_dest a[rel="prev"] { background: url(../img/right-arrow.jpg) no-repeat; height: 21px; font-size: 15px; text-transform: uppercase; text-decoration: none; color: #000; display: inline-block; float: right;padding-left: 27px;}
-// .nav_dest a[rel="next"]{ float: left;  background: url(../img/left-arrow.jpg) no-repeat;  height: 21px; font-size: 15px; text-transform: uppercase; text-decoration: none; color: #000; display: inline-block; padding-left: 27px;}
+// .nav_dest a[rel="prev"] { background: url(/dist/imgs/right-arrow.jpg) no-repeat; height: 21px; font-size: 15px; text-transform: uppercase; text-decoration: none; color: #000; display: inline-block; float: right;padding-left: 27px;}
+// .nav_dest a[rel="next"]{ float: left;  background: url(/dist/imgs/left-arrow.jpg) no-repeat;  height: 21px; font-size: 15px; text-transform: uppercase; text-decoration: none; color: #000; display: inline-block; padding-left: 27px;}
 
 // .w100 { width: 100%;}
 
@@ -222,8 +222,8 @@ h1  span{ font-size: 36px; font-weight: 900; text-transform: uppercase; backgrou
 
 .capitalize {text-transform:capitalize;}
 
-.nav_offer a[rel="prev"] { background: url(../img/right-arrow.jpg) no-repeat; height: 21px; font-size: 14px; text-transform: uppercase; text-decoration: none; color: #000; display: inline-block; float: right;padding-left: 27px;}
-.nav_offer a[rel="next"]{ float: left;  background: url(../img/left-arrow.jpg) no-repeat;  height: 21px; font-size: 14px; text-transform: uppercase; text-decoration: none; color: #000; display: inline-block; padding-left: 27px;}
+.nav_offer a[rel="prev"] { background: url(/dist/imgs/right-arrow.jpg) no-repeat; height: 21px; font-size: 14px; text-transform: uppercase; text-decoration: none; color: #000; display: inline-block; float: right;padding-left: 27px;}
+.nav_offer a[rel="next"]{ float: left;  background: url(/dist/imgs/left-arrow.jpg) no-repeat;  height: 21px; font-size: 14px; text-transform: uppercase; text-decoration: none; color: #000; display: inline-block; padding-left: 27px;}
 
 /*DALEKE DESTINACIJE*/
 .daldest { width: 32%; float: left; margin-right: 2%; height: 225px;}
@@ -483,8 +483,8 @@ input {  color: #b3b2b2; }
 .stepper .stepper-input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
 
 .stepper .stepper-input:focus { background-color: #fff; }
-.stepper .stepper-arrow { background: #eee url(../img/stepper.png) no-repeat; cursor: pointer; display: block; height: 50%; position: absolute; right: 0; text-indent: -99999px; width: 39px; z-index: 50; }
-.stepper .stepper-arrow:hover { background: #eee url(../img/stepper-hover.jpg) no-repeat; cursor: pointer; display: block; height: 50%; position: absolute; right: 0; text-indent: -99999px; width: 39px; z-index: 50; }
+.stepper .stepper-arrow { background: #eee url(/dist/imgs/stepper.png) no-repeat; cursor: pointer; display: block; height: 50%; position: absolute; right: 0; text-indent: -99999px; width: 39px; z-index: 50; }
+.stepper .stepper-arrow:hover { background: #eee url(/dist/imgs/stepper-hover.jpg) no-repeat; cursor: pointer; display: block; height: 50%; position: absolute; right: 0; text-indent: -99999px; width: 39px; z-index: 50; }
 .stepper .stepper-arrow.up { background-position: center top; border-bottom: none; top: 0; }
 .stepper .stepper-arrow.down { background-position: center bottom; bottom: 0px; }
 .stepper .stepper-arrow.up:hover { background-position: center top; border-bottom: none; top: 0; }

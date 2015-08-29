@@ -67,10 +67,19 @@ server.ext('onPreResponse', (request, reply) => {
           <head>
             <meta charset='utf-8'>
             <title>Guias da Chapada | Time Rupestre</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+            <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+            <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
             <link rel='shortcut icon' href='/favicon.ico'>
             <link rel='stylesheet' type='text/css' href='/dist/main.css'>
           </head>
           <body>
+            <div class="loader-container-main">
+              <div class="switchbox">
+                <div class="switch"></div>
+                <div class="switch" id="switch2"></div>
+              </div>
+            </div>
             <div id='react-root'>${reactString}</div>
           </body>
         </html>`
