@@ -1,7 +1,7 @@
 import React from 'react';
 import HomeHeader from 'components/HomeHeader';
 import HomeMain from 'components/HomeMain';
-import HomeFooter from 'components/HomeFooter';
+// import HomeFooter from 'components/HomeFooter';
 
 export default class extends React.Component {
 
@@ -14,7 +14,7 @@ export default class extends React.Component {
           </div>
           <div className="content">
             <HomeMain />
-            <HomeFooter />
+            {/* <HomeFooter /> */}
             <div className="clear"></div>
           </div>
         </div>

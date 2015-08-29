@@ -63,7 +63,6 @@ class PictureList extends React.Component {
   }
 
   render() {
-
     return (
       <Carousel className="grid_100">
           <CarouselItem>
