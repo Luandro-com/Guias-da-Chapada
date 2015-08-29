@@ -1,18 +1,14 @@
 #Guias da Chapada
-Página feita para Guias da Chapada dos Veadeiros
+Página feita para Time Rupestre de guias da Chapada dos Veadeiros, em Alto Paraíso de Goiás.
 
-##Front-End
+Page created for Time Rupestre team of guides from the Chapada dos Veadeiros, in Brazil.
 
-1. `npm install`
+##Usage
 
-2. `gulp watch`
+Make sure you have [NodeJs](http://nodejs.org) installed in your system.
 
-3. `http://localhost:3000`
+To make sure `devDependencies` get installed as well: 
+`heroku config:set NPM_CONFIG_PRODUCTION=false`
 
-##Back-End
-
-1. `npm install`
-
-2. `gulp build`
-
-3. `http://localhost:5000`
+Set server environment to producttion: 
+`heroku config:set NODE_ENV=production`
