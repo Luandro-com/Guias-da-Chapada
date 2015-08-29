@@ -7,6 +7,14 @@ Page created for Time Rupestre team of guides from the Chapada dos Veadeiros, in
 
 Make sure you have [NodeJs](http://nodejs.org) installed in your system.
 
+Install npm dependencies 
+`npm i`
+
+`npm run dev`
+
+
+##Deploy
+
 To make sure `devDependencies` get installed as well: 
 `heroku config:set NPM_CONFIG_PRODUCTION=false`
 
