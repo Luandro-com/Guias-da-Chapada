@@ -44,12 +44,12 @@ class PictureList extends React.Component {
   }
 
   componentDidMount() {
-    const url = 'https://api.instagram.com/v1/tags/chapadadosveadeiros/media/recent?access_token=185738962.5b9e1e6.63edef07cf4040e79276a375baa68456&callback=?&count=4';
+    const url = '//api.instagram.com/v1/tags/chapadadosveadeiros/media/recent?access_token=185738962.5b9e1e6.63edef07cf4040e79276a375baa68456&callback=?&count=4';
     fetch(url).then((resp) => {
       if(!resp || !resp.data || !resp.data.length){
         return;
       }
-      let pictures = resp.map(function(picture){
+      let pictures = resp.map((picture) => {
         return {
             id: picture.id,
             url: picture.link,

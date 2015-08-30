@@ -38,7 +38,7 @@ export default class extends React.Component {
                 </div>
                 <div>
                   <div className={agendaStyle}>{agenda}</div>
-                  <div className="nav-galeria"><Link to="About">GALERIA</Link></div>
+                  <div className="nav-galeria"><Link to="Gallery">GALERIA</Link></div>
                 </div>
               </div>
             </div>

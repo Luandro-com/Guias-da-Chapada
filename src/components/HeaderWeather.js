@@ -7,19 +7,20 @@ export default class extends React.Component {
     super(props)
     this.state = {
       temperature: "24",
-      weather: "sunny",
-      icon: "http://openweathermap.org/img/w/50d.png"
+      weather: "céu claro",
+      icon: "http://openweathermap.org/img/w/01d.png"
     }
   }
 
   loadData() {
-    const url = 'http://api.openweathermap.org/data/2.5/weather?lat=-14.13359&lon=-47.52079&units=metric&lang=pt'
+    const url = '//api.openweathermap.org/data/2.5/weather?lat=-14.13359&lon=-47.52079&units=metric&lang=pt'
     fetch(url).then((resp) => {
+      console.log("resp:", resp)
       console.log(resp.weather[0].description);
-      var temperature = (parseInt(resp.main.temp));
-      var weather = (resp.weather[0].description);
-      var icon = (resp.weather[0].icon);
-      var iconUrl = "http://openweathermap.org/img/w/"+icon+".png";
+      const temperature = (parseInt(resp.main.temp));
+      const weather = (resp.weather[0].description);
+      const icon = (resp.weather[0].icon);
+      const iconUrl = "http://openweathermap.org/img/w/"+icon+".png";
       this.setState({
         temperature: temperature,
         weather: weather,
@@ -33,7 +34,7 @@ export default class extends React.Component {
   }
 
   render() {
-    const {icon, temperature, weather} = this.props
+    const {icon, temperature, weather} = this.state
     return (
       <div>
         <img src={icon} /> {temperature}&deg; com {weather} na Chapada dos Veadeiros
