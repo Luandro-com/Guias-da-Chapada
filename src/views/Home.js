@@ -1,20 +1,21 @@
 import React from 'react';
 import HomeHeader from 'components/HomeHeader';
 import HomeMain from 'components/HomeMain';
-// import HomeFooter from 'components/HomeFooter';
+import HomeFooter from 'components/HomeFooter';
 
 export default class extends React.Component {
 
   render() {
+    const base = this.props.base
     return (
       <div className="outer_wrap">
         <div className="inner_wrap">
           <div id="container">
-            <HomeHeader />
+            <HomeHeader {...base} />
           </div>
           <div className="content">
             <HomeMain />
-            {/* <HomeFooter /> */}
+            <HomeFooter />
             <div className="clear"></div>
           </div>
         </div>

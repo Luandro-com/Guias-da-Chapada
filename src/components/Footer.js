@@ -1,6 +1,6 @@
-import React from 'react';
-import {Carousel, CarouselItem} from 'react-bootstrap';
-import __fetch from "isomorphic-fetch";
+import React from 'react'
+import {Carousel, CarouselItem} from 'react-bootstrap'
+import __fetch from 'isomorphic-fetch'
 
 export default class extends React.Component {
 
@@ -28,7 +28,7 @@ export default class extends React.Component {
           </div>
         </div>
       </div>
-    );
+    )
   }
 }
 
@@ -44,22 +44,33 @@ class PictureList extends React.Component {
   }
 
   componentDidMount() {
-    const url = '//api.instagram.com/v1/tags/chapadadosveadeiros/media/recent?access_token=185738962.5b9e1e6.63edef07cf4040e79276a375baa68456&callback=?&count=4';
-    fetch(url).then((resp) => {
-      if(!resp || !resp.data || !resp.data.length){
-        return;
+    const url = '//api.instagram.com/v1/tags/chapadadosveadeiros/media/recent?access_token=185738962.1677ed0.9b9fb2a6732240b4ad090bd94b322cb7&callback=?&count=4'
+    fetch(url, {
+      method: 'get',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Token token=185738962.1677ed0.9b9fb2a6732240b4ad090bd94b322cb7'
       }
-      let pictures = resp.map((picture) => {
-        return {
-            id: picture.id,
-            url: picture.link,
-            src: picture.images.low_resolution.url,
-            title: picture.caption ? picture.caption.text : '',
-            favorite: false
-        }
-      })
-      this.setState({ pictures: pictures });
     })
+    .then((resp) => {
+      console.log("resp:", resp)
+    })
+    // jsonpClient(url).then((resp) => {
+    //   if(!resp || !resp.data || !resp.data.length){
+    //     return
+    //   }
+    //   let pictures = resp.map((picture) => {
+    //     return {
+    //         id: picture.id,
+    //         url: picture.link,
+    //         src: picture.images.low_resolution.url,
+    //         title: picture.caption ? picture.caption.text : '',
+    //         favorite: false
+    //     }
+    //   })
+    //   this.setState({ pictures: pictures })
+    // })
   }
 
   render() {
@@ -75,6 +86,6 @@ class PictureList extends React.Component {
                })}
           </CarouselItem>
       </Carousel>
-    );
+    )
   }
 }

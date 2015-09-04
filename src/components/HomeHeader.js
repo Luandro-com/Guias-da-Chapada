@@ -7,10 +7,25 @@ export default class extends React.Component {
     super(props)
     this.state = {
       slides: [
-        {title: "loading", img: "/dist/imgs/slide.jpg"},
-        {title: "loading", img: "/dist/imgs/slide.jpg"}
+        {name: "carregando...", img: "v1441115064/biblioteca-midia/auv3vxed4mtm4fhrvksl.jpg"},
+        {name: "carregando...", img: "v1441115064/biblioteca-midia/auv3vxed4mtm4fhrvksl.jpg"}
       ]
     }
+  }
+
+  componentWillMount() {
+    this.props.fetch('conteudo/slides', {
+      context: this,
+      asArray: true,
+      then(data){
+        this.setState({
+          slides: data
+        })
+      }
+    });
+  }
+
+  componentWillUnmount() {
   }
 
   render() {
@@ -18,27 +33,17 @@ export default class extends React.Component {
       <div className="home-slider">
         <Carousel>
           {this.state.slides.map((item, key) => {
-            return <Item {...item} key={key} />
+            return (
+              <CarouselItem key={key}>
+                <img width={"100%"} height={550.4} alt="900x500" src={'http://res.cloudinary.com/guias-da-chapada/image/upload/c_fill,h_500,w_900/'+item.img}/>
+                <div className="carousel-caption">
+                  <h3>{item.name}</h3>
+                </div>
+              </CarouselItem>
+            )
           })}
         </Carousel>
       </div>
-    )
-  }
-
-}
-
-class Item extends React.Component {
-
-  render() {
-    const {key, title, img} = this.props
-
-    return (
-      <CarouselItem key={title}>
-        <img width={"100%"} height={550.4} alt="900x500" src={img}/>
-        <div className="carousel-caption">
-          <h3>{title}</h3>
-        </div>
-      </CarouselItem>
     )
   }
 

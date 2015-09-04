@@ -71,7 +71,7 @@ server.ext('onPreResponse', (request, reply) => {
             <link rel='shortcut icon' href='/favicon.ico'>
             <script src="/loadCss.js"></script>
             <script>
-              loadCSS( "https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" );
+              loadCSS( "//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" );
               loadCSS( "//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" );
             </script>
             <link rel='stylesheet' type='text/css' href='/dist/main.css'>
