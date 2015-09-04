@@ -14,8 +14,8 @@ export default class extends React.Component {
             <HomeHeader {...base} />
           </div>
           <div className="content">
-            <HomeMain />
-            <HomeFooter />
+            <HomeMain {...base} />
+            <HomeFooter {...base} />
             <div className="clear"></div>
           </div>
         </div>

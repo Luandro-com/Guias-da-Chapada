@@ -21,16 +21,30 @@ export default class extends React.Component {
     }
   }
 
+  componentWillMount() {
+    if(__CLIENT__){
+      this.ref = this.props.bindToState('conteudo/quemsomos', {
+        context: this,
+        asArray: true,
+        state: 'header[0].text'
+      });
+    }
+  }
+
+  componentWillUnmount() {
+    this.props.removeBinding(this.ref)
+  }
+
   render() {
     return (
       <div className="home-content">
         <div className="grid_100">
           <header className="hp_first_row">
             {this.state.header.map((info, key) => {
-              return <Header {...info} key={key} index={key} />
+              return <About {...info} key={key} index={key} />
             })}
           </header>
-          <Nav />
+          <Map />
         </div>
       </div>
 
@@ -38,7 +52,7 @@ export default class extends React.Component {
   }
 }
 
-class Header extends React.Component {
+class About extends React.Component {
 
   render() {
     const {index, title, text, path} = this.props;
@@ -60,11 +74,11 @@ class Header extends React.Component {
   }
 
 }
-class Nav extends React.Component {
+class Map extends React.Component {
 
   render() {
     return (
-      <Link to='/about'>
+      <Link to='Map'>
         <div className="grid_100 travel">
           <div className="grid_49 br">
             <h2 className="home-mapa-h2">Mapa Interativo</h2>

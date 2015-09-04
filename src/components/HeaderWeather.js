@@ -6,8 +6,8 @@ export default class extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      temperature: "24",
-      weather: "céu claro",
+      temperature: " ",
+      weather: " ",
       icon: "http://openweathermap.org/img/w/01d.png"
     }
   }

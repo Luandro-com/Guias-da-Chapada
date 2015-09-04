@@ -14,18 +14,18 @@ export default class extends React.Component {
   }
 
   componentWillMount() {
-    this.props.fetch('conteudo/slides', {
-      context: this,
-      asArray: true,
-      then(data){
-        this.setState({
-          slides: data
-        })
+      if(__CLIENT__){
+        this.props.fetch('conteudo/slides', {
+          context: this,
+          asArray: true,
+          then(data){
+            this.setState({
+              slides: data
+            })
+          }
+        });
       }
-    });
-  }
 
-  componentWillUnmount() {
   }
 
   render() {
